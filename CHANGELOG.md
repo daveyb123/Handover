@@ -13,6 +13,10 @@ All notable changes to this template are recorded here. The format follows
 - CI: shellcheck and `tests/sync-test.sh` on every push and pull request,
   on the template repository only.
 - README opens with a recording of the welcome screen (`docs/welcome.gif`).
+- Ways in from the phone with no accounts: an opt-in Apple Reminders list
+  ("Handover", Siri-friendly) read on every open, and a local drop folder
+  for text files (WhatsApp exports, saved emails, transcripts). Email and
+  WhatsApp habits documented in `.agent/adapters.md`.
 - `docs/extending.md`: the three extension points (scope packs, adapters,
   identity in front of the adapters) and what stays out.
 - GitHub Sponsors: `FUNDING.yml`, a README badge and section, and one

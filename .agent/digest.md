@@ -20,6 +20,8 @@ OVERDUE <n> items                              due: before today, open
 PRIVATE <ok|no-remote|absent>
 REMOTE template-origin ...                   only when origin is the public template: nothing is pushed
 DOCTOR <problem>                             something needs attention (see AGENTS.md §15)
+REMINDER <id>\t<text>                        an Apple Reminders item to propose as a capture (opt-in)
+DROP <file> <n> bytes                        a text file in .last-seen/drop/ to read and propose
 NUDGE sessions=N days=D writes=W star=<url> issues=<url> sponsor=<url>
                                              once ever: time for the one small ask (AGENTS.md §15)
 END
@@ -56,6 +58,11 @@ Last line, always: `Current as of 09:12.` If PULL was `offline`, say
 `Current as of 09:12 (offline, showing local state).` If a conflict was
 resolved, one sentence saying what: "Sam and you both edited your tasks;
 both lines kept."
+
+If there are `REMINDER` or `DROP` lines, after the digest say how many are
+waiting ("Three things from your phone.") and put `let's do my inbox` in
+the `Next:` line; process them there per `.agent/adapters.md`. Don't
+list them in the digest itself.
 
 If there are `DOCTOR` lines, add one sentence after the timestamp saying
 what's wrong and what you'll do ("Ripgrep isn't installed; I'll install it

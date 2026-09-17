@@ -102,7 +102,13 @@ check "open reports template origin"     "(cd \"$T/b\" && $B open) | grep -q '^R
 check "remote refuses the template URL"  "(cd \"$T/b\" && $B remote https://github.com/daveyb123/handover) | grep -q refused"
 check "upgrade is a no-op on the template" "(cd \"$T/b\" && $B upgrade) | grep -q 'template itself'"
 
-# --- 8. joyride sandbox ---
+# --- 8. drop folder and reminders switch ---
+(cd "$T/a" && $A drop >/dev/null); printf 'Sam: deck by Friday\n' > "$T/a/.last-seen/drop/chat.txt"
+check "drop file listed on open"        "(cd \"$T/a\" && $A open) | grep -q '^DROP chat.txt'"
+check "drop --clear archives the file"  "(cd \"$T/a\" && $A drop --clear chat.txt) | grep -q cleared && [ ! -f \"$T/a/.last-seen/drop/chat.txt\" ] && ls \"$T/a/.last-seen/drop/.done\" | grep -q chat.txt"
+check "reminders off by default"        "(cd \"$T/a\" && $A reminders) | grep -q 'REMINDERS off'"
+
+# --- 9. joyride sandbox ---
 (cd "$T/a" && .agent/joyride.sh start alex >/dev/null)
 SB="$T/a/.last-seen/joyride"
 due="$(grep -o 'due:[0-9-]*' "$SB/people/sam/tasks.md" | head -1 | cut -d: -f2)"

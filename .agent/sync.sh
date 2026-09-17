@@ -10,6 +10,10 @@
 #                                 --install also installs ripgrep (ask first)
 #   sync.sh upgrade [--apply]     preview (default) or apply the latest tagged
 #                                 engine release from the template
+#   sync.sh reminders [on|off|--done <id>]
+#                                 Apple Reminders list "Handover" as captures
+#                                 (macOS, opt-in); --done marks one complete
+#   sync.sh drop [--clear <file>] list text files in .last-seen/drop/
 #   sync.sh friction "<note>"     log a guess or correction for later review
 #   sync.sh feedback "<text>"     record feedback and print a prefilled issue link
 #   sync.sh nudged                remember that the one-time star/feedback ask was made
@@ -77,6 +81,39 @@ template_web() {
 }
 
 urlenc() { sed -e 's/%/%25/g' -e 's/ /%20/g' -e 's/&/%26/g' -e 's/#/%23/g' -e 's/+/%2B/g' -e 's/"/%22/g' | awk 'NR>1{printf "%%0A"} {printf "%s", $0}'; }
+
+read_reminders() {
+  # Uncompleted items in the Reminders list "Handover", one per line:
+  # REMINDER <id><tab><text>. macOS only, and only if the user turned it on.
+  [ -f "$LS/reminders" ] || return 0
+  command -v osascript >/dev/null 2>&1 || { echo "REMINDERS unavailable (not macOS)"; return 0; }
+  local out
+  out="$(osascript -e 'tell application "Reminders"
+    if not (exists list "Handover") then return "NOLIST"
+    set o to ""
+    repeat with r in (reminders in list "Handover" whose completed is false)
+      set o to o & (id of r) & tab & (name of r) & linefeed
+    end repeat
+    return o
+  end tell' 2>&1)" || { echo "REMINDERS unavailable (${out:0:80})"; return 0; }
+  case "$out" in
+    NOLIST) echo "REMINDERS no list called Handover yet" ;;
+    "") echo "REMINDERS 0" ;;
+    *) printf '%s\n' "$out" | sed '/^$/d' | sed 's/^/REMINDER /' ;;
+  esac
+}
+
+list_drop() {
+  # Text files dropped into .last-seen/drop/ by the user, a Shortcut, a
+  # mail rule, an export. Listed for the agent to read and propose.
+  local d="$LS/drop" f n=0
+  [ -d "$d" ] || return 0
+  for f in "$d"/*; do
+    [ -f "$f" ] || continue
+    n=$((n+1)); echo "DROP $(basename "$f") $(wc -c < "$f" | tr -d ' ') bytes"
+  done
+  return 0
+}
 
 nudge_check() {
   # Once, after real use: 5+ sessions over 3+ days and 10+ writes by this
@@ -335,6 +372,8 @@ case "$cmd" in
       "HANDEDIT $([ "$hn" -gt 0 ] && echo "$hn files committed as unattributed hand edit" || echo none)$([ -n "${hskip:-}" ] && echo "; not committed (not text): $hskip")"
       is_template_origin && echo "REMOTE template-origin (pushes disabled: this clone still points at the public template; set your own remote with sync.sh remote <url>)"
       run_doctor 0 | grep -v 'identity not set'
+      read_reminders
+      list_drop
       nudge_check)"
     if [ "$hook" -eq 0 ]; then printf '%s\n' "$data"; exit 0; fi
     # Claude Code hook: a line the user sees, plus the data as context.
@@ -395,6 +434,27 @@ case "$cmd" in
     ;;
 
   nudged) date +%s > "$LS/nudged"; echo "NUDGED" ;;
+
+  reminders)
+    case "${1:-}" in
+      on)  mkdir -p "$LS"; date +%s > "$LS/reminders"; echo "REMINDERS on (list \"Handover\" is read on every open)" ;;
+      off) rm -f "$LS/reminders"; echo "REMINDERS off" ;;
+      --done)
+        [ -n "${2:-}" ] || { echo "reminders --done <id>" >&2; exit 1; }
+        osascript -e "tell application \"Reminders\" to set completed of (first reminder whose id is \"$2\") to true" >/dev/null 2>&1 && echo "REMINDER done $2" || echo "REMINDER could not mark $2"
+        ;;
+      *) if [ -f "$LS/reminders" ]; then read_reminders; else echo "REMINDERS off (sync.sh reminders on)"; fi ;;
+    esac
+    ;;
+
+  drop)
+    if [ "${1:-}" = "--clear" ]; then
+      [ -n "${2:-}" ] || { echo "drop --clear <file>" >&2; exit 1; }
+      mkdir -p "$LS/drop/.done"; mv -f "$LS/drop/$2" "$LS/drop/.done/$(date +%Y%m%d-%H%M%S)-$2" 2>/dev/null && echo "DROP cleared $2" || echo "DROP no such file $2"
+    else
+      mkdir -p "$LS/drop"; list_drop; echo "DROP folder: $LS/drop"
+    fi
+    ;;
 
   friction)
     note="${1:-}"; [ -n "$note" ] || { echo "friction: note required" >&2; exit 1; }
