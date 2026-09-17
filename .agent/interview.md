@@ -140,15 +140,26 @@ their working pattern from the profile; use them, don't re-ask.
 > The whole thing runs on your inbox. If getting a thought into it is
 > harder than ignoring it, the system dies in a week; if it's easier, it
 > takes care of itself. Typing "capture:" here always works, but you're
-> not always here. So, two questions. What's your inbox today: where do
-> you jot things when they hit you? Email to yourself, Reminders, Notes, a
-> notebook, WhatsApp to yourself? And where do things land on you in a
-> normal day: email, chat, calls, meetings, the car?
+> not always here. Three quick questions, then I'll suggest something.
 
-Diagnose from the answers, then suggest. The habit they already have wins:
-wire that in first, because they'll keep doing it. Then one more for where
-their day happens. Each with a one-line example of what it looks like in
-use. Recipes are in `.agent/adapters.md`.
+Ask them one at a time, open-ended, and listen:
+
+1. "Where's your inbox today? When something hits you, where does it go:
+   email to yourself, Reminders, a notes app, a notebook, WhatsApp to
+   yourself, nowhere?"
+2. "Are you mobile a lot? In the car, on site, in meetings, or mostly at a
+   desk?"
+3. "What are you on: iPhone or Android, Mac or Windows, and which email?"
+   (skip whatever the closing questions already told you)
+
+Then diagnose and suggest, in two or three sentences, with an example of
+what it looks like in use: "You're on iCloud and already use Reminders,
+and you're in the car a lot. So: a Reminders list called Handover, and
+Siri does the rest: 'Hey Siri, add ring the venue to my Handover list'.
+For email, a contact called Handover you forward to. Want the Reminders
+one now?" The habit they already have wins: wire that in first, because
+they'll keep doing it. Then one more for where their day happens. Recipes
+are in `.agent/adapters.md`.
 
 | Their inbox today | Wire it in |
 |---|---|

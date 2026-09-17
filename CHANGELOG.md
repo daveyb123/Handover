@@ -6,6 +6,14 @@ All notable changes to this template are recorded here. The format follows
 
 ## [Unreleased]
 
+## [0.3.7] - 2026-09-17
+
+### Changed
+
+- Step five asks three open questions one at a time (where's your inbox,
+  are you mobile a lot, what are you on), then makes one suggestion with
+  an example.
+
 ## [0.3.6] - 2026-09-17
 
 ### Changed
@@ -142,7 +150,8 @@ by 0.3.4.
 - Scope packs for tendering and video production with deliverable templates.
 - `GOVERNANCE.md`, MIT `LICENSE`, third-party notices in `LICENSES/`.
 
-[Unreleased]: https://github.com/daveyb123/Handover/compare/v0.3.6...HEAD
+[Unreleased]: https://github.com/daveyb123/Handover/compare/v0.3.7...HEAD
+[0.3.7]: https://github.com/daveyb123/Handover/releases/tag/v0.3.7
 [0.3.6]: https://github.com/daveyb123/Handover/releases/tag/v0.3.6
 [0.3.5]: https://github.com/daveyb123/Handover/releases/tag/v0.3.5
 [0.3.4]: https://github.com/daveyb123/Handover/releases/tag/v0.3.4
