@@ -43,7 +43,7 @@ now a folder on your computer with your business's name.
 **3. Open that folder in your assistant.**
 *Claude:* install the [Claude desktop app](https://claude.ai/download),
 sign in, click the **Code** tab, click **Select folder**, pick the folder.
-*ChatGPT:* install the [ChatGPT desktop app](https://chatgpt.com/download),
+*ChatGPT:* install the [ChatGPT desktop app](https://openai.com/chatgpt/download/),
 sign in, open Codex, choose **Open folder**, pick the folder.
 
 **4. Type "set me up" and press Enter.**
