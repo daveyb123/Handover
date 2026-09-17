@@ -34,11 +34,13 @@ phone or computer. Set the contact up once, with one of these behind it:
 Say it as: "Save this as a contact called Handover. From now on, forward
 anything to Handover. That's it."
 
-**Setting it up (ask first, then pick recipes):** "Which phone: iPhone or
-Android? Which computer: Mac or Windows? Which email: Gmail, Outlook or
-Apple Mail?" Then `sync.sh drop --suggest` to find the synced folders on
-this machine, `sync.sh drop --path "<one of them>/Handover"`, and give the
-recipes that match. Always at least one.
+**Setting it up:** interview, don't list. `.agent/interview.md` §5 asks
+where their day happens (email, chat, car, meetings, desk) and recommends
+from that, with an example each. Device and mail questions only where the
+answer isn't already known from the closing questions. Then
+`sync.sh drop --suggest` to find the synced folders on this machine,
+`sync.sh drop --path "<one of them>/Handover"`, and the matching recipe.
+Always at least one.
 
 | They have | Recipe |
 |---|---|

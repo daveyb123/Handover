@@ -130,23 +130,39 @@ Three, quick:
 3. "Where do jobs come from?" → inbox sources. Note in `pipeline.md` under
    the first stage.
 
-### 5. One way in, at least
+### 5. Ways in: a short interview, not a menu
 
-Before the sign-off, the inbox. Say why in two sentences, then get at
-least one source switched on before the conversation ends:
+Before the sign-off, the inbox. Say why in two sentences, then find out
+where this person's day actually happens and recommend from that. You
+already know their email and chat tools from the closing questions and
+their working pattern from the profile; use them, don't re-ask.
 
 > The whole thing runs on your inbox. If getting a thought into it is
 > harder than ignoring it, the system dies in a week; if it's easier, it
-> takes care of itself. Typing "capture:" here always works. Let's add one
-> way in from wherever you actually are. Quick one: iPhone or Android? Mac
-> or Windows? Gmail, Outlook or Apple Mail?
+> takes care of itself. Typing "capture:" here always works, but you're
+> not always here. Where do things land on you in a normal day: email,
+> chat, phone calls, meetings, out and about, the car?
 
-Then offer the two or three recipes that fit their answer, from
-`.agent/adapters.md` ("Ways in that ship today"). Lead with the simplest:
-**a contact called Handover** they forward email to, one tap, any device.
-Then the share-sheet route for their phone. Apple users also get Reminders
-and the Mail rule. Do the one they pick with them now; the rest are one
-sentence each, for later. Run `sync.sh sources` at the end and read it back: "Reminders on,
+Take their top one or two and recommend, each with a one-line example of
+what it looks like in use. Recipes are in `.agent/adapters.md`.
+
+| They say | Recommend first | Example to give |
+|---|---|---|
+| "Email, all day" | The **Handover contact**: forward, one tap. IFTTT address if any mail; `+handover` alias if Gmail or Microsoft 365; the Mac Mail rule if Apple Mail. | "A client emails a change. You forward it to Handover. Tomorrow's inbox pass has it as a task on that job, with the email as the why." |
+| "Out and about, the car, walking" | Apple: **Reminders** via Siri. Android: the Assistant into a Google Keep or Tasks note that syncs to the folder, or a share-sheet shortcut. | "Hey Siri, add ring the venue about parking to my Handover list. It's in your inbox next time you open this." |
+| "Chat: WhatsApp, Teams, Slack" | The **share sheet** into the synced folder (iPhone Shortcut, Android share to Drive). Chat export for a whole thread. Connector later, optional. | "Sam says on WhatsApp he'll send the deck Friday. Long-press, share, Capture to Handover. Done." |
+| "Meetings" | A **voice memo or notes app** that syncs to the folder; or two minutes of "capture:" at the desk straight after. | "Walk out of the meeting, say the three follow-ups into a voice memo, share the transcript to Handover." |
+| "At my desk" | **Typing here** is already the fastest; add a desktop shortcut to `capture.txt` for when the CLI isn't open. | "Thought mid-task, alt-tab, one line, back to work." |
+
+If they use iCloud and an iPhone, say so: "You're on iCloud, so this is
+easy: Reminders for the car, and a contact for email. Two minutes."
+If they're on Google or Microsoft, the synced folder is Drive or OneDrive
+and the email contact is the `+handover` alias. Say it as easily.
+
+Set up their first choice with them now, step by step, in plain words.
+State the second in one sentence for later. Run `sync.sh sources` and read
+it back. If they say none for now, accept it once; the digest data will
+say `SOURCES NONE` and "set me up" treats it as a gap. Run `sync.sh sources` at the end and read it back: "Reminders on,
 drop folder in iCloud. Say 'set up email capture' any time for the third."
 If they say none for now, accept it once; the digest data will say
 `SOURCES NONE` and "set me up" treats it as a gap.

@@ -6,6 +6,14 @@ All notable changes to this template are recorded here. The format follows
 
 ## [Unreleased]
 
+## [0.3.5] - 2026-09-17
+
+### Changed
+
+- Ways in are chosen by a short interview about where the person's day
+  happens (email, chat, car, meetings, desk), each with an example, using
+  what setup already learned about their tools; not a device menu.
+
 ## [0.3.4] - 2026-09-17
 
 ### Changed
@@ -127,7 +135,8 @@ by 0.3.4.
 - Scope packs for tendering and video production with deliverable templates.
 - `GOVERNANCE.md`, MIT `LICENSE`, third-party notices in `LICENSES/`.
 
-[Unreleased]: https://github.com/daveyb123/Handover/compare/v0.3.4...HEAD
+[Unreleased]: https://github.com/daveyb123/Handover/compare/v0.3.5...HEAD
+[0.3.5]: https://github.com/daveyb123/Handover/releases/tag/v0.3.5
 [0.3.4]: https://github.com/daveyb123/Handover/releases/tag/v0.3.4
 [0.3.3]: https://github.com/daveyb123/Handover/releases/tag/v0.3.3
 [0.3.3]: https://github.com/daveyb123/Handover/releases/tag/v0.3.3

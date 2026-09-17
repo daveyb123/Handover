@@ -1,6 +1,6 @@
 # Handover
 
-[![Licence: MIT](https://img.shields.io/badge/licence-MIT-blue.svg)](LICENSE) [![Version](https://img.shields.io/badge/version-0.3.4-lightgrey.svg)](CHANGELOG.md) [![CI](https://github.com/daveyb123/Handover/actions/workflows/ci.yml/badge.svg)](https://github.com/daveyb123/Handover/actions/workflows/ci.yml) [![Sponsor](https://img.shields.io/badge/sponsor-%E2%9D%A4-ea4aaa.svg?logo=githubsponsors&logoColor=white)](https://github.com/sponsors/daveyb123) [![AI contribution: AI-4 AI Drafted](https://img.shields.io/badge/AI%20contribution-AI--4%20·%20AI%20Drafted-555.svg)](https://www.winwithoutpitching.com/aiscale)
+[![Licence: MIT](https://img.shields.io/badge/licence-MIT-blue.svg)](LICENSE) [![Version](https://img.shields.io/badge/version-0.3.5-lightgrey.svg)](CHANGELOG.md) [![CI](https://github.com/daveyb123/Handover/actions/workflows/ci.yml/badge.svg)](https://github.com/daveyb123/Handover/actions/workflows/ci.yml) [![Sponsor](https://img.shields.io/badge/sponsor-%E2%9D%A4-ea4aaa.svg?logo=githubsponsors&logoColor=white)](https://github.com/sponsors/daveyb123) [![AI contribution: AI-4 AI Drafted](https://img.shields.io/badge/AI%20contribution-AI--4%20·%20AI%20Drafted-555.svg)](https://www.winwithoutpitching.com/aiscale)
 
 Shared tasks and shared context for a small team, kept as plain text in git
 and run entirely through an assistant you talk to. Nobody needs to learn git.
@@ -130,14 +130,13 @@ product.
 - **Mark something private:** say "that's private", or put `#private` on it.
   It goes to your own personal repo, not the shared one.
 - **Process your inbox:** "let's do my inbox". One item at a time.
-- **Forward it to Handover.** After a one-time setup, you have a contact
-  called *Handover*. Forward any email to it, from any phone or computer,
-  and it's in your inbox next time you open the CLI. One tap. Say "set up
-  capture from my phone" and the assistant asks which phone, computer and
-  email you use, sets up the contact, and offers the rest: share from your
-  phone into a synced folder, drop a chat export or a transcript in, or on
-  Apple, "Hey Siri, add ring the venue to my Handover list". Nothing is
-  filed without you.
+- **Ways in from wherever your day happens.** At setup the assistant asks
+  where things land on you (email, chat, the car, meetings) and sets up
+  the one that fits, with the rest a sentence away. Live in email? A
+  contact called *Handover*: forward anything to it, one tap, from any
+  device. On iCloud with an iPhone? "Hey Siri, add ring the venue to my
+  Handover list." On WhatsApp all day? Share a message to Handover. All of
+  it lands in your next "let's do my inbox". Nothing is filed without you.
 - **Finish a job:** when a job is delivered, the assistant asks one question:
   *what didn't match the process file?* Your answer keeps the context true.
 
