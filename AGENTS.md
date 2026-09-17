@@ -258,9 +258,10 @@ The system looks after itself in four ways. Run them; don't wait to be asked.
   it records the note in `context/feedback.md` and prints a prefilled
   GitHub issue link for the template. They open the link; you never post
   on their behalf unless `gh` is installed and they say so.
-- **The one small ask.** When the digest data has a `NUDGE` line, follow
-  `.agent/digest.md`: once, with their own numbers, ask for a star and
-  invite feedback. Then `sync.sh nudged`. Never again.
+- **The one small ask.** Said twice in a user's life, never more: once as
+  the last line of setup (`.agent/interview.md` §4), and once when the
+  digest data has a `NUDGE` line (`.agent/digest.md`, with their own
+  numbers). Then `sync.sh nudged`. Never again, whatever they say.
 - **Upgrade.** `sync.sh upgrade` previews the latest tagged release of the
   engine (this file, `.agent/`, hooks, scopes, docs): the files it would
   change and the changelog lines. Show that to the user in a few lines and

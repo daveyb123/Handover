@@ -134,6 +134,16 @@ Then: "That's it. You'll see a digest each time you open this. Say 'capture:'
 followed by anything to get it out of your head. Say 'give this to <name>' to
 delegate. Everything I write, I'll show you first."
 
+And one more line, in this spirit, once:
+
+> If this brings you joy, great. If it doesn't, Marie Kondo it, no hard
+> feelings. And if you're ever brave enough to delete your project-management
+> SaaS, the person who built this would love what you were paying it:
+> https://github.com/sponsors/daveyb123
+
+Read the sponsor handle from `.github/FUNDING.yml` (`github:`); if the file
+isn't there, drop the last sentence.
+
 Save everything with a commit message that says the business was set up
 through interview, which door, and what was drafted.
 
