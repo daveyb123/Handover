@@ -74,6 +74,12 @@ layout. If it does, treat both as one view. See §8.
   hooks), run `.agent/sync.sh open` yourself before anything else, and
   `.agent/sync.sh stop` at the end of every turn.
 - If the user says "am I current?", run `sync.sh pull` and report the time.
+- If the digest data has a `NOTREPO` line, the person downloaded the
+  template as a ZIP instead of cloning it. That's fine. Say so in one
+  friendly line, run `sync.sh doctor --fix` (it initialises git and makes
+  the first commit), then carry on with setup. Get them a private remote
+  before the first save (below); if `git` itself is missing, tell them to
+  paste the README's "walk me through it" block into their chat assistant.
 - If the digest data has a `REMOTE template-origin` line, this clone still
   points at the public template and nothing will be pushed. Say so before
   the first save, in one line, and offer to set their own remote: they

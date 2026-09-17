@@ -53,6 +53,17 @@ NOW="$(date +%H:%M)"
 
 cmd="${1:-help}"; [ $# -gt 0 ] && shift
 
+# A downloaded ZIP is a folder, not a repository. Say so plainly so the
+# agent can fix it (doctor --fix runs git init and a first commit).
+if [ ! -d "$ROOT/.git" ] && [ "$cmd" != "doctor" ] && [ "$cmd" != "help" ] && [ "$cmd" != "whoami" ] && [ "$cmd" != "me" ]; then
+  if [ "$cmd" = "open" ] && [ "${1:-}" = "--hook" ]; then
+    printf '{"systemMessage":"Handover is here but not set up as a repository yet (a downloaded copy). Type:  set me up","hookSpecificOutput":{"hookEventName":"SessionStart","additionalContext":"DIGEST me=unknown since=none now=%s\\nNOTREPO this folder is not a git repository (downloaded ZIP?); run sync.sh doctor --fix to initialise it, then ask for a private remote\\nEND"}}\n' "$NOW"
+  else
+    echo "NOTREPO this folder is not a git repository (downloaded ZIP?); run sync.sh doctor --fix to initialise it, then ask for a private remote"
+  fi
+  exit 0
+fi
+
 # ---------- helpers ----------------------------------------------------------
 
 g() { git -C "$ROOT" "$@"; }
@@ -159,6 +170,14 @@ run_doctor() {
   # install=1 also installs ripgrep (the agent asks before that).
   local fix="${1:-0}" install="${2:-0}" m n=0
   [ -f "$here/template-origin" ] || return 0   # practice sandbox: stay quiet
+  if [ ! -d "$ROOT/.git" ]; then
+    if [ "$fix" = 1 ]; then
+      ( cd "$ROOT" && git init -q -b main && git add -A -- ':(glob)**/*.md' .agent .claude .gitattributes .gitignore .editorconfig LICENSE LICENSES scopes tests .github docs 2>/dev/null; git commit -q -m "Handover: initialised from a downloaded copy" ) \
+        && echo "DOCTOR fixed: initialised the repository (no remote yet; sync.sh remote <url> when you have one)" \
+        || echo "DOCTOR could not initialise the repository (is git installed?)"
+    else echo "DOCTOR not a git repository (downloaded ZIP?): doctor --fix initialises it"; fi
+    return 0
+  fi
   m="$(me)"
   if [ -d "$ROOT/.git/rebase-merge" ] || [ -d "$ROOT/.git/rebase-apply" ]; then
     if [ "$fix" = 1 ]; then g rebase --abort >/dev/null 2>&1 && echo "DOCTOR fixed: aborted a stuck rebase"; else echo "DOCTOR stuck rebase in progress (doctor --fix aborts it)"; fi; n=$((n+1))

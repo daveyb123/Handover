@@ -114,7 +114,13 @@ check "capture.txt cleared in place"     "(cd \"$T/a\" && $A drop --clear captur
 check "empty capture.txt not listed"     "! (cd \"$T/a\" && $A open) | grep -q '^DROP capture.txt'"
 check "drop --suggest runs anywhere"     "(cd \"$T/a\" && $A drop --suggest) | grep -q '^SUGGEST'"
 
-# --- 9. joyride sandbox ---
+# --- 9. a downloaded ZIP (no .git) ---
+mkdir -p "$T/zip"; ( cd "$REPO" && git ls-files -z | tar --null -T - -cf - ) | ( cd "$T/zip" && tar -xf - ); cp "$REPO/.agent/sync.sh" "$T/zip/.agent/"
+check "zip: open reports NOTREPO"       "(cd \"$T/zip\" && .agent/sync.sh open) | grep -q '^NOTREPO'"
+check "zip: hook JSON still valid"      "(cd \"$T/zip\" && .agent/sync.sh open --hook) | python3 -c 'import json,sys; json.load(sys.stdin)'"
+check "zip: doctor --fix initialises"   "(cd \"$T/zip\" && .agent/sync.sh doctor --fix) | grep -q 'initialised' && git -C \"$T/zip\" rev-parse HEAD >/dev/null 2>&1"
+
+# --- 10. joyride sandbox ---
 (cd "$T/a" && .agent/joyride.sh start alex >/dev/null)
 SB="$T/a/.last-seen/joyride"
 due="$(grep -o 'due:[0-9-]*' "$SB/people/sam/tasks.md" | head -1 | cut -d: -f2)"
