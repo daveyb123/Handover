@@ -6,6 +6,17 @@ All notable changes to this template are recorded here. The format follows
 
 ## [Unreleased]
 
+### Fixed
+
+- The sync script never pushes to the public template: `.agent/template-origin`
+  lists template remotes, pushes to them are refused, `open` reports
+  `REMOTE template-origin`, and `sync.sh remote <url>` sets a business's own
+  remote. A plain clone of the template previously pushed business content
+  back to it.
+- Joyride: the seeded pipeline now disagrees with the inbox item so the
+  update is real; the payoff digest covers the practice run; the delegation
+  date is worked out from today.
+
 ### Added
 
 - Joyride: an optional practice run on a pretend company before

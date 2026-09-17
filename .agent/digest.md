@@ -18,6 +18,7 @@ PEOPLE <name> <hash> <date> <subject>          profile changes
 WAITING <n> items, oldest <date>               #waiting in my tasks
 OVERDUE <n> items                              due: before today, open
 PRIVATE <ok|no-remote|absent>
+REMOTE template-origin ...                   only when origin is the public template: nothing is pushed
 END
 ```
 

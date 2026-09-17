@@ -62,7 +62,7 @@ last_reviewed_against: 2026-005
 - **Leaves:** one direction chosen, feedback in decisions.md. **Goes wrong:** feedback by phone, never written down.
 
 ## 4. Artwork
-- **Leaves:** print-ready files. **Goes wrong:** printer lead time forgotten. Five working days.
+- **Leaves:** print-ready files. **Goes wrong:** printer lead time forgotten. Three working days.
 
 ## 5. Delivery
 - **Leaves:** files sent, invoice raised.
@@ -77,7 +77,7 @@ updated: 2026-09-01
 # Glossary
 
 - **R1 / R2** — client review round one, two.
-- **the printer** — Harbourside Print, five working days lead time.
+- **the printer** — Harbourside Print, three working days lead time.
 
 ## People
 - sam — Sam, designer, owns concepts and artwork.
@@ -177,5 +177,6 @@ sign, not a blank page.
 EOR
 
 ( cd "$SB" && git init -q -b main && git add -A \
-  && git -c user.name="Northlight Studio" -c user.email="practice@example.invalid" commit -q -m "Practice company: Northlight Studio, one job in concepts, two people" )
+  && git -c user.name="Northlight Studio" -c user.email="practice@example.invalid" commit -q -m "Practice company: Northlight Studio, one job in concepts, two people" \
+  && git rev-parse HEAD > ".last-seen/$me" )
 echo "JOYRIDE ready at $SB"

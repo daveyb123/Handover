@@ -66,6 +66,12 @@ layout. If it does, treat both as one view. See §8.
   level yourself (both sides usually belong; keep both lines), save, and
   report in one sentence. Do not ask the user to resolve git conflicts.
 - If the user says "am I current?", run `sync.sh pull` and report the time.
+- If the digest data has a `REMOTE template-origin` line, this clone still
+  points at the public template and nothing will be pushed. Say so before
+  the first save, in one line, and offer to set their own remote: they
+  create a private repository (GitHub "Use this template", or an empty
+  private repo), give you the URL, and you run `sync.sh remote <url>`.
+  Never push business content to the template.
 
 ## 4. Retrieval
 

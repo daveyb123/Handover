@@ -10,6 +10,7 @@
 #                                 stage everything, commit, push (background)
 #   sync.sh stop                  commit anything left unrecorded, push
 #   sync.sh push                  push if ahead (background)
+#   sync.sh remote <url>          set this repo's own remote and push to it
 #   sync.sh seen                  mark HEAD as shown to this user
 #   sync.sh digest                print digest data only (no pull)
 #   sync.sh whoami                print this user's slug
@@ -22,7 +23,8 @@
 # conflict marker at the user. Exit 0 in every case that isn't a bug.
 
 set -u
-ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+here="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+ROOT="$(cd "$here/.." && pwd)"
 LS="$ROOT/.last-seen"
 mkdir -p "$LS"
 NET_OPTS=(-c http.lowSpeedLimit=1000 -c http.lowSpeedTime=10)
@@ -47,10 +49,24 @@ private_dir() { local m; m="$(me)"; [ -n "$m" ] && printf '%s/../%s-private' "$R
 
 has_remote() { g remote get-url origin >/dev/null 2>&1; }
 
+norm_url() { printf '%s' "$1" | tr '[:upper:]' '[:lower:]' | sed -E 's#^[a-z]+://##; s#^git@##; s#^[^/]*@##; s#:#/#; s#\.git/?$##; s#/+$##'; }
+
+is_template_origin() {
+  # True when origin is the public template. We never push there.
+  local url f="$here/template-origin"
+  url="$(g remote get-url origin 2>/dev/null)" || return 1
+  [ -f "$f" ] || return 1
+  url="$(norm_url "$url")"
+  grep -v '^#' "$f" | sed '/^[[:space:]]*$/d' | while read -r line; do
+    [ "$(norm_url "$line")" = "$url" ] && echo match
+  done | grep -q match
+}
+
 bg_push() {
   # Push in the background so the conversation never waits on the network.
   local dir="$1"
   has_remote || return 0
+  if [ "$dir" = "$ROOT" ] && is_template_origin; then return 0; fi
   ( cd "$dir" && nohup git "${NET_OPTS[@]}" push --quiet >/dev/null 2>&1 & ) >/dev/null 2>&1
 }
 
@@ -210,6 +226,7 @@ case "$cmd" in
     fi
     print_digest "PULL $pstat $pn new commits" \
       "HANDEDIT $([ "$hn" -gt 0 ] && echo "$hn files committed as unattributed hand edit" || echo none)"
+    is_template_origin && echo "REMOTE template-origin (pushes disabled: this clone still points at the public template; set your own remote with sync.sh remote <url>)"
     ;;
 
   pull)
@@ -234,6 +251,7 @@ case "$cmd" in
     git -C "$target" add -A >/dev/null 2>&1
     if git -C "$target" diff --cached --quiet; then echo "SAVE nothing to commit"; exit 0; fi
     git -C "$target" commit --quiet -m "$msg" && echo "SAVE committed: $msg"
+    if [ "$target" = "$ROOT" ] && is_template_origin; then echo "SAVE not pushed: origin is the public template"; fi
     bg_push "$target"
     ;;
 
@@ -252,7 +270,17 @@ case "$cmd" in
     fi
     ;;
 
-  push) bg_push "$ROOT"; echo "PUSH started" ;;
+  push)
+    if is_template_origin; then echo "PUSH refused: origin is the public template (sync.sh remote <url>)"; else bg_push "$ROOT"; echo "PUSH started"; fi
+    ;;
+
+  remote)
+    url="${1:-}"; [ -n "$url" ] || { echo "remote: url required" >&2; exit 1; }
+    if has_remote; then g remote set-url origin "$url"; else g remote add origin "$url"; fi
+    if is_template_origin; then echo "REMOTE refused: that is the public template"; exit 1; fi
+    b="$(g rev-parse --abbrev-ref HEAD)"
+    if g "${NET_OPTS[@]}" push --quiet -u origin "$b" >/dev/null 2>&1; then echo "REMOTE set to $url and pushed"; else echo "REMOTE set to $url; first push failed (check the URL and access)"; fi
+    ;;
 
   seen)
     m="$(me)"; [ -n "$m" ] || exit 0
@@ -283,7 +311,7 @@ case "$cmd" in
     b="$(g rev-parse --abbrev-ref HEAD 2>/dev/null)"
     ahead="$(g rev-list --count "origin/$b..HEAD" 2>/dev/null || echo '?')"
     dirty="$(g status --porcelain | wc -l | tr -d ' ')"
-    echo "STATUS branch=$b ahead=$ahead uncommitted=$dirty me=$(me) last-pull=$([ -s "$LS/last-pull" ] && date -r "$(cat "$LS/last-pull")" +%H:%M || echo never)"
+    echo "STATUS branch=$b ahead=$ahead uncommitted=$dirty me=$(me) last-pull=$([ -s "$LS/last-pull" ] && date -r "$(cat "$LS/last-pull")" +%H:%M || echo never)$(is_template_origin && echo ' remote=TEMPLATE(no push)')"
     ;;
 
   help|*)

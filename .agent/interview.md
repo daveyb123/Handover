@@ -137,6 +137,17 @@ delegate. Everything I write, I'll show you first."
 Save everything with a commit message that says the business was set up
 through interview, which door, and what was drafted.
 
+Two things to say before the first save:
+
+- If the digest data has `REMOTE template-origin`, nothing will be pushed
+  until this repo has its own remote. Ask for one (a private repo they
+  create; "Use this template" on GitHub does it in one click) and set it
+  with `sync.sh remote <url>`. Their context must never land on the template.
+- Any expertise file you created is gitignored by default, so it stays on
+  this machine only. Offer to commit it in this repo (remove the
+  `context/expertise/*.md` line from `.gitignore`) if the team should have
+  it, or leave it personal.
+
 ## Profile interview
 
 Short. Five questions, then write `people/<me>/profile.md` from the template

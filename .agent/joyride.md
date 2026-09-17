@@ -54,8 +54,10 @@ Whoever covers for Sam gets it too."
 
 Read Sam's profile. Draft it Sam's way. Show it and ask:
 > Sam likes one line and a date, no padding. I'd add this to Sam's list:
-> `- [ ] Ring the venue about parking  job:2026-007  from:<me>  due:2026-09-19  #call`
-> Sam's not in Fridays, so I've made it Thursday. Yes?
+> `- [ ] Ring the venue about parking  job:2026-007  from:<me>  due:<date>  #call`
+> Sam's not in Fridays, so I've made it <the next weekday Sam is in>. Yes?
+
+(Work the date out from today. Sam is in Monday to Thursday.)
 
 On yes: append to Sam's `tasks.md`, remove the inbox line, save with the why.
 Show the commit message:
@@ -68,9 +70,11 @@ Show the commit message:
 
 Two seeded items. Walk them in GTD order:
 - "Sam says the printer wants five working days" → not an action, it's
-  reference. Propose updating the pipeline's Artwork stage. It's Sam's file,
-  so: "That's Sam's file; normally I'd put the proposal in Sam's inbox. Here,
-  want me to just change it?" Show the diff line and the commit.
+  reference. The pipeline's Artwork stage still says three. Propose the
+  change. It's Sam's file, so: "That's Sam's file; normally I'd put the
+  proposal in Sam's inbox for Sam to confirm. Here, want me to just change
+  it?" On yes, change "Three" to "Five" in the pipeline and the glossary,
+  remove the inbox line, save. Show the changed line and the commit.
 - "studio dog?" → not committing. Propose `#someday`. One line, done.
 
 **5. Private.**
@@ -83,8 +87,9 @@ Route to the sandbox's private sibling (`sync.sh private-init` then
 
 ## The payoff
 
-Run `.last-seen/joyride/.agent/sync.sh seen`, then `… open`, and render the
-digest exactly as `.agent/digest.md` says, for what they just did:
+Run `.last-seen/joyride/.agent/sync.sh open` (the sandbox was marked seen
+at its first commit, so the data covers exactly what they just did) and
+render the digest as `.agent/digest.md` says:
 
 > Here's what you'd see next time you open this:
 > "One task from you to Sam. Harbour Cafe: pipeline updated (printer lead
