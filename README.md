@@ -2,9 +2,12 @@
 
 [![Licence: MIT](https://img.shields.io/badge/licence-MIT-blue.svg)](LICENSE) [![Version](https://img.shields.io/badge/version-0.3.7-lightgrey.svg)](CHANGELOG.md) [![CI](https://github.com/daveyb123/Handover/actions/workflows/ci.yml/badge.svg)](https://github.com/daveyb123/Handover/actions/workflows/ci.yml) [![Sponsor](https://img.shields.io/badge/sponsor-%E2%9D%A4-ea4aaa.svg?logo=githubsponsors&logoColor=white)](https://github.com/sponsors/daveyb123) [![AI contribution: AI-4 AI Drafted](https://img.shields.io/badge/AI%20contribution-AI--4%20·%20AI%20Drafted-555.svg)](https://www.winwithoutpitching.com/aiscale)
 
-Shared tasks and shared context for a small team, kept as plain text in git
-and run entirely through an assistant you talk to. Nobody needs to learn git.
-Nobody needs to learn a new app.
+A to-do list for a small team that lives in plain text files and is run by
+talking to an AI assistant instead of clicking around an app. Every task
+and every decision carries its *why*, so whoever picks it up gets the
+reasoning, not just the job.
+
+Nobody needs to learn git. Nobody needs to learn a new app.
 
 ![The first thing you see: the Handover welcome screen in Claude Code, with the GTD workflow drawn in text](docs/welcome.gif)
 
