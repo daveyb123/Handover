@@ -363,11 +363,14 @@ case "$cmd" in
     if g diff --cached --quiet; then echo "UPGRADE already current ($tag)"; exit 0; fi
     changed="$(g diff --cached --name-only | wc -l | tr -d ' ')"
     if [ "$apply" -eq 0 ]; then
-      echo "UPGRADE preview: $tag would change $changed engine files (business context untouched):"
-      g diff --cached --stat | sed 's/^/  /'
-      echo "  Changelog lines added:"
-      g diff --cached -- CHANGELOG.md | grep '^+[^+]' | sed 's/^+/    /' | head -40
+      # Gather the report, restore the tree, then print: a closed pipe
+      # must never leave the working tree half-upgraded.
+      stat="$(g diff --cached --stat | sed 's/^/  /')"
+      lines="$(g diff --cached -- CHANGELOG.md | grep '^+[^+]' | sed 's/^+/    /' | head -40)"
       g reset --quiet HEAD -- "${ENGINE_PATHS[@]}" 2>/dev/null; g checkout --quiet -- "${ENGINE_PATHS[@]}" 2>/dev/null
+      g clean --quiet -f -- .agent scopes 2>/dev/null
+      echo "UPGRADE preview: $tag would change $changed engine files (business context untouched):"
+      printf '%s\n  Changelog lines added:\n%s\n' "$stat" "$lines"
       echo "UPGRADE run 'sync.sh upgrade --apply' to apply"
       exit 0
     fi
