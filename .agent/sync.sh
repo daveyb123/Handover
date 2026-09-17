@@ -13,7 +13,9 @@
 #   sync.sh reminders [on|off|--done <id>]
 #                                 Apple Reminders list "Handover" as captures
 #                                 (macOS, opt-in); --done marks one complete
-#   sync.sh drop [--clear <file>] list text files in .last-seen/drop/
+#   sync.sh drop [--clear <file>] [--path <dir>]
+#                                 list text files in the drop folder; --path
+#                                 points it at a synced folder (iCloud Drive…)
 #   sync.sh friction "<note>"     log a guess or correction for later review
 #   sync.sh feedback "<text>"     record feedback and print a prefilled issue link
 #   sync.sh nudged                remember that the one-time star/feedback ask was made
@@ -103,10 +105,13 @@ read_reminders() {
   esac
 }
 
+drop_dir() { if [ -s "$LS/drop-path" ]; then cat "$LS/drop-path"; else printf '%s/drop' "$LS"; fi; }
+
 list_drop() {
-  # Text files dropped into .last-seen/drop/ by the user, a Shortcut, a
+  # Text files dropped into the drop folder by the user, a Shortcut, a
   # mail rule, an export. Listed for the agent to read and propose.
-  local d="$LS/drop" f n=0
+  local d f n=0
+  d="$(drop_dir)"
   [ -d "$d" ] || return 0
   for f in "$d"/*; do
     [ -f "$f" ] || continue
@@ -448,12 +453,19 @@ case "$cmd" in
     ;;
 
   drop)
-    if [ "${1:-}" = "--clear" ]; then
-      [ -n "${2:-}" ] || { echo "drop --clear <file>" >&2; exit 1; }
-      mkdir -p "$LS/drop/.done"; mv -f "$LS/drop/$2" "$LS/drop/.done/$(date +%Y%m%d-%H%M%S)-$2" 2>/dev/null && echo "DROP cleared $2" || echo "DROP no such file $2"
-    else
-      mkdir -p "$LS/drop"; list_drop; echo "DROP folder: $LS/drop"
-    fi
+    d="$(drop_dir)"
+    case "${1:-}" in
+      --clear)
+        [ -n "${2:-}" ] || { echo "drop --clear <file>" >&2; exit 1; }
+        mkdir -p "$d/.done"; mv -f "$d/$2" "$d/.done/$(date +%Y%m%d-%H%M%S)-$2" 2>/dev/null && echo "DROP cleared $2" || echo "DROP no such file $2"
+        ;;
+      --path)
+        [ -n "${2:-}" ] || { echo "drop --path <dir>" >&2; exit 1; }
+        nd="${2/#\~/$HOME}"; mkdir -p "$nd" 2>/dev/null || { echo "DROP cannot create $nd" >&2; exit 1; }
+        printf '%s' "$nd" > "$LS/drop-path"; echo "DROP folder is now $nd"
+        ;;
+      *) mkdir -p "$d"; list_drop; echo "DROP folder: $d" ;;
+    esac
     ;;
 
   friction)

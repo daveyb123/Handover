@@ -107,6 +107,8 @@ check "upgrade is a no-op on the template" "(cd \"$T/b\" && $B upgrade) | grep -
 check "drop file listed on open"        "(cd \"$T/a\" && $A open) | grep -q '^DROP chat.txt'"
 check "drop --clear archives the file"  "(cd \"$T/a\" && $A drop --clear chat.txt) | grep -q cleared && [ ! -f \"$T/a/.last-seen/drop/chat.txt\" ] && ls \"$T/a/.last-seen/drop/.done\" | grep -q chat.txt"
 check "reminders off by default"        "(cd \"$T/a\" && $A reminders) | grep -q 'REMINDERS off'"
+(cd "$T/a" && $A drop --path "$T/synced" >/dev/null); printf 'shared from phone\n' > "$T/synced/capture-1.txt"
+check "drop --path relocates the folder" "(cd \"$T/a\" && $A open) | grep -q '^DROP capture-1.txt'"
 
 # --- 9. joyride sandbox ---
 (cd "$T/a" && .agent/joyride.sh start alex >/dev/null)

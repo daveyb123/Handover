@@ -16,13 +16,27 @@ inbox line, with `source:reminders`. When filed or dropped, run
 first read makes macOS ask the user to allow the terminal to control
 Reminders; say that's expected, once.
 
-**The drop folder.** `sync.sh drop` prints the path (`.last-seen/drop/`,
-local, never shared). Any text file put there is listed as `DROP <file>` on
-open: a WhatsApp chat export, a message saved from Mail, a Voice Memos
-transcript, the output of a Shortcut. Read it, propose captures with
-`source:drop`, then `sync.sh drop --clear <file>` (it moves to
-`.done/`, nothing is deleted). Binary files are listed but not read; say
-so.
+**The drop folder, and the share sheet.** `sync.sh drop` prints the path
+(default `.last-seen/drop/`, local, never shared). Any text file put there
+is listed as `DROP <file>` on open. Read it, propose captures with
+`source:drop`, then `sync.sh drop --clear <file>` (it moves to `.done/`,
+nothing is deleted). Binary files are listed but not read; say so.
+
+The phone reaches it through a synced folder. When the user asks to
+capture from their phone, set it up with them once:
+
+1. `sync.sh drop --path "~/Library/Mobile Documents/com~apple~CloudDocs/Handover"`
+   (iCloud Drive; for Google Drive use its desktop folder instead).
+2. On the iPhone, the Shortcuts app: new shortcut, **Receive Any input from
+   Share Sheet**, then **Get Text from Input**, then **Append to Text File**
+   with the file `Handover/capture-<Current Date>.txt` in iCloud Drive.
+   Name it "Capture to Handover". Add it to the share sheet.
+3. From then on: share an email, a WhatsApp message, a web page, a voice
+   memo transcript, tap "Capture to Handover". It is waiting in the digest
+   data on the next open.
+
+Say these three steps in plain words; don't send them to a settings page.
+Android: the same shape with Google Drive and any "share to file" app.
 
 **Email, without a connector.** Two habits that work everywhere: forward a
 message to yourself with `capture:` at the top of the subject, then paste

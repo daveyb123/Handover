@@ -130,11 +130,13 @@ product.
 - **Mark something private:** say "that's private", or put `#private` on it.
   It goes to your own personal repo, not the shared one.
 - **Process your inbox:** "let's do my inbox". One item at a time.
-- **Capture from your phone:** say "read my reminders" once, then make a
-  Reminders list called *Handover*. "Hey Siri, add ring the venue to my
-  Handover list" and it's waiting in your inbox next time you open the CLI.
-  There's also a drop folder for anything else: a WhatsApp export, a saved
-  email, a voice-memo transcript. Ask "where do I drop files".
+- **Capture from your phone, three ways.** Say "read my reminders" once and
+  make a Reminders list called *Handover*: "Hey Siri, add ring the venue to
+  my Handover list". Or say "set up capture from my phone" and the
+  assistant walks you through a share-sheet shortcut, so any email,
+  WhatsApp message or web page can be shared straight into your inbox. Or
+  drop a file, a chat export or a transcript, into the drop folder. All
+  three land in the next "let's do my inbox". Nothing is filed without you.
 - **Finish a job:** when a job is delivered, the assistant asks one question:
   *what didn't match the process file?* Your answer keeps the context true.
 

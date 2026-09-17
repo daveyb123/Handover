@@ -122,7 +122,9 @@ and `source:cli`. No confirmation needed. Save.
 Captures from the phone and from files: `REMINDER` and `DROP` lines in the
 digest data (`.agent/adapters.md`, "Ways in that ship today"). Propose each
 in "let's do my inbox"; never file silently. "read my reminders" turns the
-Reminders source on; "where do I drop files" prints the drop folder.
+Reminders source on; "where do I drop files" prints the drop folder; "set
+up capture from my phone" walks them through the share-sheet shortcut in
+`.agent/adapters.md`.
 
 Processing the inbox ("let's do my inbox"): one line at a time, in GTD
 order. Is it actionable? If not: reference (a context file), `#someday`, or
