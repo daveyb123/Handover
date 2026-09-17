@@ -25,42 +25,38 @@ Also fine, if you already use them: Google Antigravity (free with a Google
 account) and GitHub Copilot (free tier). Both read the same instructions.
 Prices are in US dollars and change; check the vendor's page.
 
-## Start here
+## ➜ Start here
 
-Four steps. Nothing to type except your business name and three words.
+Nothing to type except your business name and three words. Pick your
+computer.
 
-**On a Windows PC, one step first:** install
-[Git for Windows](https://git-scm.com/download/win). Download, open, and
-click **Next** on every screen, then **Install**. That gives your
-assistant the small engine room Handover runs on. Mac users skip this.
+### Windows
 
-**1. Make your copy.**
-At the top of this page, click **Use this template**, then **Create a new
-repository**. Name it after your business. Choose **Private**. Click
-**Create**. (No GitHub account? It asks you to make one. Free.)
+| Step | Do this | You'll know it worked when |
+|---|---|---|
+| 0 | Install [Git for Windows](https://git-scm.com/download/win): download, open, click **Next** on every screen, then **Install**. | "Git Bash" appears in your Start menu. |
+| 1 | At the top of this page click **Use this template** → **Create a new repository**. Name it after your business. Choose **Private**. **Create**. (No GitHub account? It asks you to make one. Free.) | You're looking at a page with your business's name on it. |
+| 2 | Install [GitHub Desktop](https://desktop.github.com), sign in. On your new repository's page click the green **Code** button → **Open with GitHub Desktop** → **Clone**. | GitHub Desktop shows your repository, and there's a folder in Documents › GitHub. |
+| 3 | Install the [Claude desktop app](https://claude.ai/download), sign in (Pro or Max), click the **Code** tab → **Select folder** → that folder. *(ChatGPT instead: the [ChatGPT app](https://openai.com/chatgpt/download/) → Codex → Open folder.)* | The first line on screen says **Handover is ready**. |
+| 4 | Type **set me up** and press Enter. | It says hello, offers a two-minute practice run, and starts asking about your business. |
 
-**2. Put it on your computer.**
-Install [GitHub Desktop](https://desktop.github.com) and sign in with the
-same account. Back on your new repository's page, click the green **Code**
-button, then **Open with GitHub Desktop**, then **Clone**. Done: there is
-now a folder on your computer with your business's name. (GitHub Desktop
-brings Git with it; nothing extra to install. If your Mac later pops up
-"install the command line developer tools", click **Install**.)
+### Mac
 
-**3. Open that folder in your assistant.**
-*Claude:* install the [Claude desktop app](https://claude.ai/download),
-sign in, click the **Code** tab, click **Select folder**, pick the folder.
-*ChatGPT:* install the [ChatGPT desktop app](https://openai.com/chatgpt/download/),
-sign in, open Codex, choose **Open folder**, pick the folder.
+| Step | Do this | You'll know it worked when |
+|---|---|---|
+| 1 | At the top of this page click **Use this template** → **Create a new repository**. Name it after your business. Choose **Private**. **Create**. (No GitHub account? It asks you to make one. Free.) | You're looking at a page with your business's name on it. |
+| 2 | Install [GitHub Desktop](https://desktop.github.com), sign in. On your new repository's page click the green **Code** button → **Open with GitHub Desktop** → **Clone**. If your Mac pops up "install the command line developer tools", click **Install**. | GitHub Desktop shows your repository, and there's a folder in Documents › GitHub. |
+| 3 | Install the [Claude desktop app](https://claude.ai/download), sign in (Pro or Max), click the **Code** tab → **Select folder** → that folder. *(ChatGPT instead: the [ChatGPT app](https://openai.com/chatgpt/download/) → Codex → Open folder.)* | The first line on screen says **Handover is ready**. |
+| 4 | Type **set me up** and press Enter. | It says hello, offers a two-minute practice run, and starts asking about your business. |
 
-**4. Type "set me up" and press Enter.**
-The assistant introduces itself, offers a two-minute practice run, and
-interviews you about your business. Answer in your own words.
+### Linux
 
-That's it. The assistant is only Handover while it's opened *in that
-folder*; anywhere else it's just Claude or ChatGPT. Downloaded a ZIP
-instead of cloning in step 2? Also fine: open that folder and say "set me
-up"; it sorts itself out.
+Clone it, `cd` into it, run `claude`. What are you still doing here?
+
+The assistant is only Handover while it's opened *in that folder*;
+anywhere else it's just Claude or ChatGPT. Downloaded a ZIP instead of
+cloning? Also fine: open that folder and say "set me up"; it sorts itself
+out.
 
 **Stuck?** Use your chat assistant as the guide. Copy the block below,
 paste it into Claude or ChatGPT, and then keep going back and forth: paste
