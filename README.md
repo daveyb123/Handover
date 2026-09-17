@@ -74,6 +74,27 @@ will walk you through, one step at a time, checking each one:
 > Codex, Open folder), (5) type "set me up". Stop there. Don't explain git
 > unless I ask.
 
+## If you end up in a terminal instead
+
+Some people land in PowerShell or Terminal rather than the desktop app.
+That works too. Three moves, and the third is the one people miss:
+
+1. **Install Claude Code.** Windows: open PowerShell (Start menu, type
+   "PowerShell") and paste `irm https://claude.ai/install.ps1 | iex`, then
+   Enter. Mac: open Terminal and paste
+   `curl -fsSL https://claude.ai/install.sh | bash`, then Enter. Close the
+   window when it finishes and open a new one.
+2. **Get into your Handover folder.** The terminal starts in your home
+   folder, not in Handover, and nothing works until you're inside it.
+   Easiest way, no typing: Windows: open the folder in File Explorer,
+   right-click an empty space, choose **Open in Terminal**. Mac: in
+   Finder, right-click the folder and choose **New Terminal at Folder**
+   (or type `cd `, a space, then drag the folder into the window and press
+   Enter). Your prompt should now end with the folder's name.
+3. **Type `claude` and press Enter.** First time, it opens a browser to
+   sign you in and asks you to trust the folder. Say yes. You should see
+   "Handover is ready".
+
 ## Where are you starting from?
 
 **Already using an assistant in a terminal?** Then `cd` into the folder
