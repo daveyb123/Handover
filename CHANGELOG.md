@@ -6,6 +6,12 @@ All notable changes to this template are recorded here. The format follows
 
 ## [Unreleased]
 
+## [0.5.1] - 2026-09-18
+
+### Fixed
+
+- `.agent/VERSION` said 0.4.2 in the 0.5.0 release; corrected.
+
 ## [0.5.0] - 2026-09-18
 
 ### Changed
@@ -217,7 +223,8 @@ by 0.3.4.
 - Scope packs for tendering and video production with deliverable templates.
 - `GOVERNANCE.md`, MIT `LICENSE`, third-party notices in `LICENSES/`.
 
-[Unreleased]: https://github.com/daveyb123/Handover/compare/v0.5.0...HEAD
+[Unreleased]: https://github.com/daveyb123/Handover/compare/v0.5.1...HEAD
+[0.5.1]: https://github.com/daveyb123/Handover/releases/tag/v0.5.1
 [0.5.0]: https://github.com/daveyb123/Handover/releases/tag/v0.5.0
 [0.4.2]: https://github.com/daveyb123/Handover/releases/tag/v0.4.2
 [0.4.1]: https://github.com/daveyb123/Handover/releases/tag/v0.4.1
