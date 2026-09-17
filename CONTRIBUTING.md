@@ -35,9 +35,11 @@ expertise files. Those live in each business's own private copy.
 
 ## Testing
 
-- Sync: two clones of a bare repo, concurrent appends to one `tasks.md`, a
-  same-line conflict, a hand edit. `.agent/sync.sh open` must resolve and
-  report each without human intervention.
+- `tests/sync-test.sh` runs the engine end to end in a temporary
+  directory: two clones, concurrent appends, a same-line conflict, hand
+  edits, non-text files, private saves, the template guard, the joyride.
+  CI runs it with shellcheck on every push and pull request; run it locally
+  before opening one.
 - Interview: run it on a made-up business and apply the checks at the end
   of `.agent/interview.md`.
 

@@ -1,0 +1,34 @@
+name: Scope pack proposal
+description: A kind of business Handover should ship a pack for.
+title: "Pack: "
+labels: [scope-pack]
+body:
+  - type: input
+    id: business
+    attributes:
+      label: Kind of business
+      placeholder: Recruitment agency, architecture practice, catering…
+    validations:
+      required: true
+  - type: textarea
+    id: spine
+    attributes:
+      label: The job spine
+      description: The stages a job goes through, in order, in your words.
+    validations:
+      required: true
+  - type: textarea
+    id: areas
+    attributes:
+      label: Non-job areas
+      description: Kit, marketing, hiring, invoicing… whatever this business has.
+  - type: textarea
+    id: deliverables
+    attributes:
+      label: Documents the assistant should draft per job
+  - type: checkboxes
+    id: offer
+    attributes:
+      label: Contribution
+      options:
+        - label: I can draft the pack myself as a pull request

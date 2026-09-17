@@ -1,0 +1,33 @@
+name: Feedback
+description: Something that helped, hurt, or confused you while using Handover.
+title: "Feedback: "
+labels: [feedback]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks. Keep business details out (client names, people, numbers); the assistant strips them before it builds this link, but check.
+  - type: textarea
+    id: feedback
+    attributes:
+      label: What happened
+      description: What you were doing, what you expected, what you got.
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Where
+      options:
+        - First run (welcome, joyride, interviews)
+        - Day to day (capture, delegate, inbox, digest)
+        - Sync (pull, push, conflicts, private repo)
+        - Generated documents and disclosure
+        - Instructions the assistant follows (AGENTS.md, .agent/)
+        - Scope pack
+        - Somewhere else
+  - type: input
+    id: cli
+    attributes:
+      label: CLI and version
+      placeholder: Claude Code 2.1, Codex, Gemini CLI…

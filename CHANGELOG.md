@@ -6,6 +6,13 @@ All notable changes to this template are recorded here. The format follows
 
 ## [Unreleased]
 
+### Added
+
+- Issue forms for feedback, bugs and scope-pack proposals; the "feedback:"
+  link prefills the feedback form.
+- CI: shellcheck and `tests/sync-test.sh` on every push and pull request,
+  on the template repository only.
+
 ## [0.2.0] - 2026-09-17
 
 ### Added

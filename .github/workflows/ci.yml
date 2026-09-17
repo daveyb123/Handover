@@ -1,0 +1,23 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    # Only on the template itself. Businesses that copy the template
+    # inherit this file but never run it.
+    if: github.repository == 'daveyb123/Handover'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install shellcheck and ripgrep
+        run: sudo apt-get update -q && sudo apt-get install -y -q shellcheck ripgrep
+      - name: Lint
+        run: |
+          shellcheck -S style .agent/*.sh tests/*.sh
+          python3 -c "import json; json.load(open('.claude/settings.json'))"
+      - name: Sync tests
+        run: tests/sync-test.sh

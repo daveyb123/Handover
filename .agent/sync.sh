@@ -102,7 +102,7 @@ template_url() {
   [ -n "$line" ] && printf 'https://%s.git' "$line"
 }
 
-ENGINE_PATHS=(AGENTS.md CLAUDE.md GEMINI.md README.md GOVERNANCE.md CONTRIBUTING.md CHANGELOG.md SECURITY.md .editorconfig .gitattributes .agent .claude/settings.json scopes)
+ENGINE_PATHS=(AGENTS.md CLAUDE.md GEMINI.md README.md GOVERNANCE.md CONTRIBUTING.md CHANGELOG.md SECURITY.md .editorconfig .gitattributes .agent .claude/settings.json scopes tests .github)
 # .agent/VERSION says which engine release this clone runs; upgrade compares it.
 
 run_doctor() {
@@ -169,6 +169,9 @@ bg_push() {
   has_remote "$dir" || return 0
   if [ "$dir" = "$ROOT" ] && is_template_origin; then return 0; fi
   b="$(git -C "$dir" rev-parse --abbrev-ref HEAD 2>/dev/null)"
+  if [ "${HANDOVER_PUSH_FOREGROUND:-0}" = 1 ]; then  # tests only
+    git -C "$dir" "${NET_OPTS[@]}" push --quiet -u origin "$b" >/dev/null 2>&1; return 0
+  fi
   ( cd "$dir" && nohup git "${NET_OPTS[@]}" push --quiet -u origin "$b" >/dev/null 2>&1 & ) >/dev/null 2>&1
 }
 
@@ -386,7 +389,7 @@ case "$cmd" in
     printf -- '- %s %s: %s\n' "$TODAY" "$(me)" "$text" >> "$f"
     web="$(template_web)" || { echo "FEEDBACK logged (no template configured)"; exit 0; }
     echo "FEEDBACK logged"
-    echo "ISSUE $web/issues/new?title=$(printf '%s' "Feedback: ${text:0:60}" | urlenc)&body=$(printf '%s\n\n(sent from a Handover business repo, business details removed)' "$text" | urlenc)"
+    echo "ISSUE $web/issues/new?template=feedback.yml&title=$(printf '%s' "Feedback: ${text:0:60}" | urlenc)&feedback=$(printf '%s' "$text" | urlenc)"
     echo "STAR $web"
     ;;
 
