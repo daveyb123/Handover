@@ -6,6 +6,8 @@ Shared tasks and shared context for a small team, kept as plain text in git
 and run entirely through an assistant you talk to. Nobody needs to learn git.
 Nobody needs to learn a new app.
 
+![The first thing you see: the Handover welcome screen in Claude Code, with the GTD workflow drawn in text](docs/welcome.gif)
+
 ## Start here
 
 1. Click **Use this template** at the top of this page and give your copy a

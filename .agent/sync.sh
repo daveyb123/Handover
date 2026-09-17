@@ -102,7 +102,7 @@ template_url() {
   [ -n "$line" ] && printf 'https://%s.git' "$line"
 }
 
-ENGINE_PATHS=(AGENTS.md CLAUDE.md GEMINI.md README.md GOVERNANCE.md CONTRIBUTING.md CHANGELOG.md SECURITY.md .editorconfig .gitattributes .agent .claude/settings.json scopes tests .github)
+ENGINE_PATHS=(AGENTS.md CLAUDE.md GEMINI.md README.md GOVERNANCE.md CONTRIBUTING.md CHANGELOG.md SECURITY.md .editorconfig .gitattributes .agent .claude/settings.json scopes tests .github docs)
 # .agent/VERSION says which engine release this clone runs; upgrade compares it.
 
 run_doctor() {
