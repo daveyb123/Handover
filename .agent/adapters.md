@@ -13,6 +13,27 @@ with a file called `capture.txt`: one line is one thought. Anything that
 can append a line to a file, or save a text file into a folder, is a way
 in. Everything below is a recipe for that, plus two Apple-specific extras.
 
+**Email, one tap: a contact called Handover.** The person forwards an
+email to a contact named *Handover* and that's the whole gesture, on any
+phone or computer. Set the contact up once, with one of these behind it:
+
+1. *No connector, any mail (recommended first).* A free IFTTT applet:
+   trigger **Email → "Send IFTTT any email"**, action **Google Drive /
+   Dropbox / OneDrive → "Append to a text file"** at `Handover/capture.txt`.
+   The contact's address is `trigger@applet.ifttt.com` (it only accepts
+   mail from the address they registered). Forwarded mail lands as lines in
+   the capture file within a minute.
+2. *Gmail or Microsoft 365.* The contact's address is their own with
+   `+handover` before the `@` (`sam+handover@gmail.com`). A filter or rule
+   labels anything sent to it "Handover". On a Mac, the Mail rule below
+   picks it up; otherwise the mailbox connector reads that label.
+3. *Apple Mail on a Mac.* `sync.sh mail-rule`, then the rule matches
+   either **Any recipient contains `+handover`** or **Subject begins with
+   `capture:`**. The contact is their own `+handover` address.
+
+Say it as: "Save this as a contact called Handover. From now on, forward
+anything to Handover. That's it."
+
 **Setting it up (ask first, then pick recipes):** "Which phone: iPhone or
 Android? Which computer: Mac or Windows? Which email: Gmail, Outlook or
 Apple Mail?" Then `sync.sh drop --suggest` to find the synced folders on
@@ -24,9 +45,9 @@ recipes that match. Always at least one.
 | iPhone | Shortcuts app: **Receive Any input from Share Sheet → Get Text from Input → Append to Text File** `Handover/capture.txt` in iCloud Drive (or the Drive/OneDrive app's folder). Name it "Capture to Handover". Share anything to it. |
 | Android | The Google Drive or OneDrive app: share → *Save to Drive* → the `Handover` folder (one file per capture, any name). Or Tasker / Automate: a "share" intent that appends to `Handover/capture.txt`. Or open `capture.txt` in any text editor that syncs and type a line. |
 | Any phone, no setup | Open the synced folder in its app and drop a text file, a chat export, a voice-memo transcript. |
-| Gmail (any platform) | Forward to yourself with `capture:` in the subject, plus one free IFTTT applet: *Gmail: new email matching search `subject:capture:`* → *Google Drive: append to a text file* `Handover/capture.txt`. Or a Gmail filter that stars it, and the mailbox connector below reads starred. |
-| Outlook / Microsoft 365 (any platform) | A personal Power Automate flow (no admin): *When a new email arrives (V3)* with subject filter `capture:` → *Create file* in OneDrive `Handover/`. Or forward with `capture:` and let the desktop Outlook rule move it to a folder the connector reads. |
-| Apple Mail (Mac) | `sync.sh mail-rule` installs a script; add the one rule (subject begins with `capture:` → Run AppleScript → Handover Capture). Forward to yourself from anywhere. |
+| Gmail (any platform) | The Handover contact (above): IFTTT trigger address, or `you+handover@gmail.com` with a filter that labels it. |
+| Outlook / Microsoft 365 (any platform) | The Handover contact (above): IFTTT trigger address, or `you+handover@…` with a rule; or a personal Power Automate flow (no admin): *When a new email arrives* to that address → *Create file* in OneDrive `Handover/`. |
+| Apple Mail (Mac) | `sync.sh mail-rule`, then one rule: *Any recipient contains `+handover`* (or *Subject begins with `capture:`*) → Run AppleScript → Handover Capture. |
 | Apple Reminders (iPhone/Mac/Siri) | `sync.sh reminders on`; a list called **Handover**. "Hey Siri, add … to my Handover list." |
 | Windows desktop | A Power Automate Desktop flow, or simply a shortcut to `Handover/capture.txt` on the desktop; one line per thought. |
 
@@ -69,13 +90,10 @@ Android: the same shape with Google Drive and any "share to file" app.
 
 **Email, three ways.**
 
-1. *Forward it to yourself, Mac Mail files it.* The user says "set up email
-   capture" → `sync.sh mail-rule` installs a script for Apple Mail and
-   prints the one rule to add (Settings → Rules → Add Rule: if Subject
-   begins with `capture:` → Run AppleScript → Handover Capture). From then
-   on, forwarding any email to themselves with `capture:` at the start of
-   the subject, from any device, drops it as text into the drop folder the
-   next time Mail on the Mac fetches. Say the rule steps in plain words.
+1. *Forward to the Handover contact.* See the top of this file: an IFTTT
+   trigger address, or their own `+handover` address, with the Mac Mail
+   rule (`sync.sh mail-rule`) or a filter behind it. One tap from any
+   device. Say the steps in plain words.
 2. *Share it from the phone.* Mail → share → "Capture to Handover" (the
    share-sheet shortcut above).
 3. *A mailbox connector*, when the CLI has one (an MCP server for Gmail or

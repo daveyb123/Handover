@@ -511,7 +511,7 @@ case "$cmd" in
     sed "s#DROP_PATH#$d#" "$here/mail-capture.applescript" > "$tmp"
     if osacompile -o "$sd/Handover Capture.scpt" "$tmp" 2>/dev/null; then
       echo "MAIL-RULE installed: $sd/Handover Capture.scpt (saves to $d)"
-      echo "MAIL-RULE now in Mail: Settings → Rules → Add Rule: if Subject begins with 'capture:' → Perform 'Run AppleScript' → Handover Capture"
+      echo "MAIL-RULE now in Mail: Settings → Rules → Add Rule: if Any Recipient contains '+handover' (or Subject begins with 'capture:') → Perform 'Run AppleScript' → Handover Capture"
     else echo "MAIL-RULE could not compile the script"; fi
     rm -f "$tmp"
     ;;
