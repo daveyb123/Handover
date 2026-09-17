@@ -36,30 +36,43 @@ nobody trusts is worse than none.
 
 ## Footer format
 
-Append, after a horizontal rule, exactly:
+Append, after a horizontal rule, one italic line, exactly this shape:
 
 ```
 ---
-AI contribution: AI-5 — AI Generated (AI Contribution Scale, Blair Enns, winwithoutpitching.com/aiscale)
-Generated: 2026-09-17 by Claude (Fable 5.1) in Handover
-Reviewed by: unreviewed
+*[AI-4](https://www.winwithoutpitching.com/aiscale): AI Drafted; the author substantially edited and verified the finished work | By [Handover](https://github.com/daveyb123/Handover)*
 ```
 
-- `AI contribution:` the level, its name, the framework name, author and URL.
-- `Generated:` date, the model actually used, and "in Handover".
-- `Reviewed by:` a real person's name, set only when they say they reviewed
-  it ("I've read the call sheet, mark it reviewed"). Until then,
-  `unreviewed`. Never fill this in on someone's behalf. Never remove it.
+Small, one line, at the very end, nothing else. It converts cleanly to
+Word and to anything else that reads markdown. The parts, in order:
+
+- the level, linked to the scale (that link is the CC BY attribution;
+  never drop it), then the level's one-line meaning from this table:
+
+  | Level | Line |
+  |---|---|
+  | AI-0 | Human; no AI was used. |
+  | AI-1 | AI Researched; written entirely by the author, with AI contributing research. |
+  | AI-2 | AI Assisted; the author's ideas and prose, with AI as editor and thought partner. |
+  | AI-3 | Human/AI Collaboration; the author directed, AI drafted passages that survived into the finished work. |
+  | AI-4 | AI Drafted; the author substantially edited and verified the finished work. |
+  | AI-5 | AI Generated; essentially all of it, with light human editing or approval. |
+
+- `By Handover`, linked to the template repository. Discreet, and stays.
+
+Who reviewed a document, and when, is recorded where the work is tracked:
+the job's `decisions.md` or `status.md`, and the commit message. Not in
+the document.
 
 When a human edits the document afterwards and asks you to re-save it, keep
-the footer, move the level down if their edits earned it (AI-5 → AI-4 once
-they have substantially edited and verified; further only if they rewrote
-most of it), and leave `Reviewed by` as they set it. The level never goes
-down just because time passed.
+the footer and move the level down if their edits earned it (AI-5 → AI-4
+once they have substantially edited and verified; further only if they
+rewrote most of it). The level never goes down just because time passed.
 
 ## Why it's here
 
 For tendering especially, provenance on every document is becoming a
 question buyers ask. A published scale answers it in one line. The risk is
-theatre: a number nobody checks. The reviewer field being real, and AI-5
-being the honest default for an unedited draft, is what stops that.
+theatre: a number nobody checks. AI-5 being the honest default for an
+unedited draft, and the level only moving when a human has actually done
+the work, is what stops that.

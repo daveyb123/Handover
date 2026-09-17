@@ -53,11 +53,11 @@ here and add the ones that do.
 - **Goes wrong:** SMEs asked to write instead of talk.
 
 ## 10. Response generation
-- **Leaves:** draft sections in `outputs/`, level 3 or 4 disclosure, unreviewed.
+- **Leaves:** draft sections in `outputs/`, footer at AI-5 until a human edits them.
 - **Boundary:** the respondent owns the words they'll defend.
 
 ## 11. Review
-- **Leaves:** reviewed sections, reviewer named in each footer.
+- **Leaves:** reviewed sections; who reviewed what, logged in `decisions.md`.
 
 ## 12. Final competitive review
 - **Leaves:** a "would this win against the likely field" note in `decisions.md`.

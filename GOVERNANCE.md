@@ -21,10 +21,10 @@ Eight rules. One page. If this grows, something has gone wrong.
    inference. It never touches media, anything outside the repo, or your
    personal task list.
 
-5. **AI disclosure.** Every generated document carries a footer stating the
-   AI contribution level on the AI Contribution Scale (Blair Enns, CC BY 4.0), the date, the model, and who
-   reviewed it. The reviewer is a real person or the field says
-   "unreviewed". Nobody fills it in on someone else's behalf.
+5. **AI disclosure.** Every generated document ends with its AI
+   contribution level on the AI Contribution Scale (Blair Enns, CC BY 4.0),
+   stated honestly: an unedited draft is AI-5 until a human has done the
+   editing that earns a lower level. Who reviewed what is in the job record.
 
 6. **Access.** Repository membership *is* clearance. Adding someone is a
    decision the owner makes, not an admin task. Removing someone is the same.

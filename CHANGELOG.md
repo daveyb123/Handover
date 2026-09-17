@@ -19,6 +19,10 @@ All notable changes to this template are recorded here. The format follows
   divergence report and offered back as template issues.
 - Adding people: agent instructions and a README section.
 - `Next:` line on every reply after onboarding too, with `go` to run it.
+- Disclosure footer is one discreet italic line: the level linked to the
+  AI Contribution Scale (the CC BY attribution), its meaning, and a
+  "By Handover" link. Nothing else in the document. README carries the
+  repository's own level (AI-4) as a badge and a section.
 - "feedback:" records a note and prints a prefilled, sanitised template
   issue link; `sync.sh nudged` and a one-time star ask after five sessions,
   three days and ten writes.

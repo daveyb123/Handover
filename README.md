@@ -1,6 +1,6 @@
 # Handover
 
-[![Licence: MIT](https://img.shields.io/badge/licence-MIT-blue.svg)](LICENSE) [![Version](https://img.shields.io/badge/version-0.1.0-lightgrey.svg)](CHANGELOG.md)
+[![Licence: MIT](https://img.shields.io/badge/licence-MIT-blue.svg)](LICENSE) [![Version](https://img.shields.io/badge/version-0.1.0-lightgrey.svg)](CHANGELOG.md) [![AI contribution: AI-4 AI Drafted](https://img.shields.io/badge/AI%20contribution-AI--4%20·%20AI%20Drafted-555.svg)](https://www.winwithoutpitching.com/aiscale)
 
 Shared tasks and shared context for a small team, kept as plain text in git
 and run entirely through an assistant you talk to. Nobody needs to learn git.
@@ -167,7 +167,9 @@ Coordination and memory, not production. It tracks that the edit is due and
 who's on it; it doesn't touch the timeline. It tracks that a response section
 is drafted and by whom; the respondent owns the words they'll defend in the
 room. Generated documents are plain markdown in the job's `outputs/` folder,
-each with an AI disclosure footer using the AI Contribution Scale by Blair Enns (AI-0 to AI-5). You take them into Word, your design tool,
+each ending with one small line: the AI contribution level on the
+[AI Contribution Scale](https://www.winwithoutpitching.com/aiscale) by
+Blair Enns (AI-0 to AI-5) and a "By Handover" link. Nothing else. You take them into Word, your design tool,
 or wherever you like.
 
 ## Connectors (optional, later)
@@ -200,6 +202,19 @@ you want it).
 
 Issues and pull requests are welcome. See `CONTRIBUTING.md` for the
 conventions, and `CHANGELOG.md` for what has changed.
+
+## AI contribution to this repository
+
+[AI-4](https://www.winwithoutpitching.com/aiscale): AI Drafted; the author
+substantially edited and verified the finished work | By
+[Handover](https://github.com/daveyb123/Handover)
+
+The idea, the argument, the source material and every design decision came
+from a human, written as a specification. An AI coding agent produced most
+of the prose and the scripts from it. The human directed each revision,
+tested the result end to end, and verified it. The scale is the
+[AI Contribution Scale](https://www.winwithoutpitching.com/aiscale) by
+Blair Enns, and every document this system generates carries the same line.
 
 ## Licence
 

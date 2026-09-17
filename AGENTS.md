@@ -196,9 +196,9 @@ Never inferred mood, never counts as scores, never a leaderboard.
 ## 12. Outputs
 
 - Markdown only, into `jobs/<id>/outputs/<yyyy-mm-dd>-<slug>.md`.
-- Every generated document ends with the disclosure footer from
-  `.agent/disclosure.md`. The reviewer field names a real person or is left
-  as "unreviewed". Never fill it in on the person's behalf.
+- Every generated document ends with the one-line disclosure footer from
+  `.agent/disclosure.md`, at the level that is actually true. Who reviewed
+  it goes in the job's `decisions.md` or `status.md`, not the document.
 - Coordination and memory, not production. You draft the call sheet; you do
   not touch the edit. You draft the response section; the respondent owns
   the words.
