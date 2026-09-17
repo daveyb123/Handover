@@ -13,38 +13,49 @@ Nobody needs to learn git. Nobody needs to learn a new app.
 
 ## Start here
 
-1. Click **Use this template** at the top of this page and give your copy a
-   name (your business name is fine). Keep it private.
-2. Clone it to your computer (the green **Code** button, then *Open with
-   GitHub Desktop*, or your usual way), and open your assistant CLI in that
-   folder.
-3. Say: **"set me up"**.
+No terminal needed. Four steps, all clicking:
 
-That's it. One thing to know: the assistant is only Handover while it is
-started *inside* that folder. Started anywhere else, it is just your
-assistant. So the habit is: go to the folder, then open the CLI. The assistant will interview you about how your business runs and
-build the rest.
+1. **Make your copy.** Click **Use this template** at the top of this page,
+   then *Create a new repository*. Name it after your business. Set it to
+   **Private**. (You'll need a free GitHub account; it prompts you.)
+2. **Get it onto your computer.** Install
+   [GitHub Desktop](https://desktop.github.com), sign in, then on your new
+   repository's page click the green **Code** button and *Open with GitHub
+   Desktop*, then *Clone*. That puts a folder on your computer and handles
+   every login from here on.
+3. **Open it in Claude.** Install the
+   [Claude desktop app](https://claude.ai/download), sign in (Claude Code
+   needs a Pro or Max plan; the free plan doesn't include it), click the
+   **Code** tab, and choose that folder.
+4. Type: **"set me up"**.
+
+That's it. The assistant is only Handover while it's opened *in that
+folder*; anywhere else it's just Claude. Downloaded a ZIP instead of
+cloning? Fine: open that folder and say "set me up"; it sorts itself out.
+
+**Not sure about any of this?** Copy the block below, paste it into Claude
+or any chat assistant, and it will walk you through, checking each step:
+
+> I want to set up a tool called Handover: https://github.com/daveyb123/Handover
+> I'm not technical. Walk me through it one step at a time and check each
+> step worked before the next: (1) a free GitHub account if I don't have
+> one, (2) click "Use this template" on that page to make my own private
+> copy, (3) install GitHub Desktop and clone my copy to my computer,
+> (4) install the Claude desktop app, open its Code tab and choose that
+> folder, (5) type "set me up". Stop there. Don't explain git unless I ask.
 
 ## Where are you starting from?
 
-**Already using an assistant CLI?** Claude Code is the reference: its hooks
-run the sync and the digest for you. Codex, Gemini CLI and others read the
-same instructions and run the same script themselves; it works, with fewer
-of the automatic touches. Skip to "How to use it day to day".
+**Already using an assistant CLI?** Then `cd` into the folder and run
+`claude`. Claude Code is the reference: its hooks run the sync and the
+digest for you. Codex, Gemini CLI and others read the same instructions and
+run the same script themselves; it works, with fewer of the automatic
+touches. Skip to "How to use it day to day".
 
-**Using a chat assistant in a browser or desktop app, but no CLI?** Copy the
-block below, paste it into that chat, and it will walk you through the rest.
-It will install what's needed for you and check each step.
-
-> I want to set up a tool called Handover. It's a git repository that I need
-> to copy from a template on GitHub, clone to my computer, and then open in
-> an assistant CLI such as Claude Code. I've never used a terminal or git.
-> Please walk me through it one step at a time, checking each step worked
-> before moving on: (1) create a GitHub account if I don't have one,
-> (2) create my own private copy from the template at https://github.com/daveyb123/Handover,
-> (3) install git and the CLI on my computer, (4) clone my copy to a sensible
-> folder, (5) open the CLI in that folder. When I'm in the CLI, tell me to say
-> "set me up" and stop. Don't explain what git is unless I ask.
+**Prefer the browser?** claude.ai/code can open your GitHub copy directly
+without anything on your computer. The core works there; the phone
+capture and private-repo features assume a computer of your own, so
+treat the browser as a way to look, not the way to live.
 
 ## Why it works like this
 
@@ -259,28 +270,10 @@ in `SECURITY.md`.
 
 ## Prerequisites
 
-git, a subscription to an AI assistant (Claude, ChatGPT or Gemini), and
-its CLI. macOS, Linux, or Windows through WSL or Git Bash. Everything else
-the repo brings; the assistant offers to install `ripgrep` for search
-(Taskwarrior only if you want it).
-
-## Contributing
-
-Issues and pull requests are welcome. See `CONTRIBUTING.md` for the
-conventions, and `CHANGELOG.md` for what has changed.
-
-## AI contribution to this repository
-
-[AI-4](https://www.winwithoutpitching.com/aiscale "AI Contribution Scale by Blair Enns, CC BY 4.0"):
-AI Drafted; the author substantially edited and verified the finished work
-| By [Handover](https://github.com/daveyb123/Handover)
-
-The idea, the argument, the source material and every design decision came
-from a human, written as a specification. An AI coding agent produced most
-of the prose and the scripts from it. The human directed each revision,
-tested the result end to end, and verified it. The scale is the
-[AI Contribution Scale](https://www.winwithoutpitching.com/aiscale) by
-Blair Enns, and every document this system generates carries the same line.
+A Claude Pro or Max plan (or another assistant with a CLI), GitHub Desktop
+or git, and a Mac, Windows or Linux computer. Everything else the repo
+brings; the assistant offers to install `ripgrep` for search (Taskwarrior
+only if you want it).
 
 ## Licence
 

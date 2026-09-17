@@ -6,6 +6,23 @@ All notable changes to this template are recorded here. The format follows
 
 ## [Unreleased]
 
+## [0.3.9] - 2026-09-17
+
+### Changed
+
+- README "Start here" is the no-terminal path: Use this template, GitHub
+  Desktop, the Claude desktop app's Code tab, "set me up". The
+  walk-me-through block for chat assistants matches. Terminal and browser
+  are the alternatives, with honest caveats. Prerequisites name the plans
+  that include Claude Code.
+
+## [0.3.8] - 2026-09-17
+
+### Added
+
+- A downloaded ZIP works: the ready line says so, "set me up" initialises
+  the repository (`doctor --fix`), and setup asks for a private remote.
+
 ## [0.3.7] - 2026-09-17
 
 ### Changed
@@ -150,7 +167,9 @@ by 0.3.4.
 - Scope packs for tendering and video production with deliverable templates.
 - `GOVERNANCE.md`, MIT `LICENSE`, third-party notices in `LICENSES/`.
 
-[Unreleased]: https://github.com/daveyb123/Handover/compare/v0.3.7...HEAD
+[Unreleased]: https://github.com/daveyb123/Handover/compare/v0.3.9...HEAD
+[0.3.9]: https://github.com/daveyb123/Handover/releases/tag/v0.3.9
+[0.3.8]: https://github.com/daveyb123/Handover/releases/tag/v0.3.8
 [0.3.7]: https://github.com/daveyb123/Handover/releases/tag/v0.3.7
 [0.3.6]: https://github.com/daveyb123/Handover/releases/tag/v0.3.6
 [0.3.5]: https://github.com/daveyb123/Handover/releases/tag/v0.3.5
