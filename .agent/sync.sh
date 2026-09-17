@@ -16,6 +16,8 @@
 #   sync.sh drop [--clear <file>] [--path <dir>]
 #                                 list text files in the drop folder; --path
 #                                 points it at a synced folder (iCloud Drive…)
+#   sync.sh mail-rule             install the Apple Mail rule script that saves
+#                                 "capture:" emails into the drop folder (macOS)
 #   sync.sh friction "<note>"     log a guess or correction for later review
 #   sync.sh feedback "<text>"     record feedback and print a prefilled issue link
 #   sync.sh nudged                remember that the one-time star/feedback ask was made
@@ -466,6 +468,19 @@ case "$cmd" in
         ;;
       *) mkdir -p "$d"; list_drop; echo "DROP folder: $d" ;;
     esac
+    ;;
+
+  mail-rule)
+    command -v osacompile >/dev/null 2>&1 || { echo "MAIL-RULE needs macOS Mail"; exit 0; }
+    d="$(drop_dir)"; mkdir -p "$d"
+    sd="$HOME/Library/Application Scripts/com.apple.mail"; mkdir -p "$sd"
+    tmp="$(mktemp).applescript"
+    sed "s#DROP_PATH#$d#" "$here/mail-capture.applescript" > "$tmp"
+    if osacompile -o "$sd/Handover Capture.scpt" "$tmp" 2>/dev/null; then
+      echo "MAIL-RULE installed: $sd/Handover Capture.scpt (saves to $d)"
+      echo "MAIL-RULE now in Mail: Settings → Rules → Add Rule: if Subject begins with 'capture:' → Perform 'Run AppleScript' → Handover Capture"
+    else echo "MAIL-RULE could not compile the script"; fi
+    rm -f "$tmp"
     ;;
 
   friction)

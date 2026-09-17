@@ -38,11 +38,23 @@ capture from their phone, set it up with them once:
 Say these three steps in plain words; don't send them to a settings page.
 Android: the same shape with Google Drive and any "share to file" app.
 
-**Email, without a connector.** Two habits that work everywhere: forward a
-message to yourself with `capture:` at the top of the subject, then paste
-it at the CLI; or a mail rule that saves messages with that subject to the
-drop folder as text. Mail connectors that read a mailbox directly are the
-upgrade below.
+**Email, three ways.**
+
+1. *Forward it to yourself, Mac Mail files it.* The user says "set up email
+   capture" → `sync.sh mail-rule` installs a script for Apple Mail and
+   prints the one rule to add (Settings → Rules → Add Rule: if Subject
+   begins with `capture:` → Run AppleScript → Handover Capture). From then
+   on, forwarding any email to themselves with `capture:` at the start of
+   the subject, from any device, drops it as text into the drop folder the
+   next time Mail on the Mac fetches. Say the rule steps in plain words.
+2. *Share it from the phone.* Mail → share → "Capture to Handover" (the
+   share-sheet shortcut above).
+3. *A mailbox connector*, when the CLI has one (an MCP server for Gmail or
+   Outlook). The habit is the same: forward to yourself under a label or
+   folder called **Handover**. On "check my email", read only that label,
+   propose each message as a capture with `source:email`, and archive it
+   on yes. Read-only, one mailbox, never the organisation. This is the
+   upgrade that needs a login; the first two need nothing.
 
 **WhatsApp.** No usable API. Export the chat (WhatsApp → chat → Export,
 without media) into the drop folder. The agent reads it once for

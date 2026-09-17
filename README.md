@@ -130,6 +130,9 @@ product.
 - **Mark something private:** say "that's private", or put `#private` on it.
   It goes to your own personal repo, not the shared one.
 - **Process your inbox:** "let's do my inbox". One item at a time.
+- **Email:** say "set up email capture" once. After that, forward any email
+  to yourself with `capture:` at the start of the subject and it's in your
+  inbox next time you open the CLI. Works from any device.
 - **Capture from your phone, three ways.** Say "read my reminders" once and
   make a Reminders list called *Handover*: "Hey Siri, add ring the venue to
   my Handover list". Or say "set up capture from my phone" and the

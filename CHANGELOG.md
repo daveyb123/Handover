@@ -13,6 +13,9 @@ All notable changes to this template are recorded here. The format follows
 - CI: shellcheck and `tests/sync-test.sh` on every push and pull request,
   on the template repository only.
 - README opens with a recording of the welcome screen (`docs/welcome.gif`).
+- Email capture with no account: `sync.sh mail-rule` installs an Apple
+  Mail rule script; forward to yourself with `capture:` in the subject and
+  it lands in the drop folder. Mailbox connectors documented as the upgrade.
 - Ways in from the phone with no accounts: an opt-in Apple Reminders list
   ("Handover", Siri-friendly) read on every open, and a local drop folder
   for text files (WhatsApp exports, saved emails, transcripts). Email and
