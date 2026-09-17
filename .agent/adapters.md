@@ -6,6 +6,35 @@ message, and nothing is filed silently.
 
 ## Ways in that ship today (no accounts, no admin)
 
+Platform-agnostic on purpose. The one mechanism every platform can reach
+is **a synced folder**: iCloud Drive, Google Drive, OneDrive, Dropbox,
+whatever the person already has. Inside it, a folder called `Handover`
+with a file called `capture.txt`: one line is one thought. Anything that
+can append a line to a file, or save a text file into a folder, is a way
+in. Everything below is a recipe for that, plus two Apple-specific extras.
+
+**Setting it up (ask first, then pick recipes):** "Which phone: iPhone or
+Android? Which computer: Mac or Windows? Which email: Gmail, Outlook or
+Apple Mail?" Then `sync.sh drop --suggest` to find the synced folders on
+this machine, `sync.sh drop --path "<one of them>/Handover"`, and give the
+recipes that match. Always at least one.
+
+| They have | Recipe |
+|---|---|
+| iPhone | Shortcuts app: **Receive Any input from Share Sheet → Get Text from Input → Append to Text File** `Handover/capture.txt` in iCloud Drive (or the Drive/OneDrive app's folder). Name it "Capture to Handover". Share anything to it. |
+| Android | The Google Drive or OneDrive app: share → *Save to Drive* → the `Handover` folder (one file per capture, any name). Or Tasker / Automate: a "share" intent that appends to `Handover/capture.txt`. Or open `capture.txt` in any text editor that syncs and type a line. |
+| Any phone, no setup | Open the synced folder in its app and drop a text file, a chat export, a voice-memo transcript. |
+| Gmail (any platform) | Forward to yourself with `capture:` in the subject, plus one free IFTTT applet: *Gmail: new email matching search `subject:capture:`* → *Google Drive: append to a text file* `Handover/capture.txt`. Or a Gmail filter that stars it, and the mailbox connector below reads starred. |
+| Outlook / Microsoft 365 (any platform) | A personal Power Automate flow (no admin): *When a new email arrives (V3)* with subject filter `capture:` → *Create file* in OneDrive `Handover/`. Or forward with `capture:` and let the desktop Outlook rule move it to a folder the connector reads. |
+| Apple Mail (Mac) | `sync.sh mail-rule` installs a script; add the one rule (subject begins with `capture:` → Run AppleScript → Handover Capture). Forward to yourself from anywhere. |
+| Apple Reminders (iPhone/Mac/Siri) | `sync.sh reminders on`; a list called **Handover**. "Hey Siri, add … to my Handover list." |
+| Windows desktop | A Power Automate Desktop flow, or simply a shortcut to `Handover/capture.txt` on the desktop; one line per thought. |
+
+On "let's do my inbox", `capture.txt` is read line by line and each line
+proposed with `source:drop`; when done, `sync.sh drop --clear capture.txt`
+empties it (a copy is archived). Other files are proposed whole and moved
+to `.done/`.
+
 **Apple Reminders (macOS, iPhone, Siri).** Opt-in: the user says "read my
 reminders" once → `sync.sh reminders on`. They make a Reminders list called
 **Handover**. From then on, anything on it ("Hey Siri, add ring the venue

@@ -1,6 +1,6 @@
 # Handover
 
-[![Licence: MIT](https://img.shields.io/badge/licence-MIT-blue.svg)](LICENSE) [![Version](https://img.shields.io/badge/version-0.3.1-lightgrey.svg)](CHANGELOG.md) [![CI](https://github.com/daveyb123/Handover/actions/workflows/ci.yml/badge.svg)](https://github.com/daveyb123/Handover/actions/workflows/ci.yml) [![Sponsor](https://img.shields.io/badge/sponsor-%E2%9D%A4-ea4aaa.svg?logo=githubsponsors&logoColor=white)](https://github.com/sponsors/daveyb123) [![AI contribution: AI-4 AI Drafted](https://img.shields.io/badge/AI%20contribution-AI--4%20·%20AI%20Drafted-555.svg)](https://www.winwithoutpitching.com/aiscale)
+[![Licence: MIT](https://img.shields.io/badge/licence-MIT-blue.svg)](LICENSE) [![Version](https://img.shields.io/badge/version-0.3.2-lightgrey.svg)](CHANGELOG.md) [![CI](https://github.com/daveyb123/Handover/actions/workflows/ci.yml/badge.svg)](https://github.com/daveyb123/Handover/actions/workflows/ci.yml) [![Sponsor](https://img.shields.io/badge/sponsor-%E2%9D%A4-ea4aaa.svg?logo=githubsponsors&logoColor=white)](https://github.com/sponsors/daveyb123) [![AI contribution: AI-4 AI Drafted](https://img.shields.io/badge/AI%20contribution-AI--4%20·%20AI%20Drafted-555.svg)](https://www.winwithoutpitching.com/aiscale)
 
 Shared tasks and shared context for a small team, kept as plain text in git
 and run entirely through an assistant you talk to. Nobody needs to learn git.
@@ -130,16 +130,14 @@ product.
 - **Mark something private:** say "that's private", or put `#private` on it.
   It goes to your own personal repo, not the shared one.
 - **Process your inbox:** "let's do my inbox". One item at a time.
-- **Email:** say "set up email capture" once. After that, forward any email
-  to yourself with `capture:` at the start of the subject and it's in your
-  inbox next time you open the CLI. Works from any device.
-- **Capture from your phone, three ways.** Say "read my reminders" once and
-  make a Reminders list called *Handover*: "Hey Siri, add ring the venue to
-  my Handover list". Or say "set up capture from my phone" and the
-  assistant walks you through a share-sheet shortcut, so any email,
-  WhatsApp message or web page can be shared straight into your inbox. Or
-  drop a file, a chat export or a transcript, into the drop folder. All
-  three land in the next "let's do my inbox". Nothing is filed without you.
+- **Capture from anywhere.** Say "set up capture from my phone". The
+  assistant asks which phone, computer and email you use, then sets up a
+  folder in whatever already syncs for you (iCloud, Google Drive,
+  OneDrive, Dropbox) and gives you the two-minute recipe for each: share
+  from your phone into it, forward an email to yourself with `capture:` in
+  the subject, drop a chat export or a transcript into it, or on Apple, say
+  "Hey Siri, add ring the venue to my Handover list". Everything lands in
+  the next "let's do my inbox". Nothing is filed without you.
 - **Finish a job:** when a job is delivered, the assistant asks one question:
   *what didn't match the process file?* Your answer keeps the context true.
 

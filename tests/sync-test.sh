@@ -109,6 +109,10 @@ check "drop --clear archives the file"  "(cd \"$T/a\" && $A drop --clear chat.tx
 check "reminders off by default"        "(cd \"$T/a\" && $A reminders) | grep -q 'REMINDERS off'"
 (cd "$T/a" && $A drop --path "$T/synced" >/dev/null); printf 'shared from phone\n' > "$T/synced/capture-1.txt"
 check "drop --path relocates the folder" "(cd \"$T/a\" && $A open) | grep -q '^DROP capture-1.txt'"
+printf 'one thought\nanother\n' > "$T/synced/capture.txt"
+check "capture.txt cleared in place"     "(cd \"$T/a\" && $A drop --clear capture.txt) | grep -q emptied && [ -f \"$T/synced/capture.txt\" ] && [ ! -s \"$T/synced/capture.txt\" ]"
+check "empty capture.txt not listed"     "! (cd \"$T/a\" && $A open) | grep -q '^DROP capture.txt'"
+check "drop --suggest runs anywhere"     "(cd \"$T/a\" && $A drop --suggest) | grep -q '^SUGGEST'"
 
 # --- 9. joyride sandbox ---
 (cd "$T/a" && .agent/joyride.sh start alex >/dev/null)

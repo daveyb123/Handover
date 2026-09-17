@@ -13,9 +13,10 @@
 #   sync.sh reminders [on|off|--done <id>]
 #                                 Apple Reminders list "Handover" as captures
 #                                 (macOS, opt-in); --done marks one complete
-#   sync.sh drop [--clear <file>] [--path <dir>]
+#   sync.sh drop [--clear <file>] [--path <dir>] [--suggest]
 #                                 list text files in the drop folder; --path
-#                                 points it at a synced folder (iCloud Drive…)
+#                                 points it at a synced folder; --suggest
+#                                 lists synced folders found on this machine
 #   sync.sh sources               which ways in are set up (reminders, drop
 #                                 folder, mail rule); NONE if nothing is
 #   sync.sh mail-rule             install the Apple Mail rule script that saves
@@ -119,6 +120,7 @@ list_drop() {
   [ -d "$d" ] || return 0
   for f in "$d"/*; do
     [ -f "$f" ] || continue
+    [ -s "$f" ] || continue   # an emptied capture.txt is not news
     n=$((n+1)); echo "DROP $(basename "$f") $(wc -c < "$f" | tr -d ' ') bytes"
   done
   return 0
@@ -467,7 +469,21 @@ case "$cmd" in
     case "${1:-}" in
       --clear)
         [ -n "${2:-}" ] || { echo "drop --clear <file>" >&2; exit 1; }
-        mkdir -p "$d/.done"; mv -f "$d/$2" "$d/.done/$(date +%Y%m%d-%H%M%S)-$2" 2>/dev/null && echo "DROP cleared $2" || echo "DROP no such file $2"
+        mkdir -p "$d/.done"
+        if [ "$2" = "capture.txt" ]; then
+          # The one-line-per-thought file stays in place (phones append to
+          # it); archive a copy and empty it.
+          cp -f "$d/$2" "$d/.done/$(date +%Y%m%d-%H%M%S)-$2" 2>/dev/null && : > "$d/$2" && echo "DROP cleared $2 (emptied, copy kept)" || echo "DROP no such file $2"
+        else
+          mv -f "$d/$2" "$d/.done/$(date +%Y%m%d-%H%M%S)-$2" 2>/dev/null && echo "DROP cleared $2" || echo "DROP no such file $2"
+        fi
+        ;;
+      --suggest)
+        # Synced folders that exist on this machine, any platform.
+        for c in "$HOME/Library/Mobile Documents/com~apple~CloudDocs" "$HOME/OneDrive" "$HOME/OneDrive - "* "$HOME/Google Drive/My Drive" "$HOME/Library/CloudStorage/GoogleDrive-"*/"My Drive" "$HOME/Library/CloudStorage/OneDrive-"* "$HOME/Dropbox" "$HOME/Library/CloudStorage/Dropbox" "$HOME/Nextcloud" "$HOME/Sync"; do
+          [ -d "$c" ] && echo "SYNCED $c"
+        done
+        echo "SUGGEST pick one and run: sync.sh drop --path \"<folder>/Handover\""
         ;;
       --path)
         [ -n "${2:-}" ] || { echo "drop --path <dir>" >&2; exit 1; }

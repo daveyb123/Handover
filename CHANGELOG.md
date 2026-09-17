@@ -6,6 +6,16 @@ All notable changes to this template are recorded here. The format follows
 
 ## [Unreleased]
 
+## [0.3.2] - 2026-09-17
+
+### Changed
+
+- Capture is platform-agnostic: the contract is a synced folder (iCloud,
+  Google Drive, OneDrive, Dropbox) with a `capture.txt` where one line is
+  one thought; recipes per platform for iPhone, Android, Windows, Gmail,
+  Outlook, Apple Mail and Reminders. `sync.sh drop --suggest` finds synced
+  folders on the machine; clearing `capture.txt` empties it in place.
+
 ## [0.3.1] - 2026-09-17
 
 ### Added
@@ -103,7 +113,8 @@ All notable changes to this template are recorded here. The format follows
 - Scope packs for tendering and video production with deliverable templates.
 - `GOVERNANCE.md`, MIT `LICENSE`, third-party notices in `LICENSES/`.
 
-[Unreleased]: https://github.com/daveyb123/Handover/compare/v0.3.1...HEAD
+[Unreleased]: https://github.com/daveyb123/Handover/compare/v0.3.2...HEAD
+[0.3.2]: https://github.com/daveyb123/Handover/releases/tag/v0.3.2
 [0.3.1]: https://github.com/daveyb123/Handover/releases/tag/v0.3.1
 [0.3.0]: https://github.com/daveyb123/Handover/releases/tag/v0.3.0
 [0.2.0]: https://github.com/daveyb123/Handover/releases/tag/v0.2.0
