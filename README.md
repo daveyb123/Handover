@@ -29,6 +29,11 @@ Prices are in US dollars and change; check the vendor's page.
 
 Four steps. Nothing to type except your business name and three words.
 
+**On a Windows PC, one step first:** install
+[Git for Windows](https://git-scm.com/download/win). Download, open, and
+click **Next** on every screen, then **Install**. That gives your
+assistant the small engine room Handover runs on. Mac users skip this.
+
 **1. Make your copy.**
 At the top of this page, click **Use this template**, then **Create a new
 repository**. Name it after your business. Choose **Private**. Click
@@ -297,9 +302,11 @@ in `SECURITY.md`.
 
 An AI assistant that can work in a folder (see the top of this page:
 Claude Pro is paid, ChatGPT's free plan works), GitHub Desktop (which
-brings Git with it) or Git itself, and a Mac, Windows or Linux computer.
-If Git is missing, the assistant notices and installs it when you say
-"set me up". Everything else the repo brings; the
+brings Git with it on a Mac) or Git itself, and a Mac, Windows or Linux
+computer. On Windows, Git for Windows is required first (see Start here);
+without it the assistant cannot run Handover's script at all. On a Mac, if
+Git is missing the assistant notices and installs it when you say "set me
+up". Everything else the repo brings; the
 assistant offers to install `ripgrep` for search (Taskwarrior only if you
 want it).
 

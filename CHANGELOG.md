@@ -6,6 +6,15 @@ All notable changes to this template are recorded here. The format follows
 
 ## [Unreleased]
 
+## [0.4.2] - 2026-09-17
+
+### Fixed
+
+- Windows: hooks invoke the script through `bash -c 'cd "$CLAUDE_PROJECT_DIR" && bash .agent/sync.sh …'`
+  so Git Bash paths and missing execute bits don't matter; permissions
+  pre-allow the `bash .agent/…` form. README makes Git for Windows step
+  zero on a PC: without it Claude Code has no shell to run the script.
+
 ## [0.4.1] - 2026-09-17
 
 ### Added
@@ -187,7 +196,8 @@ by 0.3.4.
 - Scope packs for tendering and video production with deliverable templates.
 - `GOVERNANCE.md`, MIT `LICENSE`, third-party notices in `LICENSES/`.
 
-[Unreleased]: https://github.com/daveyb123/Handover/compare/v0.4.1...HEAD
+[Unreleased]: https://github.com/daveyb123/Handover/compare/v0.4.2...HEAD
+[0.4.2]: https://github.com/daveyb123/Handover/releases/tag/v0.4.2
 [0.4.1]: https://github.com/daveyb123/Handover/releases/tag/v0.4.1
 [0.4.0]: https://github.com/daveyb123/Handover/releases/tag/v0.4.0
 [0.3.9]: https://github.com/daveyb123/Handover/releases/tag/v0.3.9

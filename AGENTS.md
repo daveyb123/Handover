@@ -56,6 +56,8 @@ layout. If it does, treat both as one view. See §8.
 ## 3. Sync
 
 `.agent/sync.sh` is the only way you touch git. Never run git directly.
+On Windows, invoke it as `bash .agent/sync.sh …` (Git Bash); it needs Git
+for Windows installed, which the README makes step zero on a PC.
 
 - On open, the hook runs `sync.sh open`: pulls with rebase, commits any
   uncommitted hand edits as `[unattributed hand edit]`, and prints the raw
