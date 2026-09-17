@@ -6,49 +6,49 @@ All notable changes to this template are recorded here. The format follows
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-09-17
+
 ### Added
 
 - Session start shows a ready line on screen ("Handover is ready. Type:
-  set me up") via the hook's user-facing message, so a fresh clone is never
-  blank.
-- Every onboarding reply ends with a `Next:` block; `go` runs it.
-- `sync.sh doctor [--fix]`: health checks on every open, safe repairs.
-- `sync.sh upgrade`: pull the latest engine files from the template
-  without touching business context.
-- `sync.sh friction`: a log of guesses and corrections, read by the
-  divergence report and offered back as template issues.
+  set me up"), so a fresh clone is never blank.
+- Every reply ends with one `Next:` line; `go` runs it.
+- Joyride: an optional practice run on a pretend company before
+  onboarding, using the real sync script in a gitignored sandbox.
+- First-run welcome screen with a GTD workflow drawing.
+- `#someday` tag; inbox processing follows the GTD clarify sequence.
+- `sync.sh doctor`: health checks on every open, safe repairs; installs
+  only with `--install` after a yes.
+- `sync.sh upgrade`: preview, then `--apply`, the latest tagged engine
+  release from the template; business context untouched. `.agent/VERSION`
+  records the engine release.
+- `sync.sh friction` and `sync.sh feedback`: a log of guesses and
+  corrections read by the divergence report, and a sanitised, prefilled
+  template issue link. One-time star ask after real use.
+- `sync.sh remote <url>`: set a business's own remote; refuses the template.
 - Adding people: agent instructions and a README section.
-- `Next:` line on every reply after onboarding too, with `go` to run it.
-- Disclosure footer is one discreet italic line: the level linked to the
-  AI Contribution Scale (the CC BY attribution), its meaning, and a
-  "By Handover" link. Nothing else in the document. README carries the
-  repository's own level (AI-4) as a badge and a section.
-- "feedback:" records a note and prints a prefilled, sanitised template
-  issue link; `sync.sh nudged` and a one-time star ask after five sessions,
-  three days and ten writes.
+- Disclosure footer is one line: the level linked to the AI Contribution
+  Scale (with attribution in the link title) and "By Handover". README
+  states the repository's own level (AI-4).
+- README: origins (GTD, career-ops, Taskwarrior), GTD-to-files table, what
+  runs on your machine, an example digest and capture; SECURITY.md
+  describes hooks, network and trust; `.claude/settings.json` pre-allows
+  the engine scripts so first-run captures need no permission prompt.
 
 ### Fixed
 
-- The sync script never pushes to the public template: `.agent/template-origin`
-  lists template remotes, pushes to them are refused, `open` reports
-  `REMOTE template-origin`, and `sync.sh remote <url>` sets a business's own
-  remote. A plain clone of the template previously pushed business content
-  back to it.
-- Joyride: the seeded pipeline now disagrees with the inbox item so the
-  update is real; the payoff digest covers the practice run; the delegation
-  date is worked out from today.
-
-### Added
-
-- Joyride: an optional practice run on a pretend company before
-  onboarding, using the real sync script in a gitignored sandbox
-  (`.agent/joyride.md`, `.agent/joyride.sh`).
-- First-run welcome screen with a GTD workflow drawing (`.agent/welcome.md`,
-  `.agent/welcome.sh --slow` for a line-by-line reveal).
-- `#someday` tag for someday/maybe items; inbox processing follows the GTD
-  clarify sequence.
-- README section on origins (GTD, career-ops, Taskwarrior) and the GTD to
-  file mapping.
+- The sync script never pushes to the public template (`.agent/template-origin`).
+- Only markdown and engine files are ever committed; other files dropped
+  into the folder are reported, not pushed. `.claude/settings.local.json`,
+  `CLAUDE.local.md` and `.env*` are ignored.
+- `sync.sh save` accepts `--private` in any position.
+- Hand edits are absorbed before pulling, so a rebase never runs over
+  uncommitted files; background pulls skip while a write is in progress.
+- Private repo's first push sets the upstream; `sync.sh remote` checks
+  before changing anything.
+- Joyride dates are computed from today; the sandbox doctor stays quiet.
+- Portable date handling on Linux; ripgrep install knows apt, dnf and
+  winget as well as Homebrew.
 
 ## [0.1.0] - 2026-09-17
 
@@ -69,5 +69,6 @@ All notable changes to this template are recorded here. The format follows
 - Scope packs for tendering and video production with deliverable templates.
 - `GOVERNANCE.md`, MIT `LICENSE`, third-party notices in `LICENSES/`.
 
-[Unreleased]: https://github.com/daveyb123/handover/compare/v0.1.0...HEAD
-[0.1.0]: https://github.com/daveyb123/handover/releases/tag/v0.1.0
+[Unreleased]: https://github.com/daveyb123/Handover/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/daveyb123/Handover/releases/tag/v0.2.0
+[0.1.0]: https://github.com/daveyb123/Handover/releases/tag/v0.1.0

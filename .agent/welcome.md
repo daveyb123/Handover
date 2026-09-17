@@ -3,8 +3,9 @@
 Shown once, verbatim, the first time someone opens the CLI in this repo
 (the digest data says `IDENTITY unconfirmed`). Print the block below as your
 first message, inside a fenced code block so the drawing holds, then ask
-their name. Never show it again. If the CLI renders tool output live,
-`.agent/welcome.sh --slow` reveals it line by line instead.
+their name. Never show it again. In a CLI that streams tool output to the
+screen (not Claude Code), `.agent/welcome.sh --slow` reveals it line by
+line instead.
 
 ```
    ██╗  ██╗ █████╗ ███╗   ██╗██████╗  ██████╗ ██╗   ██╗███████╗██████╗
@@ -29,15 +30,15 @@ their name. Never show it again. If the CLI renders tool output live,
                          │    Inbox     │   say  capture: <it>
                          └──────┬───────┘
                                 ▼
-                       ┌──────────────────┐        no    ┌────────────┐
-                       │  Is it actionable?├─────────────▶│  Reference │  context/
-                       └────────┬─────────┘         ├───▶│  Someday   │  #someday
-                                │ yes               └───▶│  Bin       │
+                       ┌───────────────────┐       no    ┌────────────┐
+                       │ Is it actionable? ├────────────▶│  Reference │  context/
+                       └────────┬──────────┘        ├───▶│  Someday   │  #someday
+                                │ yes                └───▶│  Bin       │
                                 ▼
-                       ┌──────────────────┐   multi-step  ┌────────────┐
-                       │ What's the next  ├──────────────▶│    Job     │  jobs/
-                       │     action?      │               └────────────┘
-                       └────────┬─────────┘
+                       ┌───────────────────┐  multi-step ┌────────────┐
+                       │ What's the next   ├────────────▶│    Job     │  jobs/
+                       │     action?       │             └────────────┘
+                       └────────┬──────────┘
                                 ▼
                         under two minutes?
                        ┌────────┴─────────┐

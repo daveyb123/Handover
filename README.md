@@ -1,6 +1,6 @@
 # Handover
 
-[![Licence: MIT](https://img.shields.io/badge/licence-MIT-blue.svg)](LICENSE) [![Version](https://img.shields.io/badge/version-0.1.0-lightgrey.svg)](CHANGELOG.md) [![AI contribution: AI-4 AI Drafted](https://img.shields.io/badge/AI%20contribution-AI--4%20·%20AI%20Drafted-555.svg)](https://www.winwithoutpitching.com/aiscale)
+[![Licence: MIT](https://img.shields.io/badge/licence-MIT-blue.svg)](LICENSE) [![Version](https://img.shields.io/badge/version-0.2.0-lightgrey.svg)](CHANGELOG.md) [![AI contribution: AI-4 AI Drafted](https://img.shields.io/badge/AI%20contribution-AI--4%20·%20AI%20Drafted-555.svg)](https://www.winwithoutpitching.com/aiscale)
 
 Shared tasks and shared context for a small team, kept as plain text in git
 and run entirely through an assistant you talk to. Nobody needs to learn git.
@@ -10,7 +10,9 @@ Nobody needs to learn a new app.
 
 1. Click **Use this template** at the top of this page and give your copy a
    name (your business name is fine). Keep it private.
-2. Open your assistant CLI in the folder you cloned it to.
+2. Clone it to your computer (the green **Code** button, then *Open with
+   GitHub Desktop*, or your usual way), and open your assistant CLI in that
+   folder.
 3. Say: **"set me up"**.
 
 That's it. The assistant will interview you about how your business runs and
@@ -18,8 +20,10 @@ build the rest.
 
 ## Where are you starting from?
 
-**Already using an assistant CLI** (Claude Code, Codex, Gemini CLI or similar)?
-Skip to "How to use it day to day".
+**Already using an assistant CLI?** Claude Code is the reference: its hooks
+run the sync and the digest for you. Codex, Gemini CLI and others read the
+same instructions and run the same script themselves; it works, with fewer
+of the automatic touches. Skip to "How to use it day to day".
 
 **Using a chat assistant in a browser or desktop app, but no CLI?** Copy the
 block below, paste it into that chat, and it will walk you through the rest.
@@ -30,7 +34,7 @@ It will install what's needed for you and check each step.
 > an assistant CLI such as Claude Code. I've never used a terminal or git.
 > Please walk me through it one step at a time, checking each step worked
 > before moving on: (1) create a GitHub account if I don't have one,
-> (2) create my own private copy from the template at https://github.com/daveyb123/handover,
+> (2) create my own private copy from the template at https://github.com/daveyb123/Handover,
 > (3) install git and the CLI on my computer, (4) clone my copy to a sensible
 > folder, (5) open the CLI in that folder. When I'm in the CLI, tell me to say
 > "set me up" and stop. Don't explain what git is unless I ask.
@@ -89,8 +93,27 @@ Company. This project is not affiliated with it.
 
 Open the CLI in the repo folder. The first time, you get a welcome screen,
 an optional two-minute practice run on a pretend company (say "joyride" any
-time to do it again), and two short interviews. After that, the first thing you see is your digest:
-what changed since you were last here, filtered to you. Then talk.
+time to do it again), and two short interviews. After that, the first thing
+you see is your digest: what changed since you were last here, filtered to
+you.
+
+> Two new tasks from Sam. Job 2026-014 moved to review round 2. One item
+> waiting on you since Monday. Current as of 09:12.
+>
+> Next: `let's do my inbox`
+
+Then talk. Say "capture: ring the venue about parking" and this lands in
+your inbox, with the reason in the commit:
+
+```
+- 2026-09-17 source:cli ring the venue about parking
+```
+```
+Captured from the CLI, unprocessed.
+```
+
+That pairing, the line in the file and the why in the history, is the whole
+product.
 
 - **Capture anything:** "capture: ring the venue about parking". It lands in
   your inbox. No confirmation, no ceremony.
@@ -192,11 +215,22 @@ strategy. In Claude Code today that means **Haiku 4.5** for routine and
 small and large tiers. This paragraph is the only place model names appear;
 update it when they change.
 
+## What runs on your machine
+
+Three small scripts, automatically, once you've trusted the folder: a pull
+and digest when you open the CLI, a quiet background pull while you work,
+and a commit and push when the assistant finishes a turn. Only markdown is
+ever committed; anything else dropped in the folder is reported, not
+pushed. Nothing goes anywhere but your own repository. Upgrades come from
+the template only when you say yes, and only from a tagged release. Details
+in `SECURITY.md`.
+
 ## Prerequisites
 
-git, an LLM subscription, and one assistant CLI. Everything else the repo
-brings, and the assistant installs (`ripgrep` for search; Taskwarrior only if
-you want it).
+git, a subscription to an AI assistant (Claude, ChatGPT or Gemini), and
+its CLI. macOS, Linux, or Windows through WSL or Git Bash. Everything else
+the repo brings; the assistant offers to install `ripgrep` for search
+(Taskwarrior only if you want it).
 
 ## Contributing
 
@@ -205,9 +239,9 @@ conventions, and `CHANGELOG.md` for what has changed.
 
 ## AI contribution to this repository
 
-[AI-4](https://www.winwithoutpitching.com/aiscale): AI Drafted; the author
-substantially edited and verified the finished work | By
-[Handover](https://github.com/daveyb123/Handover)
+[AI-4](https://www.winwithoutpitching.com/aiscale "AI Contribution Scale by Blair Enns, CC BY 4.0"):
+AI Drafted; the author substantially edited and verified the finished work
+| By [Handover](https://github.com/daveyb123/Handover)
 
 The idea, the argument, the source material and every design decision came
 from a human, written as a specification. An AI coding agent produced most

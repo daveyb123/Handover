@@ -5,8 +5,11 @@
 #
 #   sync.sh open [--hook]         pull, absorb hand edits, print digest data
 #                                 (--hook: JSON for Claude Code, with a ready line)
-#   sync.sh doctor [--fix]        check the clone; fix what is safe to fix
-#   sync.sh upgrade               pull the latest engine files from the template
+#   sync.sh doctor [--fix] [--install]
+#                                 check the clone; --fix repairs what is safe;
+#                                 --install also installs ripgrep (ask first)
+#   sync.sh upgrade [--apply]     preview (default) or apply the latest tagged
+#                                 engine release from the template
 #   sync.sh friction "<note>"     log a guess or correction for later review
 #   sync.sh feedback "<text>"     record feedback and print a prefilled issue link
 #   sync.sh nudged                remember that the one-time star/feedback ask was made
@@ -53,7 +56,16 @@ me() {
 
 private_dir() { local m; m="$(me)"; [ -n "$m" ] && printf '%s/../%s-private' "$ROOT" "$m"; }
 
-has_remote() { g remote get-url origin >/dev/null 2>&1; }
+has_remote() { git -C "${1:-$ROOT}" remote get-url origin >/dev/null 2>&1; }
+
+stage_text() {
+  # Stage markdown and engine files only. Anything else a human dropped in
+  # (a PDF, a contract, a .env) is never committed; it is listed instead.
+  local dir="${1:-$ROOT}" p specs=(':(glob)**/*.md')
+  for p in .agent .claude/settings.json .gitattributes .gitignore .editorconfig LICENSE LICENSES scopes; do [ -e "$dir/$p" ] && specs+=("$p"); done
+  git -C "$dir" add -A -- "${specs[@]}" >/dev/null 2>&1
+  git -C "$dir" status --porcelain --untracked-files=all | grep '^??' | sed 's/^?? //' | grep -v '^\.last-seen/' || true
+}
 
 json_escape() { sed -e 's/\\/\\\\/g' -e 's/"/\\"/g' -e 's/\t/\\t/g' | awk '{printf "%s\\n", $0}'; }
 
@@ -91,10 +103,13 @@ template_url() {
 }
 
 ENGINE_PATHS=(AGENTS.md CLAUDE.md GEMINI.md README.md GOVERNANCE.md CONTRIBUTING.md CHANGELOG.md SECURITY.md .editorconfig .gitattributes .agent .claude/settings.json scopes)
+# .agent/VERSION says which engine release this clone runs; upgrade compares it.
 
 run_doctor() {
-  # Prints DOCTOR lines for anything wrong. With fix=1, repairs what is safe.
-  local fix="${1:-0}" m n=0
+  # Prints DOCTOR lines for anything wrong. fix=1 repairs what is safe;
+  # install=1 also installs ripgrep (the agent asks before that).
+  local fix="${1:-0}" install="${2:-0}" m n=0
+  [ -f "$here/template-origin" ] || return 0   # practice sandbox: stay quiet
   m="$(me)"
   if [ -d "$ROOT/.git/rebase-merge" ] || [ -d "$ROOT/.git/rebase-apply" ]; then
     if [ "$fix" = 1 ]; then g rebase --abort >/dev/null 2>&1 && echo "DOCTOR fixed: aborted a stuck rebase"; else echo "DOCTOR stuck rebase in progress (doctor --fix aborts it)"; fi; n=$((n+1))
@@ -105,8 +120,13 @@ run_doctor() {
   if ! has_remote; then echo "DOCTOR no remote: nothing is backed up (sync.sh remote <url>)"; n=$((n+1))
   elif is_template_origin; then echo "DOCTOR origin is the public template: nothing will be pushed (sync.sh remote <url>)"; n=$((n+1)); fi
   if ! command -v rg >/dev/null 2>&1; then
-    if [ "$fix" = 1 ] && command -v brew >/dev/null 2>&1; then brew install -q ripgrep >/dev/null 2>&1 && echo "DOCTOR fixed: installed ripgrep" || echo "DOCTOR ripgrep missing and install failed"
-    else echo "DOCTOR ripgrep not installed: search falls back to grep (doctor --fix installs it with Homebrew)"; fi; n=$((n+1))
+    if [ "$install" = 1 ]; then
+      if command -v brew >/dev/null 2>&1; then brew install -q ripgrep >/dev/null 2>&1
+      elif command -v apt-get >/dev/null 2>&1; then sudo apt-get install -y -q ripgrep >/dev/null 2>&1
+      elif command -v dnf >/dev/null 2>&1; then sudo dnf install -y -q ripgrep >/dev/null 2>&1
+      elif command -v winget >/dev/null 2>&1; then winget install -e --id BurntSushi.ripgrep.MSVC >/dev/null 2>&1; fi
+      command -v rg >/dev/null 2>&1 && echo "DOCTOR fixed: installed ripgrep" || echo "DOCTOR ripgrep missing and no package manager could install it (https://github.com/BurntSushi/ripgrep#installation)"
+    else echo "DOCTOR ripgrep not installed: search falls back to grep (doctor --install installs it; ask first)"; fi; n=$((n+1))
   fi
   [ -s "$LS/me" ] || { echo "DOCTOR identity not set (ask, then sync.sh me <slug>)"; n=$((n+1)); }
   if [ -n "$m" ] && [ -s "$LS/me" ] && [ ! -d "$ROOT/people/$m" ]; then
@@ -145,10 +165,11 @@ is_template_origin() {
 
 bg_push() {
   # Push in the background so the conversation never waits on the network.
-  local dir="$1"
-  has_remote || return 0
+  local dir="$1" b
+  has_remote "$dir" || return 0
   if [ "$dir" = "$ROOT" ] && is_template_origin; then return 0; fi
-  ( cd "$dir" && nohup git "${NET_OPTS[@]}" push --quiet >/dev/null 2>&1 & ) >/dev/null 2>&1
+  b="$(git -C "$dir" rev-parse --abbrev-ref HEAD 2>/dev/null)"
+  ( cd "$dir" && nohup git "${NET_OPTS[@]}" push --quiet -u origin "$b" >/dev/null 2>&1 & ) >/dev/null 2>&1
 }
 
 resolve_union() {
@@ -202,15 +223,15 @@ do_pull() {
 }
 
 absorb_hand_edits() {
-  # Anything uncommitted at open was edited outside the agent. Keep it,
-  # label it, move on. Prints the file count.
-  local n
-  n="$(g status --porcelain --untracked-files=all | grep -vc '^?? .last-seen/' || true)"
+  # Text edited outside the agent is kept and labelled. Non-text files are
+  # never committed; they are reported. Prints "<count> <skipped...>".
+  local skipped n
+  skipped="$(stage_text "$ROOT" | tr '\n' ' ')"
+  n="$(g diff --cached --name-only | wc -l | tr -d ' ')"
   if [ "${n:-0}" -gt 0 ]; then
-    g add -A >/dev/null 2>&1
     g commit --quiet -m "[unattributed hand edit] $n file(s) changed outside the agent, absorbed on open $TODAY $NOW" >/dev/null 2>&1
   fi
-  echo "${n:-0}"
+  echo "${n:-0} $skipped"
 }
 
 last_commit_for() { g log -1 --format="%h %as %an %s" "$1" -- "$2" 2>/dev/null; }
@@ -299,15 +320,15 @@ case "$cmd" in
 
   open)
     hook=0; [ "${1:-}" = "--hook" ] && hook=1
+    read -r hn hskip <<<"$(absorb_hand_edits)"
     read -r pstat pn <<<"$(do_pull)"
-    hn="$(absorb_hand_edits)"
     # private sibling: pull it too, quietly
     pd="$(private_dir)"
     if [ -n "$pd" ] && [ -d "$pd/.git" ] && git -C "$pd" remote get-url origin >/dev/null 2>&1; then
       git -C "$pd" "${NET_OPTS[@]}" pull --rebase --autostash --quiet >/dev/null 2>&1 || true
     fi
     data="$(print_digest "PULL $pstat $pn new commits" \
-      "HANDEDIT $([ "$hn" -gt 0 ] && echo "$hn files committed as unattributed hand edit" || echo none)"
+      "HANDEDIT $([ "$hn" -gt 0 ] && echo "$hn files committed as unattributed hand edit" || echo none)$([ -n "${hskip:-}" ] && echo "; not committed (not text): $hskip")"
       is_template_origin && echo "REMOTE template-origin (pushes disabled: this clone still points at the public template; set your own remote with sync.sh remote <url>)"
       run_doctor 0 | grep -v 'identity not set'
       nudge_check)"
@@ -322,21 +343,37 @@ case "$cmd" in
     ;;
 
   doctor)
-    fix=0; [ "${1:-}" = "--fix" ] && fix=1
-    run_doctor "$fix"
+    fix=0; install=0
+    for a in "$@"; do case "$a" in --fix) fix=1 ;; --install) fix=1; install=1 ;; esac; done
+    run_doctor "$fix" "$install"
     ;;
 
   upgrade)
+    apply=0; [ "${1:-}" = "--apply" ] && apply=1
     turl="$(template_url)" || { echo "UPGRADE no template-origin configured" >&2; exit 1; }
     if is_template_origin; then echo "UPGRADE this clone is the template itself; nothing to do"; exit 0; fi
-    if ! g "${NET_OPTS[@]}" fetch --quiet "$turl" main 2>/dev/null; then echo "UPGRADE offline or template unreachable"; exit 0; fi
-    new="$(g rev-parse --short FETCH_HEAD)"
+    if [ -n "$(g status --porcelain)" ]; then echo "UPGRADE refused: uncommitted changes; save first"; exit 1; fi
+    # Latest tagged release only, never whatever is on main.
+    tag="$(g "${NET_OPTS[@]}" ls-remote --tags --refs "$turl" 'v*' 2>/dev/null | sed 's#.*/##' | sort -V | tail -1)"
+    [ -n "$tag" ] || { echo "UPGRADE offline, or the template has no release tags"; exit 0; }
+    have="$(cat "$here/VERSION" 2>/dev/null || echo 0.0.0)"
+    if [ "$(printf '%s\n%s\n' "$have" "${tag#v}" | sort -V | tail -1)" = "$have" ]; then echo "UPGRADE already current (engine $have, latest release $tag)"; exit 0; fi
+    if ! g "${NET_OPTS[@]}" fetch --quiet "$turl" "refs/tags/$tag" 2>/dev/null; then echo "UPGRADE offline or template unreachable"; exit 0; fi
     g checkout --quiet FETCH_HEAD -- "${ENGINE_PATHS[@]}" 2>/dev/null
-    if g diff --cached --quiet; then echo "UPGRADE already current (template $new)"; exit 0; fi
+    if g diff --cached --quiet; then echo "UPGRADE already current ($tag)"; exit 0; fi
     changed="$(g diff --cached --name-only | wc -l | tr -d ' ')"
-    g commit --quiet -m "Upgraded the Handover engine to template $new: $changed engine files updated, business context untouched"
+    if [ "$apply" -eq 0 ]; then
+      echo "UPGRADE preview: $tag would change $changed engine files (business context untouched):"
+      g diff --cached --stat | sed 's/^/  /'
+      echo "  Changelog lines added:"
+      g diff --cached -- CHANGELOG.md | grep '^+[^+]' | sed 's/^+/    /' | head -40
+      g reset --quiet HEAD -- "${ENGINE_PATHS[@]}" 2>/dev/null; g checkout --quiet -- "${ENGINE_PATHS[@]}" 2>/dev/null
+      echo "UPGRADE run 'sync.sh upgrade --apply' to apply"
+      exit 0
+    fi
+    g commit --quiet -m "Upgraded the Handover engine to $tag: $changed engine files updated, business context untouched"
     bg_push "$ROOT"
-    echo "UPGRADE done: $changed files from template $new (see CHANGELOG.md)"
+    echo "UPGRADE done: $changed files from $tag (see CHANGELOG.md)"
     ;;
 
   feedback)
@@ -369,33 +406,36 @@ case "$cmd" in
       last="$(cat "$LS/last-pull")"; now="$(date +%s)"
       if [ $((now - last)) -lt "$throttle" ]; then [ $quiet -eq 1 ] || echo "PULL skipped (pulled $((now - last))s ago)"; exit 0; fi
     fi
+    if [ -f "$ROOT/.git/index.lock" ] || [ -n "$(g status --porcelain 2>/dev/null)" ]; then
+      [ $quiet -eq 1 ] || echo "PULL skipped (a write is in progress)"; exit 0
+    fi
     r="$(do_pull)"
     [ $quiet -eq 1 ] || echo "PULL $r new commits, current as of $NOW"
     ;;
 
   save)
-    msg="${1:-}"; [ $# -gt 0 ] && shift
-    target="$ROOT"
-    [ "${1:-}" = "--private" ] && target="$(private_dir)"
+    msg=""; target="$ROOT"
+    for a in "$@"; do case "$a" in --private) target="$(private_dir)" ;; *) [ -z "$msg" ] && msg="$a" ;; esac; done
     [ -n "$msg" ] || { echo "save: a reasoning message is required" >&2; exit 1; }
     [ -d "$target/.git" ] || { echo "save: no repo at $target (run private-init?)" >&2; exit 1; }
-    git -C "$target" add -A >/dev/null 2>&1
+    skipped="$(stage_text "$target" | tr '\n' ' ')"
+    [ -n "$skipped" ] && echo "SAVE not committed (not text): $skipped"
     if git -C "$target" diff --cached --quiet; then echo "SAVE nothing to commit"; exit 0; fi
-    git -C "$target" commit --quiet -m "$msg" && echo "SAVE committed: $msg"
+    git -C "$target" commit --quiet -m "$msg" && echo "SAVE committed: $msg$([ "$target" != "$ROOT" ] && echo ' (private)')"
     if [ "$target" = "$ROOT" ] && is_template_origin; then echo "SAVE not pushed: origin is the public template"; fi
     bg_push "$target"
     ;;
 
   stop)
     # Safety net at end of turn: anything the agent wrote but didn't save.
-    g add -A >/dev/null 2>&1
+    stage_text "$ROOT" >/dev/null
     if ! g diff --cached --quiet; then
       g commit --quiet -m "[agent write, no reasoning recorded] committed at end of turn $TODAY $NOW"
     fi
     bg_push "$ROOT"
     pd="$(private_dir)"
     if [ -n "$pd" ] && [ -d "$pd/.git" ]; then
-      git -C "$pd" add -A >/dev/null 2>&1
+      stage_text "$pd" >/dev/null
       git -C "$pd" diff --cached --quiet || git -C "$pd" commit --quiet -m "[agent write, no reasoning recorded] $TODAY $NOW"
       bg_push "$pd"
     fi
@@ -407,8 +447,11 @@ case "$cmd" in
 
   remote)
     url="${1:-}"; [ -n "$url" ] || { echo "remote: url required" >&2; exit 1; }
+    nu="$(norm_url "$url")"
+    if [ -f "$here/template-origin" ] && grep -v '^#' "$here/template-origin" | sed '/^[[:space:]]*$/d' | while read -r l; do [ "$(norm_url "$l")" = "$nu" ] && echo match; done | grep -q match; then
+      echo "REMOTE refused: that is the public template"; exit 1
+    fi
     if has_remote; then g remote set-url origin "$url"; else g remote add origin "$url"; fi
-    if is_template_origin; then echo "REMOTE refused: that is the public template"; exit 1; fi
     b="$(g rev-parse --abbrev-ref HEAD)"
     if g "${NET_OPTS[@]}" push --quiet -u origin "$b" >/dev/null 2>&1; then echo "REMOTE set to $url and pushed"; else echo "REMOTE set to $url; first push failed (check the URL and access)"; fi
     ;;
@@ -435,18 +478,23 @@ case "$cmd" in
       printf '# Inbox — %s (private)\n' "$m" > "$pd/people/$m/inbox.md"
     fi
     git -C "$pd" init -q -b main && git -C "$pd" add -A && git -C "$pd" commit -q -m "Private repo for $m, created by the agent"
-    if [ -n "${1:-}" ]; then git -C "$pd" remote add origin "$1" && bg_push "$pd"; echo "PRIVATE created at $pd with remote"; else echo "PRIVATE created at $pd, no remote yet (not backed up)"; fi
+    if [ -n "${1:-}" ]; then
+      git -C "$pd" remote add origin "$1"
+      if git -C "$pd" "${NET_OPTS[@]}" push --quiet -u origin main >/dev/null 2>&1; then echo "PRIVATE created at $pd and pushed"; else echo "PRIVATE created at $pd; first push failed (check the URL and access)"; fi
+    else echo "PRIVATE created at $pd, no remote yet (not backed up)"; fi
     ;;
 
   status)
     b="$(g rev-parse --abbrev-ref HEAD 2>/dev/null)"
     ahead="$(g rev-list --count "origin/$b..HEAD" 2>/dev/null || echo '?')"
     dirty="$(g status --porcelain | wc -l | tr -d ' ')"
-    echo "STATUS branch=$b ahead=$ahead uncommitted=$dirty me=$(me) last-pull=$([ -s "$LS/last-pull" ] && date -r "$(cat "$LS/last-pull")" +%H:%M || echo never)$(is_template_origin && echo ' remote=TEMPLATE(no push)')"
+    lp="never"
+    if [ -s "$LS/last-pull" ]; then lp="$(date -r "$(cat "$LS/last-pull")" +%H:%M 2>/dev/null || date -d "@$(cat "$LS/last-pull")" +%H:%M 2>/dev/null || echo unknown)"; fi
+    echo "STATUS branch=$b ahead=$ahead uncommitted=$dirty me=$(me) last-pull=$lp$(is_template_origin && echo ' remote=TEMPLATE(no push)')"
     ;;
 
   help|*)
-    sed -n '3,22p' "$0" | sed 's/^# \{0,1\}//'
+    sed -n '3,/^set -u/p' "$0" | grep '^#' | sed 's/^# \{0,1\}//'
     ;;
 esac
 exit 0

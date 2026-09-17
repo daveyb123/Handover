@@ -60,8 +60,9 @@ both lines kept."
 If there are `DOCTOR` lines, add one sentence after the timestamp saying
 what's wrong and what you'll do ("Ripgrep isn't installed; I'll install it
 now." / "Nothing's backed up yet; give me a repo URL when you have one.").
-Fix what `doctor --fix` fixes without asking; ask for anything that needs
-a URL or a decision.
+Fix what `doctor --fix` fixes without asking; ask before installing
+anything (`doctor --install`) and for anything that needs a URL or a
+decision.
 
 If there is a `NUDGE` line, this is the one time you ask. After the
 timestamp, two sentences, warm, no pressure, with the numbers:

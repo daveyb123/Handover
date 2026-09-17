@@ -1,8 +1,10 @@
 # Third-party notices
 
-Nothing here is bundled in this repository. These are the tools and
-frameworks the system depends on or cites, with their licences, so a business
-using this template can say what it relies on.
+These are the tools and frameworks the system depends on or cites, with
+their licences, so a business using this template can say what it relies on.
+The only third-party text reproduced in this repository is the level wording
+of the AI Contribution Scale, quoted and abridged in `.agent/disclosure.md`
+under CC BY 4.0 with attribution.
 
 | What | Used for | Licence | Notice |
 |---|---|---|---|

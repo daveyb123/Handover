@@ -1,4 +1,12 @@
 {
+  "permissions": {
+    "allow": [
+      "Bash(.agent/sync.sh:*)",
+      "Bash(.agent/joyride.sh:*)",
+      "Bash(.agent/welcome.sh:*)",
+      "Bash(rg:*)"
+    ]
+  },
   "hooks": {
     "SessionStart": [
       {

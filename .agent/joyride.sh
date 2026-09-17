@@ -16,13 +16,25 @@ TODAY="$(date +%F)"
 case "${1:-}" in
   path) echo "$SB"; exit 0 ;;
   clean)
-    rm -rf "$SB" "$ROOT/.last-seen/"*-private-joyride 2>/dev/null
+    rm -rf "$SB"
     # the sandbox's private sibling lands beside it, inside .last-seen
     find "$ROOT/.last-seen" -maxdepth 1 -type d -name '*-private' -exec rm -rf {} + 2>/dev/null
     echo "JOYRIDE cleaned"; exit 0 ;;
   start) ;;
-  *) sed -n '3,10p' "$0" | sed 's/^# \{0,1\}//'; exit 0 ;;
+  *) sed -n '3,/^set -u/p' "$0" | grep '^#' | sed 's/^# \{0,1\}//'; exit 0 ;;
 esac
+
+# Dates are relative to today so the practice company never looks stale.
+shift_date() {  # shift_date <+n|-n>
+  local n="$1"
+  date -v"${n}d" +%F 2>/dev/null || date -d "$TODAY $n days" +%F 2>/dev/null
+}
+dow() { date -j -f %F "$1" +%u 2>/dev/null || date -d "$1" +%u 2>/dev/null; }
+next_day_sam_is_in() {  # Mon–Thu, at least two days out
+  local n=2 d
+  while :; do d="$(shift_date "+$n")"; [ "$(dow "$d")" -le 4 ] && { echo "$d"; return; }; n=$((n+1)); done
+}
+SAM_DUE="$(next_day_sam_is_in)"; PRINTER="$(shift_date +16)"; OPENED="$(shift_date -9)"; UPDATED="$(shift_date -16)"
 
 me="${2:-}"; [ -n "$me" ] || { echo "joyride: me-slug required" >&2; exit 1; }
 if [ -d "$SB/.git" ]; then echo "JOYRIDE exists at $SB"; exit 0; fi
@@ -42,10 +54,10 @@ A pretend three-person design studio for trying Handover. Nothing here is
 real. It lives outside the shared repo and is deleted when you're done.
 EOR
 
-cat > "$SB/context/operation/pipeline.md" <<'EOR'
+cat > "$SB/context/operation/pipeline.md" <<EOR
 ---
 owner: sam
-updated: 2026-09-01
+updated: $UPDATED
 last_reviewed_against: 2026-005
 ---
 
@@ -68,10 +80,10 @@ last_reviewed_against: 2026-005
 - **Leaves:** files sent, invoice raised.
 EOR
 
-cat > "$SB/context/operation/glossary.md" <<'EOR'
+cat > "$SB/context/operation/glossary.md" <<EOR
 ---
 owner: sam
-updated: 2026-09-01
+updated: $UPDATED
 ---
 
 # Glossary
@@ -106,7 +118,7 @@ their exact words.
 ## Working pattern
 Mon–Thu. Fridays I'm not here; don't expect a reply.
 EOR
-printf '# Tasks — Sam\n\n- [ ] Second concept direction for Harbour Cafe  job:2026-007  from:sam  due:2026-09-19  #computer\n' > "$SB/people/sam/tasks.md"
+printf '# Tasks — Sam\n\n- [ ] Second concept direction for Harbour Cafe  job:2026-007  from:sam  due:%s  #computer\n' "$SAM_DUE" > "$SB/people/sam/tasks.md"
 printf '# Inbox — Sam\n' > "$SB/people/sam/inbox.md"
 
 cat > "$SB/people/$me/profile.md" <<EOR
@@ -125,12 +137,12 @@ printf '# Tasks — %s\n\n- [ ] Client to confirm R1 date  job:2026-007  from:%s
 printf '# Inbox — %s\n\n- %s source:cli Sam says the printer wants five working days now, not three\n- %s source:cli studio dog?\n' "$me" "$TODAY" "$TODAY" > "$SB/people/$me/inbox.md"
 
 J="$SB/jobs/2026-007-harbour-cafe-rebrand"
-cat > "$J/brief.md" <<'EOR'
+cat > "$J/brief.md" <<EOR
 ---
 job: 2026-007
 client: Harbour Cafe
 stage: concepts
-opened: 2026-09-08
+opened: $OPENED
 ---
 
 # Harbour Cafe rebrand
@@ -144,7 +156,7 @@ New owners, same regulars. They want continuity, not a relaunch. We said
 yes because it's exactly the kind of job Sam is best at.
 
 ## Constraints
-Signage needs to be at the printer by 2026-10-03. Budget fixed.
+Signage needs to be at the printer by $PRINTER. Budget fixed.
 EOR
 cat > "$J/status.md" <<EOR
 ---
@@ -157,17 +169,17 @@ people: [$me, sam]
 # Status — Harbour Cafe rebrand
 
 **Stage:** concepts
-**Key dates:** R1 with client, date not yet confirmed; signage to printer 2026-10-03
+**Key dates:** R1 with client, date not yet confirmed; signage to printer $PRINTER
 **Who's on it:** $me — client; sam — concepts and artwork
 
 ## Right now
 Sam has one direction done and a second in progress. Waiting on the client
 to confirm the R1 date.
 EOR
-cat > "$J/decisions.md" <<'EOR'
+cat > "$J/decisions.md" <<EOR
 # Decisions — Harbour Cafe rebrand
 
-## 2026-09-08 — Continuity over relaunch
+## $OPENED — Continuity over relaunch
 
 **Who:** sam
 **Why:** The regulars are the business. The new owners were clear they don't

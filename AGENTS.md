@@ -25,6 +25,7 @@ GOVERNANCE.md          eight rules, one page
   retrieval.md         search conventions and what to load
   adapters.md          chat/email as signal sources (optional)
   template-origin      remotes sync.sh must never push to
+  VERSION              engine release this clone runs (upgrade compares it)
 context/
   operation/           how THIS business runs (pipeline.md, <area>.md, glossary.md)
   expertise/           how to do the craft well; one file per author per topic
@@ -32,7 +33,8 @@ people/<name>/         profile.md, tasks.md, inbox.md
 jobs/<yyyy>-<nnn>-<slug>/
                        brief.md, status.md, decisions.md, outputs/
 scopes/<scope>/        packs: pipeline template, areas, deliverable templates
-.last-seen/            local only, gitignored: me, <name>, last-pull
+.last-seen/            local only, gitignored: me, <name>, last-pull,
+                       first-open, sessions, nudged, joyride/
 ```
 
 A sibling personal repo may exist at `../<name>-private/` with the same
@@ -63,9 +65,14 @@ layout. If it does, treat both as one view. See §8.
   the background. Never make the user wait on it.
 - Never block the user on a fetch. Answer from local state. If the pull
   changes something relevant mid-conversation, say so in one line.
-- If `sync.sh` reports a conflict it could not resolve, resolve it at line
-  level yourself (both sides usually belong; keep both lines), save, and
-  report in one sentence. Do not ask the user to resolve git conflicts.
+- If the digest data says `PULL conflict`, the script has already backed
+  out safely; local state is intact and the pull retries on the next open.
+  Say so in one line. If it happens three opens running, tell the user
+  which file and that they may need a hand from whoever set the repo up.
+  Never ask the user to resolve git conflicts themselves.
+- If no digest data arrived when the session started (a CLI without
+  hooks), run `.agent/sync.sh open` yourself before anything else, and
+  `.agent/sync.sh stop` at the end of every turn.
 - If the user says "am I current?", run `sync.sh pull` and report the time.
 - If the digest data has a `REMOTE template-origin` line, this clone still
   points at the public template and nothing will be pushed. Say so before
@@ -163,6 +170,11 @@ Heuristics and routing in `.agent/privacy.md`. In short:
 
 ## 9. Interviews
 
+"set me up" means: run whatever of the first-run sequence hasn't happened
+yet, in order: welcome, identity, joyride offer, profile interview,
+bootstrap. If everything has, it means "fill the gaps": missing profile
+sections, closing questions never answered, a remote not yet set.
+
 - `IDENTITY unconfirmed` in the digest data: print `.agent/welcome.md`
   first, once, then ask their name, then offer the joyride
   (`.agent/joyride.md`). The user says "joyride" at any later time: same.
@@ -205,10 +217,11 @@ Never inferred mood, never counts as scores, never a leaderboard.
 
 ## 13. Models
 
-Use a cheaper, faster tier for routine reads, digests and inbox triage. Use
-the strongest available tier for interviews, drafting, win strategy and
-anything the user will defend in a room. Tier names and current
-recommendations live in the README, not here; they change.
+You cannot switch models yourself. When the work ahead is an interview,
+drafting, or a win strategy and the session is running a fast tier, say
+so once and suggest they switch (in Claude Code: `/model`). Routine reads,
+digests and inbox triage are fine on any tier. Names of current tiers live
+in the README, not here; they change.
 
 ## 14. Next-step prompts
 
@@ -224,10 +237,11 @@ menu, never padded.
 The system looks after itself in four ways. Run them; don't wait to be asked.
 
 - **Doctor.** `sync.sh open` includes `DOCTOR` lines when something is
-  off. Run `sync.sh doctor --fix` for anything it can repair (stuck rebase,
-  missing ripgrep, missing person folder, unpushed commits). Ask for
-  anything needing a URL or a decision (no remote, template origin, private
-  repo not backed up).
+  off. Run `sync.sh doctor --fix` for anything it repairs without
+  installing software (stuck rebase or merge, missing person folder,
+  unpushed commits). Installing ripgrep (`doctor --install`) needs a yes
+  first. Ask for anything needing a URL or a decision (no remote, template
+  origin, private repo not backed up).
 - **Friction log.** When you had to guess, or the user corrected you ("no,
   I meant…"), or an instruction in this file didn't fit the situation, log
   it: `sync.sh friction "<one line: what happened, what you did>"`. It goes
@@ -238,20 +252,21 @@ The system looks after itself in four ways. Run them; don't wait to be asked.
   if `gh` is installed, `gh issue create --repo <template> …` after showing
   the text; otherwise print the text and the issues URL from
   `.agent/template-origin`.
-- **Feedback.** "feedback: …" from the user → `sync.sh feedback "<text>"`.
-  It records the note in `context/feedback.md` and prints a prefilled
-  GitHub issue link for the template. Before showing the link, strip
-  anything business-specific from the text (client names, people, numbers)
-  and show them what the issue will say. They open the link; you never
-  post on their behalf unless `gh` is installed and they say so.
+- **Feedback.** "feedback: …" from the user. First strip anything
+  business-specific from the text (client names, people, numbers) and show
+  them the sanitised version. Then `sync.sh feedback "<sanitised text>"`:
+  it records the note in `context/feedback.md` and prints a prefilled
+  GitHub issue link for the template. They open the link; you never post
+  on their behalf unless `gh` is installed and they say so.
 - **The one small ask.** When the digest data has a `NUDGE` line, follow
   `.agent/digest.md`: once, with their own numbers, ask for a star and
   invite feedback. Then `sync.sh nudged`. Never again.
-- **Upgrade.** `sync.sh upgrade` pulls the latest engine files (this file,
-  `.agent/`, hooks, scopes, docs) from the template into this repo without
-  touching context, people or jobs. Confirm before running it; say what
-  the template's CHANGELOG lists since the current version. Offer it when
-  the digest is quiet and it's been more than a month.
+- **Upgrade.** `sync.sh upgrade` previews the latest tagged release of the
+  engine (this file, `.agent/`, hooks, scopes, docs): the files it would
+  change and the changelog lines. Show that to the user in a few lines and
+  wait for a yes. Then `sync.sh upgrade --apply`. Context, people and jobs
+  are never touched. Offer it when the digest is quiet and it's been more
+  than a month; never apply it unasked.
 
 ## 16. Adding people
 

@@ -20,10 +20,11 @@ Private items go to the personal repo, never the shared one.
 ## The personal repo
 
 Path: `../<me>-private/` (sibling of the shared repo, `<me>` from
-`.last-seen/me`). Same layout. Created on first need by `sync.sh private-init`,
-which also asks for a remote so it's backed up like everything else. If the
-user has no private remote yet, create the repo locally, say it isn't backed
-up, and remind them once a week in the digest until it is.
+`.last-seen/me`). Same layout. Created on first need by
+`sync.sh private-init [remote-url]`. Ask the user for a private repository
+URL so it's backed up like everything else; if they don't have one yet,
+create it locally without, say it isn't backed up, and remind them once a
+week in the digest until it is.
 
 Loading: if the sibling exists, load the same files from it as from the
 shared repo and present them as one view. When listing tasks, private ones
@@ -33,7 +34,7 @@ load?", list both.
 Writing: a private task goes to `../<me>-private/people/<me>/tasks.md`. A
 private note about a job goes to `../<me>-private/jobs/<same id>/notes.md`
 (the job folder there holds only private notes; brief, status and decisions
-stay shared). Save with `sync.sh save --private "<reasoning>"`.
+stay shared). Save with `sync.sh save "<reasoning>" --private`.
 
 ## Detection heuristics
 

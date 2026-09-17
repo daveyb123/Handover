@@ -8,6 +8,12 @@
 context/expertise/*.md
 !context/expertise/README.md
 
+# Per-machine tool state and secrets. Never shared.
+.claude/settings.local.json
+CLAUDE.local.md
+.env
+.env.*
+
 # OS noise
 .DS_Store
 Thumbs.db

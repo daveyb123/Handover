@@ -26,7 +26,9 @@ expertise files. Those live in each business's own private copy.
 - **Markdown** wraps at about 80 columns, uses `-` for lists, and has one
   H1 per file.
 - **Versioning** follows semver. Update `CHANGELOG.md` under *Unreleased* in
-  the same pull request as the change.
+  the same pull request as the change. A release bumps `.agent/VERSION`,
+  the README badge and the changelog, and is tagged `vX.Y.Z`; business
+  repos upgrade from tags, never from `main`.
 - **Verify before shipping** anything that names an external tool's
   behaviour (hook names, instruction-file conventions, model names). They
   move. Say in the pull request what you checked and when.

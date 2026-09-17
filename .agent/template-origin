@@ -1,4 +1,4 @@
 # Remotes that are the public template. sync.sh never pushes to any of these.
 # A business repo must have its own remote (GitHub "Use this template", or a
 # private repo you create), set with: .agent/sync.sh remote <url>
-github.com/daveyb123/handover
+github.com/daveyb123/Handover

@@ -18,7 +18,7 @@ The scale's own rules, which apply to every footer:
 - The highest applicable level governs the entire piece.
 - At all levels the author takes responsibility for the finished work.
 
-| Level | Name | Means (from the scale) |
+| Level | Name | Means (quoted from the scale) |
 |---|---|---|
 | AI-0 | Human | No AI was used in creating the piece. |
 | AI-1 | AI Researched | Written entirely by the author, with AI contributing research, proofreading or formatting. No substantive AI-generated language retained unless cited. |
@@ -40,14 +40,16 @@ Append, after a horizontal rule, one italic line, exactly this shape:
 
 ```
 ---
-*[AI-4](https://www.winwithoutpitching.com/aiscale): AI Drafted; the author substantially edited and verified the finished work | By [Handover](https://github.com/daveyb123/Handover)*
+*[AI-4](https://www.winwithoutpitching.com/aiscale "AI Contribution Scale by Blair Enns, CC BY 4.0"): AI Drafted; the author substantially edited and verified the finished work | By [Handover](https://github.com/daveyb123/Handover)*
 ```
 
 Small, one line, at the very end, nothing else. It converts cleanly to
 Word and to anything else that reads markdown. The parts, in order:
 
-- the level, linked to the scale (that link is the CC BY attribution;
-  never drop it), then the level's one-line meaning from this table:
+- the level, linked to the scale with the title text "AI Contribution
+  Scale by Blair Enns, CC BY 4.0" (that link and title are the CC BY
+  attribution; never drop them), then the level's one-line meaning from
+  this table (abridged from the scale's own wording):
 
   | Level | Line |
   |---|---|
