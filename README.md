@@ -347,6 +347,19 @@ up". Everything else the repo brings; the
 assistant offers to install `ripgrep` for search (Taskwarrior only if you
 want it).
 
+## 🤖 AI contribution to this repository
+
+[AI-4](https://www.winwithoutpitching.com/aiscale "AI Contribution Scale by Blair Enns, CC BY 4.0"):
+AI Drafted; the author substantially edited and verified the finished work
+| By [Handover](https://github.com/daveyb123/Handover)
+
+The idea, the argument, the source material and every design decision came
+from a human, written as a specification. An AI coding agent produced most
+of the prose and the scripts from it. The human directed each revision,
+tested the result end to end, and verified it. The scale is the
+[AI Contribution Scale](https://www.winwithoutpitching.com/aiscale) by
+Blair Enns, and every document this system generates carries the same line.
+
 ## 📜 Licence
 
 MIT. See `LICENSE`. Third-party notices in `LICENSES/`. Expertise files
