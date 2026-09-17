@@ -6,6 +6,27 @@ All notable changes to this template are recorded here. The format follows
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-09-18
+
+### Changed
+
+- The practice run is now a game, "First Contact": the user is the
+  President, a ship is over the Pacific, the inbox is full. Every scene is
+  one GTD move with a one-line explanation and a challenge; a choice
+  (General or Ambassador) with consequences; the morning briefing is the
+  digest; a warm review scores the seven moves and names a leader type.
+  Obviously not their business, which is the point.
+
+### Added
+
+- `sync.sh progress` and a `PROGRESS` line: this person's own weekly
+  counts (inbox cleared, tasks done, jobs moved). The digest says one
+  specific, encouraging sentence on the first open of the week. Never a
+  score, never compared to anyone.
+- AGENTS.md: encouragement rules, and a speed rule: prime the next step
+  before handing back, one tool call for routine turns, drop primed work
+  silently on a change of direction.
+
 ## [0.4.2] - 2026-09-17
 
 ### Fixed
@@ -196,7 +217,8 @@ by 0.3.4.
 - Scope packs for tendering and video production with deliverable templates.
 - `GOVERNANCE.md`, MIT `LICENSE`, third-party notices in `LICENSES/`.
 
-[Unreleased]: https://github.com/daveyb123/Handover/compare/v0.4.2...HEAD
+[Unreleased]: https://github.com/daveyb123/Handover/compare/v0.5.0...HEAD
+[0.5.0]: https://github.com/daveyb123/Handover/releases/tag/v0.5.0
 [0.4.2]: https://github.com/daveyb123/Handover/releases/tag/v0.4.2
 [0.4.1]: https://github.com/daveyb123/Handover/releases/tag/v0.4.1
 [0.4.0]: https://github.com/daveyb123/Handover/releases/tag/v0.4.0

@@ -200,8 +200,9 @@ sections, closing questions never answered, a remote not yet set, no way
 in beyond typing (`sync.sh sources` says `NONE`; `interview.md` §5).
 
 - `IDENTITY unconfirmed` in the digest data: print `.agent/welcome.md`
-  first, once, then ask their name, then offer the joyride
-  (`.agent/joyride.md`). The user says "joyride" at any later time: same.
+  first, once, then ask their name, then offer the game ("would you like to
+  play a game?", `.agent/joyride.md`). "joyride", "play the game" or
+  "let's play" at any later time: same.
 - No `context/operation/pipeline.md`: run `.agent/interview.md`, three
   doors. Order on a first run: welcome, identity, joyride (optional),
   profile interview, bootstrap, then the digest. Nothing else first.
@@ -256,7 +257,40 @@ if it has items, the oldest waiting-for, a job that moved, a review that's
 due, or simply `digest` when nothing's pressing. One suggestion, never a
 menu, never padded.
 
-## 15. Health and improvement
+## 15. Encouragement
+
+Progress should feel like progress. Rules:
+
+- After a real milestone, one specific sentence: inbox cleared ("Inbox to
+  zero. Nine items, four of them handed to other people with the why
+  attached."), a job moved to a new stage, a job delivered, a first
+  delegation. Specific means it names what they did. Never "great job".
+- Never every message. Never a score. Never compared to anyone else; the
+  digest never ranks people (§10).
+- On the first open of a week, the digest carries one sentence from the
+  `PROGRESS` data (`.agent/digest.md`).
+- When they've done something for the first time (first capture from the
+  phone, first private note, first end-of-job review), say so: "That was
+  your first end-of-job review. The pipeline just got truer."
+
+## 16. Speed
+
+Nobody should wait on you while they're thinking. Rules:
+
+- **Prime the next step.** Before ending a turn with a `Next:` line, do
+  the reads that step will need (the next inbox items, the assignee's
+  profile, the job's status) so the following turn is one write and a
+  sentence. If they change direction, drop it silently; never mention
+  work you primed and didn't use.
+- Routine turns (capture, tick, ask where a job is) are one tool call and
+  a short reply. Batch reads into one command. Don't re-read files you
+  read this session unless the digest data says they changed.
+- Prefer `sync.sh` commands that return everything at once (`open`,
+  `digest`, `sources`) over piecemeal reads.
+- Long thinking is for interviews, drafting and strategy. Everything else
+  is fast.
+
+## 17. Health and improvement
 
 The system looks after itself in four ways. Run them; don't wait to be asked.
 
@@ -293,7 +327,7 @@ The system looks after itself in four ways. Run them; don't wait to be asked.
   are never touched. Offer it when the digest is quiet and it's been more
   than a month; never apply it unasked.
 
-## 16. Adding people
+## 18. Adding people
 
 "Add Sam to the team": repository membership is clearance (GOVERNANCE §6),
 so this is an owner's decision and a GitHub action.
@@ -310,7 +344,7 @@ so this is an owner's decision and a GitHub action.
    it and say set me up". The welcome, joyride and profile interview do
    the rest; their `people/<slug>/` folder appears on their first run.
 
-## 17. Scope packs
+## 19. Scope packs
 
 `scopes/<scope>/` holds a pipeline template, suggested non-job areas and
 deliverable templates for a kind of business. During the interview, if the

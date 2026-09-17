@@ -179,8 +179,10 @@ Company. This project is not affiliated with it.
 ## ☀️ How to use it day to day
 
 Open the CLI in the repo folder. The first time, you get a welcome screen,
-an optional two-minute practice run on a pretend company (say "joyride" any
-time to do it again), and two short interviews. After that, the first thing
+an optional five-minute game (you're the President, a ship is over the
+Pacific, your inbox is full; every move you make is a move you'll use for
+real; say "play the game" any time to do it again), and two short
+interviews. After that, the first thing
 you see is your digest: what changed since you were last here, filtered to
 you.
 
@@ -252,6 +254,9 @@ Nothing here needs a maintenance day.
   assistant had to guess.
 - **The assistant keeps a friction log** of its own guesses and your
   corrections, and offers the recurring ones back as template improvements.
+- **It tells you how you're going**, specifically and only to you: the
+  first open each week says what you cleared, finished and moved. Never a
+  score, never compared to anyone.
 - **It checks its own health** on every open and fixes what it safely can:
   a stuck sync, a missing search tool, an unpushed backlog. Anything needing
   a decision, it asks.

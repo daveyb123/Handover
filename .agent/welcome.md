@@ -70,6 +70,9 @@ line instead.
 ```
 
 Then: "First, what should I call you? A first name or short handle is fine."
+Then, once you have it: "Before we set up your business, would you like to
+play a game? Five minutes. You're the President. It goes badly. Say go, or
+skip." (`.agent/joyride.md`)
 
 From here until setup is finished, end every reply with a `Next:` block
 showing the exact thing to type, and accept `go` as "do that". See

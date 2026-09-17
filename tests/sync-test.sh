@@ -118,14 +118,16 @@ check "drop --suggest runs anywhere"     "(cd \"$T/a\" && $A drop --suggest) | g
 mkdir -p "$T/zip"; ( cd "$REPO" && git ls-files -z | tar --null -T - -cf - ) | ( cd "$T/zip" && tar -xf - ); cp "$REPO/.agent/sync.sh" "$T/zip/.agent/"
 check "zip: open reports NOTREPO"       "(cd \"$T/zip\" && .agent/sync.sh open) | grep -q '^NOTREPO'"
 check "zip: hook JSON still valid"      "(cd \"$T/zip\" && .agent/sync.sh open --hook) | python3 -c 'import json,sys; json.load(sys.stdin)'"
+printf -- '- [x] done thing\n' >> "$T/a/people/alex/tasks.md"; (cd "$T/a" && $A save "tick" >/dev/null)
+check "progress counts a task done"     "(cd \"$T/a\" && $A progress) | grep -qE '^PROGRESS week=.* done=[1-9]'"
 check "zip: doctor --fix initialises"   "(cd \"$T/zip\" && .agent/sync.sh doctor --fix) | grep -q 'initialised' && git -C \"$T/zip\" rev-parse HEAD >/dev/null 2>&1"
 
 # --- 10. joyride sandbox ---
-(cd "$T/a" && .agent/joyride.sh start alex >/dev/null)
+(cd "$T/a" && .agent/joyride.sh start alex "Alex" >/dev/null)
 SB="$T/a/.last-seen/joyride"
-due="$(grep -o 'due:[0-9-]*' "$SB/people/sam/tasks.md" | head -1 | cut -d: -f2)"
-dow="$(date -j -f %F "$due" +%u 2>/dev/null || date -d "$due" +%u)"
-check "joyride due date is Mon–Thu"     "[ \"$dow\" -ge 1 ] && [ \"$dow\" -le 4 ]"
+check "game has the West Wing staff"    "[ -f \"$SB/people/general/profile.md\" ] && [ -f \"$SB/people/ambassador/profile.md\" ] && [ -f \"$SB/people/press/profile.md\" ] && [ -f \"$SB/people/chief/profile.md\" ]"
+check "game inbox has seven items"      "[ \"\$(grep -c '^- ' \"$SB/people/alex/inbox.md\")\" = 7 ]"
+check "game job and waiting-for exist"  "[ -f \"$SB/jobs/2026-001-first-contact/brief.md\" ] && grep -q '#waiting' \"$SB/people/alex/tasks.md\""
 check "joyride sandbox doctor is quiet" "! (cd \"$SB\" && .agent/sync.sh open | grep -q '^DOCTOR')"
 check "joyride digest covers practice"  "(cd \"$SB\" && printf -- '- x\n' >> people/alex/inbox.md && .agent/sync.sh save practice >/dev/null && .agent/sync.sh open | grep -q '^MINE')"
 (cd "$T/a" && .agent/joyride.sh clean >/dev/null)

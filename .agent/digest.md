@@ -23,6 +23,8 @@ DOCTOR <problem>                             something needs attention (see AGEN
 REMINDER <id>\t<text>                        an Apple Reminders item to propose as a capture (opt-in)
 DROP <file> <n> bytes                        a text file in .last-seen/drop/ to read and propose
 SOURCES NONE                                 set up, but no way in from the phone or email yet
+PROGRESS week=<monday> done=N cleared=M moved=K
+                                             this person's own counts this week (see below)
 NUDGE sessions=N days=D writes=W star=<url> issues=<url> sponsor=<url>
                                              once ever: time for the one small ask (AGENTS.md §15)
 END
@@ -76,6 +78,13 @@ now." / "Nothing's backed up yet; give me a repo URL when you have one.").
 Fix what `doctor --fix` fixes without asking; ask before installing
 anything (`doctor --install`) and for anything that needs a URL or a
 decision.
+
+If there is a `PROGRESS` line and this is the first open of the week
+(track it in `.last-seen/progress-week`: write the `week=` value there
+after saying it), add one sentence after the timestamp, specific and warm,
+never a score, never compared to anyone: "Since Monday: eleven things
+cleared from your inbox, four tasks done, one job moved to review. Keep
+going." Otherwise say nothing about it.
 
 If there is a `NUDGE` line, this is the one time you ask. After the
 timestamp, two sentences, warm, no pressure, with the numbers:

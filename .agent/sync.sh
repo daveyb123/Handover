@@ -21,6 +21,7 @@
 #                                 folder, mail rule); NONE if nothing is
 #   sync.sh mail-rule             install the Apple Mail rule script that saves
 #                                 "capture:" emails into the drop folder (macOS)
+#   sync.sh progress              this person's counts this week (done, cleared, moved)
 #   sync.sh friction "<note>"     log a guess or correction for later review
 #   sync.sh feedback "<text>"     record feedback and print a prefilled issue link
 #   sync.sh nudged                remember that the one-time star/feedback ask was made
@@ -153,6 +154,21 @@ list_drop() {
     [ -s "$f" ] || continue   # an emptied capture.txt is not news
     n=$((n+1)); echo "DROP $(basename "$f") $(wc -c < "$f" | tr -d ' ') bytes"
   done
+  return 0
+}
+
+progress_check() {
+  # Personal, never comparative: what this person moved this week.
+  local m monday base ndone cleared moved
+  m="$(me)"; [ -n "$m" ] || return 0
+  monday="$(date -v-mon +%F 2>/dev/null || date -d 'last monday' +%F 2>/dev/null)"; [ -n "$monday" ] || return 0
+  base="$(g rev-list -1 --before="$monday 00:00" HEAD 2>/dev/null)"
+  [ -n "$base" ] || base="$(g rev-list --max-parents=0 HEAD 2>/dev/null | tail -1)"
+  [ -n "$base" ] || return 0
+  ndone="$(g diff "$base"..HEAD -- "people/$m/tasks.md" 2>/dev/null | grep -c '^+- \[x\]')"
+  cleared="$(g diff "$base"..HEAD -- "people/$m/inbox.md" 2>/dev/null | grep -c '^-- ')"
+  moved="$(g log "$base"..HEAD --format=%h -- 'jobs/*/status.md' 2>/dev/null | wc -l | tr -d ' ')"
+  [ $((ndone+cleared+moved)) -gt 0 ] && echo "PROGRESS week=$monday done=$ndone cleared=$cleared moved=$moved"
   return 0
 }
 
@@ -433,6 +449,7 @@ case "$cmd" in
       run_doctor 0 | grep -v 'identity not set'
       read_reminders
       list_drop
+      progress_check
       [ -f "$ROOT/context/operation/pipeline.md" ] && [ "$("$0" sources | grep -c '^SOURCE ')" -eq 0 ] && echo "SOURCES NONE"
       nudge_check)"
     if [ "$hook" -eq 0 ]; then printf '%s\n' "$data"; exit 0; fi
@@ -563,6 +580,8 @@ case "$cmd" in
     else echo "MAIL-RULE could not compile the script"; fi
     rm -f "$tmp"
     ;;
+
+  progress) progress_check || true; [ -z "$(progress_check)" ] && echo "PROGRESS nothing recorded yet this week" ;;
 
   friction)
     note="${1:-}"; [ -n "$note" ] || { echo "friction: note required" >&2; exit 1; }
