@@ -18,6 +18,10 @@ All notable changes to this template are recorded here. The format follows
 - `sync.sh friction`: a log of guesses and corrections, read by the
   divergence report and offered back as template issues.
 - Adding people: agent instructions and a README section.
+- `Next:` line on every reply after onboarding too, with `go` to run it.
+- "feedback:" records a note and prints a prefilled, sanitised template
+  issue link; `sync.sh nudged` and a one-time star ask after five sessions,
+  three days and ten writes.
 
 ### Fixed
 

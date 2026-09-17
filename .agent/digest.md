@@ -20,6 +20,8 @@ OVERDUE <n> items                              due: before today, open
 PRIVATE <ok|no-remote|absent>
 REMOTE template-origin ...                   only when origin is the public template: nothing is pushed
 DOCTOR <problem>                             something needs attention (see AGENTS.md §15)
+NUDGE sessions=N days=D writes=W star=<url> issues=<url>
+                                             once ever: time for the one small ask (AGENTS.md §15)
 END
 ```
 
@@ -60,6 +62,16 @@ what's wrong and what you'll do ("Ripgrep isn't installed; I'll install it
 now." / "Nothing's backed up yet; give me a repo URL when you have one.").
 Fix what `doctor --fix` fixes without asking; ask for anything that needs
 a URL or a decision.
+
+If there is a `NUDGE` line, this is the one time you ask. After the
+timestamp, two sentences, warm, no pressure, with the numbers:
+
+> That's five sessions and 23 things filed since Monday. If this is earning
+> its keep, a star on GitHub helps the next small team find it:
+> <star url>. And anything that's annoyed you, say "feedback:" and I'll
+> pass it on.
+
+Then run `sync.sh nudged`. Never ask again, whatever they say.
 
 If PRIVATE is `no-remote`, once a week: "Your private repo isn't backed up
 yet. Say 'back up my private repo' when you have a minute."

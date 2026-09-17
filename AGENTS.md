@@ -212,11 +212,12 @@ recommendations live in the README, not here; they change.
 
 ## 14. Next-step prompts
 
-During the welcome, joyride, profile interview and bootstrap, end every
-reply with a `Next:` block containing the exact thing to type, and treat
-`go` as "do that". After setup, add a `Next:` line only when there is one
-obvious next step (an inbox with items, a job waiting on them, a review
-due). Never more than one suggestion. Never as a menu.
+End every reply with one `Next:` line containing the exact thing to type,
+and treat `go` as "do that". During onboarding it's the next step of the
+script. After setup it's the most useful single thing right now: the inbox
+if it has items, the oldest waiting-for, a job that moved, a review that's
+due, or simply `digest` when nothing's pressing. One suggestion, never a
+menu, never padded.
 
 ## 15. Health and improvement
 
@@ -237,6 +238,15 @@ The system looks after itself in four ways. Run them; don't wait to be asked.
   if `gh` is installed, `gh issue create --repo <template> …` after showing
   the text; otherwise print the text and the issues URL from
   `.agent/template-origin`.
+- **Feedback.** "feedback: …" from the user → `sync.sh feedback "<text>"`.
+  It records the note in `context/feedback.md` and prints a prefilled
+  GitHub issue link for the template. Before showing the link, strip
+  anything business-specific from the text (client names, people, numbers)
+  and show them what the issue will say. They open the link; you never
+  post on their behalf unless `gh` is installed and they say so.
+- **The one small ask.** When the digest data has a `NUDGE` line, follow
+  `.agent/digest.md`: once, with their own numbers, ask for a star and
+  invite feedback. Then `sync.sh nudged`. Never again.
 - **Upgrade.** `sync.sh upgrade` pulls the latest engine files (this file,
   `.agent/`, hooks, scopes, docs) from the template into this repo without
   touching context, people or jobs. Confirm before running it; say what

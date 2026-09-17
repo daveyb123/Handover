@@ -141,6 +141,15 @@ Nothing here needs a maintenance day.
 - **Upgrades come from the template.** Say "upgrade" and the engine files
   update in place, leaving your context, people and jobs untouched.
 
+## Feedback, and one small ask
+
+Say "feedback:" followed by anything, any time. The assistant records it
+and gives you a prefilled link to send it to the template, with your
+business details stripped. That is how the engine improves for everyone.
+
+Once, after you've used it for a few days, the assistant will ask you for a
+star on GitHub if it's earning its keep. Once. It won't ask again.
+
 ## Privacy
 
 Everyone in this repository has the same clearance. Everything in it is

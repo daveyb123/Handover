@@ -8,6 +8,8 @@
 #   sync.sh doctor [--fix]        check the clone; fix what is safe to fix
 #   sync.sh upgrade               pull the latest engine files from the template
 #   sync.sh friction "<note>"     log a guess or correction for later review
+#   sync.sh feedback "<text>"     record feedback and print a prefilled issue link
+#   sync.sh nudged                remember that the one-time star/feedback ask was made
 #   sync.sh pull [--throttle N] [--quiet]
 #                                 pull --rebase; skip if pulled < N seconds ago
 #   sync.sh save "<reasoning>" [--private]
@@ -54,6 +56,32 @@ private_dir() { local m; m="$(me)"; [ -n "$m" ] && printf '%s/../%s-private' "$R
 has_remote() { g remote get-url origin >/dev/null 2>&1; }
 
 json_escape() { sed -e 's/\\/\\\\/g' -e 's/"/\\"/g' -e 's/\t/\\t/g' | awk '{printf "%s\\n", $0}'; }
+
+template_web() {
+  local f="$here/template-origin" line
+  [ -f "$f" ] || return 1
+  line="$(grep -v '^#' "$f" | sed '/^[[:space:]]*$/d' | head -1)"
+  [ -n "$line" ] && printf 'https://%s' "$line"
+}
+
+urlenc() { sed -e 's/%/%25/g' -e 's/ /%20/g' -e 's/&/%26/g' -e 's/#/%23/g' -e 's/+/%2B/g' -e 's/"/%22/g' | awk 'NR>1{printf "%%0A"} {printf "%s", $0}'; }
+
+nudge_check() {
+  # Once, after real use: 5+ sessions over 3+ days and 10+ writes by this
+  # user, and never before. Prints a NUDGE line when it's time.
+  local m first now sessions days writes
+  m="$(me)"; [ -n "$m" ] || return 0
+  [ -f "$LS/nudged" ] && return 0
+  now="$(date +%s)"
+  [ -s "$LS/first-open" ] || echo "$now" > "$LS/first-open"
+  first="$(cat "$LS/first-open")"
+  sessions="$(( $(cat "$LS/sessions" 2>/dev/null || echo 0) + 1 ))"; echo "$sessions" > "$LS/sessions"
+  days="$(( (now - first) / 86400 ))"
+  writes="$(g log --since="@$first" --format=%h -- people jobs context 2>/dev/null | wc -l | tr -d ' ')"
+  if [ "$sessions" -ge 5 ] && [ "$days" -ge 3 ] && [ "$writes" -ge 10 ]; then
+    echo "NUDGE sessions=$sessions days=$days writes=$writes star=$(template_web) issues=$(template_web)/issues/new"
+  fi
+}
 
 template_url() {
   local f="$here/template-origin" line
@@ -281,7 +309,8 @@ case "$cmd" in
     data="$(print_digest "PULL $pstat $pn new commits" \
       "HANDEDIT $([ "$hn" -gt 0 ] && echo "$hn files committed as unattributed hand edit" || echo none)"
       is_template_origin && echo "REMOTE template-origin (pushes disabled: this clone still points at the public template; set your own remote with sync.sh remote <url>)"
-      run_doctor 0 | grep -v 'identity not set')"
+      run_doctor 0 | grep -v 'identity not set'
+      nudge_check)"
     if [ "$hook" -eq 0 ]; then printf '%s\n' "$data"; exit 0; fi
     # Claude Code hook: a line the user sees, plus the data as context.
     if ! [ -s "$LS/me" ]; then ready="Handover is ready. First time here? Type:  set me up"
@@ -309,6 +338,19 @@ case "$cmd" in
     bg_push "$ROOT"
     echo "UPGRADE done: $changed files from template $new (see CHANGELOG.md)"
     ;;
+
+  feedback)
+    text="${1:-}"; [ -n "$text" ] || { echo "feedback: text required" >&2; exit 1; }
+    f="$ROOT/context/feedback.md"
+    [ -f "$f" ] || printf '# Feedback\n\nWhat people here said about Handover, and whether it was passed on to the template.\n\n' > "$f"
+    printf -- '- %s %s: %s\n' "$TODAY" "$(me)" "$text" >> "$f"
+    web="$(template_web)" || { echo "FEEDBACK logged (no template configured)"; exit 0; }
+    echo "FEEDBACK logged"
+    echo "ISSUE $web/issues/new?title=$(printf '%s' "Feedback: ${text:0:60}" | urlenc)&body=$(printf '%s\n\n(sent from a Handover business repo, business details removed)' "$text" | urlenc)"
+    echo "STAR $web"
+    ;;
+
+  nudged) date +%s > "$LS/nudged"; echo "NUDGED" ;;
 
   friction)
     note="${1:-}"; [ -n "$note" ] || { echo "friction: note required" >&2; exit 1; }
