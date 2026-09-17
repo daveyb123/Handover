@@ -179,12 +179,14 @@ star on GitHub if it's earning its keep. Once. It won't ask again.
 
 ## Supporting it
 
-Handover is free and MIT-licensed, and stays that way. If it is earning its
-keep in your business, [sponsoring it on GitHub](https://github.com/sponsors/daveyb123)
-pays for the time that keeps the engine maintained and the scope packs
-growing. If you'd rather pay for help than for code, the useful thing to
-buy is an afternoon: someone to run the interview with you and set up your
-business's context properly.
+If you're enjoying this and it brings you joy, great. If it doesn't, Marie
+Kondo it: thank it and let it go, no hard feelings.
+
+If you're brave enough to delete your project-management SaaS, send what
+you were paying it my way instead:
+[github.com/sponsors/daveyb123](https://github.com/sponsors/daveyb123).
+It funds the battle. Handover is free and MIT-licensed and stays that way
+either way.
 
 ## Privacy
 

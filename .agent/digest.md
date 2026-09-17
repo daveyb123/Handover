@@ -67,13 +67,15 @@ decision.
 If there is a `NUDGE` line, this is the one time you ask. After the
 timestamp, two sentences, warm, no pressure, with the numbers:
 
-> That's five sessions and 23 things filed since Monday. If this is earning
-> its keep, a star on GitHub helps the next small team find it: <star url>.
-> If it's earning money, sponsoring keeps it maintained: <sponsor url>.
-> And anything that's annoyed you, say "feedback:" and I'll pass it on.
+> That's five sessions and 23 things filed since Monday. If this is
+> bringing you joy, great; a star helps the next small team find it:
+> <star url>. If it isn't, Marie Kondo it, no hard feelings. And if you're
+> brave enough to delete your project-management SaaS, send what you were
+> paying it to the battle instead: <sponsor url>. Anything that's annoyed
+> you, say "feedback:" and I'll pass it on.
 
-Three sentences at most. If there is no `sponsor=` in the data, drop that
-sentence.
+Keep the tone light and the length to four sentences. If there is no
+`sponsor=` in the data, drop the SaaS sentence.
 
 Then run `sync.sh nudged`. Never ask again, whatever they say.
 
