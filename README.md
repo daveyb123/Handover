@@ -49,8 +49,16 @@ exactly what to click or type next. If I'm on Windows, tell me to install Git
 for Windows first.
 ```
 
-Nothing to type except your business name and three words. Pick your
-computer.
+**Not technical?** Use the app, not a terminal: the **Claude** desktop app
+or the **ChatGPT** desktop app. Follow the table for your computer below.
+Nothing to type except your business name and three words.
+
+**Technical?** Clone it, open the folder in your terminal or your IDE's
+agent (Claude Code, Codex, Cursor, whatever you use), say "set me up".
+Skip to "Technical? Terminal or IDE" below, then "How to use it day to
+day".
+
+Pick your computer:
 
 ### Windows
 
@@ -59,7 +67,7 @@ computer.
 | 0 | Install [Git for Windows](https://git-scm.com/download/win): download, open, click **Next** on every screen, then **Install**. | "Git Bash" appears in your Start menu. |
 | 1 | At the top of this page click **Use this template** → **Create a new repository**. Name it after your business. Choose **Private**. **Create**. (No GitHub account? It asks you to make one. Free.) | You're looking at a page with your business's name on it. |
 | 2 | Install [GitHub Desktop](https://desktop.github.com), sign in. On your new repository's page click the green **Code** button → **Open with GitHub Desktop** → **Clone**. | GitHub Desktop shows your repository, and there's a folder in Documents › GitHub. |
-| 3 | Install the [Claude desktop app](https://claude.ai/download), sign in (Pro or Max), click the **Code** tab → **Select folder** → that folder. *(ChatGPT instead: the [ChatGPT app](https://openai.com/chatgpt/download/) → Codex → Open folder.)* | The first line on screen says **Handover is ready**. |
+| 3 | Open the folder in your app. **Claude:** install the [Claude desktop app](https://claude.ai/download), sign in (Pro or Max), **Code** tab → **Select folder** → that folder. **ChatGPT:** install the [ChatGPT app](https://openai.com/chatgpt/download/), sign in, **Codex** → **Open folder** → that folder. | Claude: the first line says **Handover is ready**. ChatGPT: type `digest` and it greets you. |
 | 4 | Type **set me up** and press Enter. | It says hello, offers a two-minute practice run, and starts asking about your business. |
 
 ### Mac
@@ -68,7 +76,7 @@ computer.
 |---|---|---|
 | 1 | At the top of this page click **Use this template** → **Create a new repository**. Name it after your business. Choose **Private**. **Create**. (No GitHub account? It asks you to make one. Free.) | You're looking at a page with your business's name on it. |
 | 2 | Install [GitHub Desktop](https://desktop.github.com), sign in. On your new repository's page click the green **Code** button → **Open with GitHub Desktop** → **Clone**. If your Mac pops up "install the command line developer tools", click **Install**. | GitHub Desktop shows your repository, and there's a folder in Documents › GitHub. |
-| 3 | Install the [Claude desktop app](https://claude.ai/download), sign in (Pro or Max), click the **Code** tab → **Select folder** → that folder. *(ChatGPT instead: the [ChatGPT app](https://openai.com/chatgpt/download/) → Codex → Open folder.)* | The first line on screen says **Handover is ready**. |
+| 3 | Open the folder in your app. **Claude:** install the [Claude desktop app](https://claude.ai/download), sign in (Pro or Max), **Code** tab → **Select folder** → that folder. **ChatGPT:** install the [ChatGPT app](https://openai.com/chatgpt/download/), sign in, **Codex** → **Open folder** → that folder. | Claude: the first line says **Handover is ready**. ChatGPT: type `digest` and it greets you. |
 | 4 | Type **set me up** and press Enter. | It says hello, offers a two-minute practice run, and starts asking about your business. |
 
 ### Linux
@@ -80,10 +88,10 @@ anywhere else it's just Claude or ChatGPT. Downloaded a ZIP instead of
 cloning? Also fine: open that folder and say "set me up"; it sorts itself
 out.
 
-## ⌨️ If you end up in a terminal instead
+## ⌨️ Technical? Terminal or IDE
 
-Some people land in PowerShell or Terminal rather than the desktop app.
-That works too. Three moves, and the third is the one people miss:
+If you live in a terminal or an IDE, you know most of this. Three moves,
+and the third is the one non-technical people miss if they end up here:
 
 1. **Install Claude Code.** Windows: open PowerShell (Start menu, type
    "PowerShell") and paste `irm https://claude.ai/install.ps1 | iex`, then
@@ -101,13 +109,10 @@ That works too. Three moves, and the third is the one people miss:
    sign you in and asks you to trust the folder. Say yes. You should see
    "Handover is ready".
 
-## 🧭 Where are you starting from?
-
-**Already using an assistant in a terminal?** Then `cd` into the folder
-and run it there. Claude Code is the reference: its hooks run the sync and
-the digest for you. Codex, Antigravity, Copilot and others read the same
-instructions and run the same script themselves. Skip to "How to use it
-day to day".
+**IDE agents** (Cursor, Copilot, Antigravity) open the folder as a project
+and read the same instructions; run `.agent/sync.sh open` if nothing
+greets you. Claude Code is the reference: its hooks run the sync and the
+digest for you; the others run the same script when asked.
 
 **Prefer the browser?** claude.ai/code can open your GitHub copy directly
 without anything on your computer. The core works there; the phone
