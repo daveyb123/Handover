@@ -11,7 +11,7 @@ Nobody needs to learn git. Nobody needs to learn a new app.
 
 ![The first thing you see: the Handover welcome screen in Claude Code, with the GTD workflow drawn in text](docs/welcome.gif)
 
-## Before you start: you need an AI assistant that can work in a folder
+## 🧠 Before you start: you need an AI assistant that can work in a folder
 
 Not the chat window. The kind that can open a folder on your computer and
 read and write files in it. Two work out of the box today:
@@ -25,7 +25,39 @@ Also fine, if you already use them: Google Antigravity (free with a Google
 account) and GitHub Copilot (free tier). Both read the same instructions.
 Prices are in US dollars and change; check the vendor's page.
 
-## ➜ Start here
+## 🚀 Start here
+
+> [!TIP]
+> **Stuck at any point? Use your AI as the guide.** Paste the block below
+> into Claude or ChatGPT, then go back and forth: paste in whatever your
+> screen says, paste in the folder's location when it asks, do what it
+> says, paste what happened. Repeat until it says "Handover is ready".
+> Congratulations, you're now a developeeeeer.
+>
+> ```
+>    You                                  Your AI assistant
+>     │  paste what's on screen (or the error)  │
+>     │ ───────────────────────────────────────▶│
+>     │                                         │  "click this / type that"
+>     │ ◀─────────────────────────────────────── │
+>     │  do it, paste what happened             │
+>     │ ───────────────────────────────────────▶│
+>     ▼                                         ▼
+>           … until it says "Handover is ready"
+> ```
+>
+> Copy this and paste it in:
+>
+> > I want to set up a tool called Handover: https://github.com/daveyb123/Handover
+> > I'm not technical. Walk me through it one step at a time and check each
+> > step worked before the next: (1) a free GitHub account if I don't have
+> > one, (2) click "Use this template" on that page to make my own private
+> > copy, (3) install GitHub Desktop and clone my copy to my computer,
+> > (4) open that folder in your desktop app (Claude: the Code tab; ChatGPT:
+> > Codex, Open folder), (5) type "set me up". Stop there. Don't explain git
+> > unless I ask. At each step, ask me to paste what my screen shows, and
+> > where the folder is, and tell me exactly what to click or type next. If
+> > I'm on Windows, tell me to install Git for Windows first.
 
 Nothing to type except your business name and three words. Pick your
 computer.
@@ -58,23 +90,7 @@ anywhere else it's just Claude or ChatGPT. Downloaded a ZIP instead of
 cloning? Also fine: open that folder and say "set me up"; it sorts itself
 out.
 
-**Stuck?** Use your chat assistant as the guide. Copy the block below,
-paste it into Claude or ChatGPT, and then keep going back and forth: paste
-in whatever your screen says, paste in the folder's location when it asks,
-tell it what happened. That loop is how people get through this.
-
-> I want to set up a tool called Handover: https://github.com/daveyb123/Handover
-> I'm not technical. Walk me through it one step at a time and check each
-> step worked before the next: (1) a free GitHub account if I don't have
-> one, (2) click "Use this template" on that page to make my own private
-> copy, (3) install GitHub Desktop and clone my copy to my computer,
-> (4) open that folder in your desktop app (Claude: the Code tab; ChatGPT:
-> Codex, Open folder), (5) type "set me up". Stop there. Don't explain git
-> unless I ask. At each step, ask me to paste what my screen shows, and
-> where the folder is, and tell me exactly what to click or type next. If
-> I'm on Windows, tell me to install Git for Windows first.
-
-## If you end up in a terminal instead
+## ⌨️ If you end up in a terminal instead
 
 Some people land in PowerShell or Terminal rather than the desktop app.
 That works too. Three moves, and the third is the one people miss:
@@ -95,7 +111,7 @@ That works too. Three moves, and the third is the one people miss:
    sign you in and asks you to trust the folder. Say yes. You should see
    "Handover is ready".
 
-## Where are you starting from?
+## 🧭 Where are you starting from?
 
 **Already using an assistant in a terminal?** Then `cd` into the folder
 and run it there. Claude Code is the reference: its hooks run the sync and
@@ -108,7 +124,7 @@ without anything on your computer. The core works there; the phone
 capture and private-repo features assume a computer of your own, so
 treat the browser as a way to look, not the way to live.
 
-## Why it works like this
+## 🤔 Why it works like this
 
 Your tasks and your team's context are text files in a git repository because
 that gives you history, attribution and offline access for free, and because
@@ -127,7 +143,7 @@ It solves two things project-management tools don't:
 - **Getting the process out of the owner's head.** The assistant interviews
   you about real jobs. You never sit down to "write the documentation".
 
-## Where it came from
+## 🌱 Where it came from
 
 This started as one person's Getting Things Done system. It lived in Notion
 for years and, however elegant the setup, it stayed cumbersome: too many
@@ -158,7 +174,7 @@ GTD maps onto the files like this:
 *Getting Things Done* and *GTD* are registered trademarks of the David Allen
 Company. This project is not affiliated with it.
 
-## How to use it day to day
+## ☀️ How to use it day to day
 
 Open the CLI in the repo folder. The first time, you get a welcome screen,
 an optional two-minute practice run on a pretend company (say "joyride" any
@@ -214,7 +230,7 @@ it inferred rather than was told.
 whatever you use) is yours. This system holds what people owe each other.
 Blurring those two is what kills most team systems.
 
-## Adding someone
+## 👋 Adding someone
 
 Say "add Sam to the team". Being in the repository *is* the clearance, so
 this is your decision, and it's a GitHub invitation: the assistant does it
@@ -223,7 +239,7 @@ and one sentence: *open your CLI in it and say "set me up"*. Sam gets the
 welcome, the practice run and a short profile interview, and appears in
 everyone's digests from then on.
 
-## It gets better as you use it
+## 📈 It gets better as you use it
 
 Nothing here needs a maintenance day.
 
@@ -240,7 +256,7 @@ Nothing here needs a maintenance day.
 - **Upgrades come from the template.** Say "upgrade" and the engine files
   update in place, leaving your context, people and jobs untouched.
 
-## Feedback, and one small ask
+## 💬 Feedback, and one small ask
 
 Say "feedback:" followed by anything, any time. The assistant records it
 and gives you a prefilled link to send it to the template, with your
@@ -249,7 +265,7 @@ business details stripped. That is how the engine improves for everyone.
 Once, after you've used it for a few days, the assistant will ask you for a
 star on GitHub if it's earning its keep. Once. It won't ask again.
 
-## Supporting it
+## ❤️ Supporting it
 
 If you're enjoying this and it brings you joy, great. If it doesn't, Marie
 Kondo it: thank it and let it go, no hard feelings.
@@ -260,7 +276,7 @@ you were paying it my way instead:
 It funds the battle. Handover is free and MIT-licensed and stays that way
 either way.
 
-## Privacy
+## 🔒 Privacy
 
 Everyone in this repository has the same clearance. Everything in it is
 readable by the whole team. Anything that genuinely needs tighter handling
@@ -271,7 +287,7 @@ repository instead. The assistant also watches for things that look private
 (a named person plus performance language, pay, health, legal matters) and
 asks before filing. That is a safety net, not a guarantee.
 
-## What it won't do
+## 🚫 What it won't do
 
 Coordination and memory, not production. It tracks that the edit is due and
 who's on it; it doesn't touch the timeline. It tracks that a response section
@@ -282,14 +298,14 @@ each ending with one small line: the AI contribution level on the
 Blair Enns (AI-0 to AI-5) and a "By Handover" link. Nothing else. You take them into Word, your design tool,
 or wherever you like.
 
-## Extending it
+## 🧩 Extending it
 
 Scope packs for new kinds of business, adapters for new signal sources, and
 an identity layer in front of the adapters for businesses that need real
 per-user permissions into their CRM or ERP. All three plug in without
 forking; see [docs/extending.md](docs/extending.md).
 
-## Connectors (optional, later)
+## 🔌 Connectors (optional, later)
 
 The assistant can read your team chat (Slack, Teams, Discord, Google Chat)
 and your own mailbox, spot commitments, and *propose* inbox items. Chat stays
@@ -300,7 +316,7 @@ screen. Treat it as an upgrade once the basics are working, requested as
 narrowly as possible: read-only, one mailbox, never the whole organisation.
 The system is fully usable with no connectors at all.
 
-## Model recommendation (September 2026)
+## 🎛️ Model recommendation (September 2026)
 
 The assistant uses two tiers. A fast, cheap model for routine reads, digests
 and inbox triage; the strongest available for interviews, drafting and
@@ -309,7 +325,7 @@ strategy. In Claude Code today that means **Haiku 4.5** for routine and
 small and large tiers. This paragraph is the only place model names appear;
 update it when they change.
 
-## What runs on your machine
+## ⚙️ What runs on your machine
 
 Three small scripts, automatically, once you've trusted the folder: a pull
 and digest when you open the CLI, a quiet background pull while you work,
@@ -319,7 +335,7 @@ pushed. Nothing goes anywhere but your own repository. Upgrades come from
 the template only when you say yes, and only from a tagged release. Details
 in `SECURITY.md`.
 
-## Prerequisites
+## ✅ Prerequisites
 
 An AI assistant that can work in a folder (see the top of this page:
 Claude Pro is paid, ChatGPT's free plan works), GitHub Desktop (which
@@ -331,7 +347,7 @@ up". Everything else the repo brings; the
 assistant offers to install `ripgrep` for search (Taskwarrior only if you
 want it).
 
-## Licence
+## 📜 Licence
 
 MIT. See `LICENSE`. Third-party notices in `LICENSES/`. Expertise files
 (someone's personal methodology) are theirs, sent to you directly, and never
