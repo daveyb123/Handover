@@ -21,6 +21,13 @@ read and write files in it. Two work out of the box today:
 | **Claude** (Claude Code) | **Paid.** Pro plan, about US$20 a month. The free plan does *not* include it. | Claude desktop app → **Code** tab → choose folder | The best experience: everything automatic. This is what Handover is built and tested on. |
 | **ChatGPT** (Codex) | **Free plan works.** Paid plans give more use. | ChatGPT desktop app → open a folder | Works well. A few of the automatic touches (the digest appearing on its own) need one extra word from you: type `digest`. |
 
+**Use Claude or ChatGPT in a web browser today?** Same login, same plan.
+You just need the desktop app as well, because the browser version can't
+open a folder on your computer. Install the app, sign in with the account
+you already have, and the **Code** tab (Claude) or **Codex** (ChatGPT) is
+right there. Don't go looking for install commands or a terminal; that's
+the wrong door.
+
 Also fine, if you already use them: Google Antigravity (free with a Google
 account) and GitHub Copilot (free tier). Both read the same instructions.
 Prices are in US dollars and change; check the vendor's page.
