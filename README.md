@@ -27,37 +27,27 @@ Prices are in US dollars and change; check the vendor's page.
 
 ## 🚀 Start here
 
+![If you get stuck: paste what your screen says into your AI assistant, do what it says, paste what happened, repeat until it says Handover is ready](docs/stuck-loop.png)
+
 > [!TIP]
-> **Stuck at any point? Use your AI as the guide.** Paste the block below
-> into Claude or ChatGPT, then go back and forth: paste in whatever your
-> screen says, paste in the folder's location when it asks, do what it
-> says, paste what happened. Repeat until it says "Handover is ready".
-> Congratulations, you're now a developeeeeer.
->
-> ```
->    You                                  Your AI assistant
->     │  paste what's on screen (or the error)  │
->     │ ───────────────────────────────────────▶│
->     │                                         │  "click this / type that"
->     │ ◀─────────────────────────────────────── │
->     │  do it, paste what happened             │
->     │ ───────────────────────────────────────▶│
->     ▼                                         ▼
->           … until it says "Handover is ready"
-> ```
->
-> Copy this and paste it in:
->
-> > I want to set up a tool called Handover: https://github.com/daveyb123/Handover
-> > I'm not technical. Walk me through it one step at a time and check each
-> > step worked before the next: (1) a free GitHub account if I don't have
-> > one, (2) click "Use this template" on that page to make my own private
-> > copy, (3) install GitHub Desktop and clone my copy to my computer,
-> > (4) open that folder in your desktop app (Claude: the Code tab; ChatGPT:
-> > Codex, Open folder), (5) type "set me up". Stop there. Don't explain git
-> > unless I ask. At each step, ask me to paste what my screen shows, and
-> > where the folder is, and tell me exactly what to click or type next. If
-> > I'm on Windows, tell me to install Git for Windows first.
+> **Stuck at any point? Use your AI as the guide.** Copy the block below,
+> paste it into Claude or ChatGPT, then go back and forth as in the picture:
+> paste in whatever your screen says, paste in the folder's location when it
+> asks, do what it says, paste what happened. Repeat until it says
+> "Handover is ready". Congratulations, you're now a developeeeeer.
+
+```text
+I want to set up a tool called Handover: https://github.com/daveyb123/Handover
+I'm not technical. Walk me through it one step at a time and check each step
+worked before the next: (1) a free GitHub account if I don't have one,
+(2) click "Use this template" on that page to make my own private copy,
+(3) install GitHub Desktop and clone my copy to my computer, (4) open that
+folder in your desktop app (Claude: the Code tab; ChatGPT: Codex, Open folder),
+(5) type "set me up". Stop there. Don't explain git unless I ask. At each step,
+ask me to paste what my screen shows, and where the folder is, and tell me
+exactly what to click or type next. If I'm on Windows, tell me to install Git
+for Windows first.
+```
 
 Nothing to type except your business name and three words. Pick your
 computer.
