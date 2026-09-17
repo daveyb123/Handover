@@ -347,6 +347,11 @@ up". Everything else the repo brings; the
 assistant offers to install `ripgrep` for search (Taskwarrior only if you
 want it).
 
+## 🛠️ Contributing
+
+Issues and pull requests are welcome. See `CONTRIBUTING.md` for the
+conventions, and `CHANGELOG.md` for what has changed.
+
 ## 🤖 AI contribution to this repository
 
 [AI-4](https://www.winwithoutpitching.com/aiscale "AI Contribution Scale by Blair Enns, CC BY 4.0"):
