@@ -3,7 +3,11 @@
 # .agent/sync.sh — the only way the agent touches git. Portable: any CLI can
 # call it. Claude Code calls it from hooks (see .claude/settings.json).
 #
-#   sync.sh open                  pull, absorb hand edits, print digest data
+#   sync.sh open [--hook]         pull, absorb hand edits, print digest data
+#                                 (--hook: JSON for Claude Code, with a ready line)
+#   sync.sh doctor [--fix]        check the clone; fix what is safe to fix
+#   sync.sh upgrade               pull the latest engine files from the template
+#   sync.sh friction "<note>"     log a guess or correction for later review
 #   sync.sh pull [--throttle N] [--quiet]
 #                                 pull --rebase; skip if pulled < N seconds ago
 #   sync.sh save "<reasoning>" [--private]
@@ -48,6 +52,55 @@ me() {
 private_dir() { local m; m="$(me)"; [ -n "$m" ] && printf '%s/../%s-private' "$ROOT" "$m"; }
 
 has_remote() { g remote get-url origin >/dev/null 2>&1; }
+
+json_escape() { sed -e 's/\\/\\\\/g' -e 's/"/\\"/g' -e 's/\t/\\t/g' | awk '{printf "%s\\n", $0}'; }
+
+template_url() {
+  local f="$here/template-origin" line
+  [ -f "$f" ] || return 1
+  line="$(grep -v '^#' "$f" | sed '/^[[:space:]]*$/d' | head -1)"
+  [ -n "$line" ] && printf 'https://%s.git' "$line"
+}
+
+ENGINE_PATHS=(AGENTS.md CLAUDE.md GEMINI.md README.md GOVERNANCE.md CONTRIBUTING.md CHANGELOG.md SECURITY.md .editorconfig .gitattributes .agent .claude/settings.json scopes)
+
+run_doctor() {
+  # Prints DOCTOR lines for anything wrong. With fix=1, repairs what is safe.
+  local fix="${1:-0}" m n=0
+  m="$(me)"
+  if [ -d "$ROOT/.git/rebase-merge" ] || [ -d "$ROOT/.git/rebase-apply" ]; then
+    if [ "$fix" = 1 ]; then g rebase --abort >/dev/null 2>&1 && echo "DOCTOR fixed: aborted a stuck rebase"; else echo "DOCTOR stuck rebase in progress (doctor --fix aborts it)"; fi; n=$((n+1))
+  fi
+  if [ -f "$ROOT/.git/MERGE_HEAD" ]; then
+    if [ "$fix" = 1 ]; then g merge --abort >/dev/null 2>&1 && echo "DOCTOR fixed: aborted a stuck merge"; else echo "DOCTOR stuck merge in progress (doctor --fix aborts it)"; fi; n=$((n+1))
+  fi
+  if ! has_remote; then echo "DOCTOR no remote: nothing is backed up (sync.sh remote <url>)"; n=$((n+1))
+  elif is_template_origin; then echo "DOCTOR origin is the public template: nothing will be pushed (sync.sh remote <url>)"; n=$((n+1)); fi
+  if ! command -v rg >/dev/null 2>&1; then
+    if [ "$fix" = 1 ] && command -v brew >/dev/null 2>&1; then brew install -q ripgrep >/dev/null 2>&1 && echo "DOCTOR fixed: installed ripgrep" || echo "DOCTOR ripgrep missing and install failed"
+    else echo "DOCTOR ripgrep not installed: search falls back to grep (doctor --fix installs it with Homebrew)"; fi; n=$((n+1))
+  fi
+  [ -s "$LS/me" ] || { echo "DOCTOR identity not set (ask, then sync.sh me <slug>)"; n=$((n+1)); }
+  if [ -n "$m" ] && [ -s "$LS/me" ] && [ ! -d "$ROOT/people/$m" ]; then
+    if [ "$fix" = 1 ]; then
+      mkdir -p "$ROOT/people/$m"
+      for t in tasks inbox; do [ -f "$ROOT/people/$m/$t.md" ] || sed "s/<Name>/$m/g" "$ROOT/people/.template/$t.md" > "$ROOT/people/$m/$t.md"; done
+      echo "DOCTOR fixed: created people/$m/ (profile interview still needed)"
+    else echo "DOCTOR people/$m/ missing (doctor --fix creates it)"; fi; n=$((n+1))
+  fi
+  [ -f "$ROOT/.claude/settings.json" ] || { echo "DOCTOR .claude/settings.json missing: hooks will not run (sync.sh upgrade restores it)"; n=$((n+1)); }
+  [ -f "$ROOT/.gitattributes" ] || { echo "DOCTOR .gitattributes missing: concurrent edits will conflict more (sync.sh upgrade restores it)"; n=$((n+1)); }
+  local pd; pd="$(private_dir)"
+  if [ -n "$pd" ] && [ -d "$pd/.git" ] && ! git -C "$pd" remote get-url origin >/dev/null 2>&1; then echo "DOCTOR private repo has no remote: not backed up"; n=$((n+1)); fi
+  if has_remote && ! is_template_origin; then
+    local ahead; ahead="$(g rev-list --count "@{u}..HEAD" 2>/dev/null || echo 0)"
+    if [ "${ahead:-0}" -gt 3 ]; then
+      if [ "$fix" = 1 ]; then bg_push "$ROOT"; echo "DOCTOR fixed: pushing $ahead unpushed commits"; else echo "DOCTOR $ahead commits not pushed (doctor --fix pushes)"; fi; n=$((n+1))
+    fi
+  fi
+  [ "$n" -eq 0 ] && [ "$fix" = 1 ] && echo "DOCTOR ok"
+  return 0
+}
 
 norm_url() { printf '%s' "$1" | tr '[:upper:]' '[:lower:]' | sed -E 's#^[a-z]+://##; s#^git@##; s#^[^/]*@##; s#:#/#; s#\.git/?$##; s#/+$##'; }
 
@@ -217,6 +270,7 @@ case "$cmd" in
     ;;
 
   open)
+    hook=0; [ "${1:-}" = "--hook" ] && hook=1
     read -r pstat pn <<<"$(do_pull)"
     hn="$(absorb_hand_edits)"
     # private sibling: pull it too, quietly
@@ -224,9 +278,44 @@ case "$cmd" in
     if [ -n "$pd" ] && [ -d "$pd/.git" ] && git -C "$pd" remote get-url origin >/dev/null 2>&1; then
       git -C "$pd" "${NET_OPTS[@]}" pull --rebase --autostash --quiet >/dev/null 2>&1 || true
     fi
-    print_digest "PULL $pstat $pn new commits" \
+    data="$(print_digest "PULL $pstat $pn new commits" \
       "HANDEDIT $([ "$hn" -gt 0 ] && echo "$hn files committed as unattributed hand edit" || echo none)"
-    is_template_origin && echo "REMOTE template-origin (pushes disabled: this clone still points at the public template; set your own remote with sync.sh remote <url>)"
+      is_template_origin && echo "REMOTE template-origin (pushes disabled: this clone still points at the public template; set your own remote with sync.sh remote <url>)"
+      run_doctor 0 | grep -v 'identity not set')"
+    if [ "$hook" -eq 0 ]; then printf '%s\n' "$data"; exit 0; fi
+    # Claude Code hook: a line the user sees, plus the data as context.
+    if ! [ -s "$LS/me" ]; then ready="Handover is ready. First time here? Type:  set me up"
+    elif [ ! -f "$ROOT/context/operation/pipeline.md" ]; then ready="Handover is ready. Setup isn't finished. Type:  set me up"
+    else ready="Handover is current as of $NOW. Type anything to see your digest, e.g.:  digest"; fi
+    is_template_origin && ready="$ready  ·  This clone points at the public template: nothing is pushed until you set your own remote."
+    printf '{"systemMessage":"%s","hookSpecificOutput":{"hookEventName":"SessionStart","additionalContext":"%s"}}\n' \
+      "$(printf '%s' "$ready" | json_escape | sed 's/\\n$//')" "$(printf '%s\n' "$data" | json_escape)"
+    ;;
+
+  doctor)
+    fix=0; [ "${1:-}" = "--fix" ] && fix=1
+    run_doctor "$fix"
+    ;;
+
+  upgrade)
+    turl="$(template_url)" || { echo "UPGRADE no template-origin configured" >&2; exit 1; }
+    if is_template_origin; then echo "UPGRADE this clone is the template itself; nothing to do"; exit 0; fi
+    if ! g "${NET_OPTS[@]}" fetch --quiet "$turl" main 2>/dev/null; then echo "UPGRADE offline or template unreachable"; exit 0; fi
+    new="$(g rev-parse --short FETCH_HEAD)"
+    g checkout --quiet FETCH_HEAD -- "${ENGINE_PATHS[@]}" 2>/dev/null
+    if g diff --cached --quiet; then echo "UPGRADE already current (template $new)"; exit 0; fi
+    changed="$(g diff --cached --name-only | wc -l | tr -d ' ')"
+    g commit --quiet -m "Upgraded the Handover engine to template $new: $changed engine files updated, business context untouched"
+    bg_push "$ROOT"
+    echo "UPGRADE done: $changed files from template $new (see CHANGELOG.md)"
+    ;;
+
+  friction)
+    note="${1:-}"; [ -n "$note" ] || { echo "friction: note required" >&2; exit 1; }
+    f="$ROOT/context/friction.md"
+    [ -f "$f" ] || printf '# Friction log\n\nMoments the assistant had to guess, or was corrected. Reviewed in the divergence report; the best ones become template improvements.\n\n' > "$f"
+    printf -- '- %s %s: %s\n' "$TODAY" "$(me)" "$note" >> "$f"
+    echo "FRICTION logged"
     ;;
 
   pull)

@@ -31,6 +31,13 @@ Keep each to a few lines. Prompt, let them do it, show the result: the
 exact line that landed in the file, and the commit message. That pairing is
 the lesson. Don't explain more than the result shows.
 
+**Every reply ends with a `Next:` block** holding the exact thing to type,
+and the user can type `go` instead of retyping it. `go` means "run the
+example you just showed me". Typing their own words works too. Nobody
+should have to retype a prompt they can see on screen:
+
+> Next: `capture: ring the venue about parking`  (or just `go`)
+
 **1. Capture.**
 > Try: `capture: ring the venue about parking`
 
@@ -97,8 +104,9 @@ render the digest as `.agent/digest.md` says:
 
 Then:
 > That's the whole system. Capture, ask, delegate, clarify, one word for
-> private, and a digest when you come back. Bin the practice studio and set
-> up your real one?
+> private, and a digest when you come back.
+>
+> Next: `bin the practice studio and set up my business`  (or just `go`)
 
 On yes: `.agent/joyride.sh clean`, then the profile interview. On "keep it
 for now": leave it; it's gitignored and harmless. Clean it up when they next
@@ -110,6 +118,8 @@ say "joyride" or "bin the practice studio".
   the sandbox's own `sync.sh`.
 - "skip" at any step → clean up, one line ("No problem, binned it."), move
   on to setup.
+- "go" at any step → run the example in the last `Next:` block as if they
+  had typed it.
 - If they wander off-script ("what if I mark Sam's task done?"), follow
   them; the sandbox is for that. Show the confirm-before behaviour when it
   applies.

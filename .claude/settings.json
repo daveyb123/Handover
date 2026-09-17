@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "\"$CLAUDE_PROJECT_DIR\"/.agent/sync.sh open",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.agent/sync.sh open --hook",
             "timeout": 30
           }
         ]

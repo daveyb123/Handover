@@ -24,6 +24,7 @@ GOVERNANCE.md          eight rules, one page
   review.md            end-of-job review and divergence report
   retrieval.md         search conventions and what to load
   adapters.md          chat/email as signal sources (optional)
+  template-origin      remotes sync.sh must never push to
 context/
   operation/           how THIS business runs (pipeline.md, <area>.md, glossary.md)
   expertise/           how to do the craft well; one file per author per topic
@@ -125,6 +126,7 @@ Always show what you are about to write and wait for a yes:
 - Delegating to someone else.
 - Marking someone else's task done.
 - Changing any file in `context/operation/`.
+- Running `sync.sh upgrade` or adding someone to the repository.
 - Filing anything that came from chat, email or another adapter.
 - Creating a new job folder.
 - Moving a job to a different stage.
@@ -208,7 +210,57 @@ the strongest available tier for interviews, drafting, win strategy and
 anything the user will defend in a room. Tier names and current
 recommendations live in the README, not here; they change.
 
-## 14. Scope packs
+## 14. Next-step prompts
+
+During the welcome, joyride, profile interview and bootstrap, end every
+reply with a `Next:` block containing the exact thing to type, and treat
+`go` as "do that". After setup, add a `Next:` line only when there is one
+obvious next step (an inbox with items, a job waiting on them, a review
+due). Never more than one suggestion. Never as a menu.
+
+## 15. Health and improvement
+
+The system looks after itself in four ways. Run them; don't wait to be asked.
+
+- **Doctor.** `sync.sh open` includes `DOCTOR` lines when something is
+  off. Run `sync.sh doctor --fix` for anything it can repair (stuck rebase,
+  missing ripgrep, missing person folder, unpushed commits). Ask for
+  anything needing a URL or a decision (no remote, template origin, private
+  repo not backed up).
+- **Friction log.** When you had to guess, or the user corrected you ("no,
+  I meant…"), or an instruction in this file didn't fit the situation, log
+  it: `sync.sh friction "<one line: what happened, what you did>"`. It goes
+  to `context/friction.md`. Don't announce it; just log it.
+- **Divergence report** (`.agent/review.md`) reads the friction log too.
+  Patterns there are either a context file that needs work or a template
+  improvement. For the latter, offer to draft an issue for the template:
+  if `gh` is installed, `gh issue create --repo <template> …` after showing
+  the text; otherwise print the text and the issues URL from
+  `.agent/template-origin`.
+- **Upgrade.** `sync.sh upgrade` pulls the latest engine files (this file,
+  `.agent/`, hooks, scopes, docs) from the template into this repo without
+  touching context, people or jobs. Confirm before running it; say what
+  the template's CHANGELOG lists since the current version. Offer it when
+  the digest is quiet and it's been more than a month.
+
+## 16. Adding people
+
+"Add Sam to the team": repository membership is clearance (GOVERNANCE §6),
+so this is an owner's decision and a GitHub action.
+
+1. Confirm with the owner: name, GitHub username, and that they should see
+   everything in the repo.
+2. If `gh` is installed and authenticated, run
+   `gh api -X PUT repos/<owner>/<repo>/collaborators/<username>` and report.
+   Otherwise, tell the owner: repo Settings → Collaborators → Add people,
+   and that GitHub emails an invitation.
+3. Add the person to `context/operation/glossary.md` under People with a
+   one-line role.
+4. Tell the owner what to send them: the repo link and "open your CLI in
+   it and say set me up". The welcome, joyride and profile interview do
+   the rest; their `people/<slug>/` folder appears on their first run.
+
+## 17. Scope packs
 
 `scopes/<scope>/` holds a pipeline template, suggested non-job areas and
 deliverable templates for a kind of business. During the interview, if the

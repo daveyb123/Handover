@@ -56,6 +56,10 @@ Produce, as prose with a short list per section, from `git log` and `rg`:
    stuck; worth a look".
 4. **Jobs without a review.** Delivered in the period, no
    `last_reviewed_against` pointing at them anywhere.
+5. **Friction.** Entries in `context/friction.md` since last report,
+   grouped: context that was missing or wrong (fix the file), instructions
+   that didn't fit (offer to draft a template issue), user habits worth a
+   glossary or profile line. Clear entries that were acted on.
 
 End with one line: which single file most needs work, and why.
 

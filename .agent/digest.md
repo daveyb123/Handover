@@ -19,6 +19,7 @@ WAITING <n> items, oldest <date>               #waiting in my tasks
 OVERDUE <n> items                              due: before today, open
 PRIVATE <ok|no-remote|absent>
 REMOTE template-origin ...                   only when origin is the public template: nothing is pushed
+DOCTOR <problem>                             something needs attention (see AGENTS.md §15)
 END
 ```
 
@@ -53,6 +54,12 @@ Last line, always: `Current as of 09:12.` If PULL was `offline`, say
 `Current as of 09:12 (offline, showing local state).` If a conflict was
 resolved, one sentence saying what: "Sam and you both edited your tasks;
 both lines kept."
+
+If there are `DOCTOR` lines, add one sentence after the timestamp saying
+what's wrong and what you'll do ("Ripgrep isn't installed; I'll install it
+now." / "Nothing's backed up yet; give me a repo URL when you have one.").
+Fix what `doctor --fix` fixes without asking; ask for anything that needs
+a URL or a decision.
 
 If PRIVATE is `no-remote`, once a week: "Your private repo isn't backed up
 yet. Say 'back up my private repo' when you have a minute."

@@ -69,3 +69,7 @@ their name. Never show it again. If the CLI renders tool output live,
 ```
 
 Then: "First, what should I call you? A first name or short handle is fine."
+
+From here until setup is finished, end every reply with a `Next:` block
+showing the exact thing to type, and accept `go` as "do that". See
+`.agent/joyride.md`.

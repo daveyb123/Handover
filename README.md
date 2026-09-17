@@ -115,6 +115,32 @@ it inferred rather than was told.
 whatever you use) is yours. This system holds what people owe each other.
 Blurring those two is what kills most team systems.
 
+## Adding someone
+
+Say "add Sam to the team". Being in the repository *is* the clearance, so
+this is your decision, and it's a GitHub invitation: the assistant does it
+if it can, or tells you the two clicks. Then send Sam the repository link
+and one sentence: *open your CLI in it and say "set me up"*. Sam gets the
+welcome, the practice run and a short profile interview, and appears in
+everyone's digests from then on.
+
+## It gets better as you use it
+
+Nothing here needs a maintenance day.
+
+- **Every finished job asks one question:** what didn't match the process
+  file? The answer updates the file, citing the job.
+- **A monthly divergence report** points at the file that most needs work:
+  stale process files, dead tasks, proposals that were rejected, moments the
+  assistant had to guess.
+- **The assistant keeps a friction log** of its own guesses and your
+  corrections, and offers the recurring ones back as template improvements.
+- **It checks its own health** on every open and fixes what it safely can:
+  a stuck sync, a missing search tool, an unpushed backlog. Anything needing
+  a decision, it asks.
+- **Upgrades come from the template.** Say "upgrade" and the engine files
+  update in place, leaving your context, people and jobs untouched.
+
 ## Privacy
 
 Everyone in this repository has the same clearance. Everything in it is

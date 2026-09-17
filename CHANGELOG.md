@@ -6,6 +6,19 @@ All notable changes to this template are recorded here. The format follows
 
 ## [Unreleased]
 
+### Added
+
+- Session start shows a ready line on screen ("Handover is ready. Type:
+  set me up") via the hook's user-facing message, so a fresh clone is never
+  blank.
+- Every onboarding reply ends with a `Next:` block; `go` runs it.
+- `sync.sh doctor [--fix]`: health checks on every open, safe repairs.
+- `sync.sh upgrade`: pull the latest engine files from the template
+  without touching business context.
+- `sync.sh friction`: a log of guesses and corrections, read by the
+  divergence report and offered back as template issues.
+- Adding people: agent instructions and a README section.
+
 ### Fixed
 
 - The sync script never pushes to the public template: `.agent/template-origin`
