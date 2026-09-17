@@ -130,6 +130,30 @@ Three, quick:
 3. "Where do jobs come from?" → inbox sources. Note in `pipeline.md` under
    the first stage.
 
+### 5. One way in, at least
+
+Before the sign-off, the inbox. Say why in two sentences, then get at
+least one source switched on before the conversation ends:
+
+> The whole thing runs on your inbox. If getting a thought into it is
+> harder than ignoring it, the system dies in a week; if it's easier, it
+> takes care of itself. Typing "capture:" here always works. Let's add one
+> way in from wherever you actually are. Pick one, we can add the rest
+> any time:
+>
+> 1. **Apple Reminders**: "Hey Siri, add ring the venue to my Handover
+>    list". (I switch it on now; you make a list called Handover.)
+> 2. **Share from your phone**: any email, message or page, shared to a
+>    shortcut. (Two minutes; I'll walk you through it.)
+> 3. **Forward an email to yourself** with "capture:" in the subject.
+>    (I install a Mail rule; you add it in Mail's settings.)
+
+Then do the one they pick, per `.agent/adapters.md` ("Ways in that ship
+today"). Run `sync.sh sources` at the end and read it back: "Reminders on,
+drop folder in iCloud. Say 'set up email capture' any time for the third."
+If they say none for now, accept it once; the digest data will say
+`SOURCES NONE` and "set me up" treats it as a gap.
+
 Then: "That's it. You'll see a digest each time you open this. Say 'capture:'
 followed by anything to get it out of your head. Say 'give this to <name>' to
 delegate. Everything I write, I'll show you first."

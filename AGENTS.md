@@ -181,7 +181,8 @@ Heuristics and routing in `.agent/privacy.md`. In short:
 "set me up" means: run whatever of the first-run sequence hasn't happened
 yet, in order: welcome, identity, joyride offer, profile interview,
 bootstrap. If everything has, it means "fill the gaps": missing profile
-sections, closing questions never answered, a remote not yet set.
+sections, closing questions never answered, a remote not yet set, no way
+in beyond typing (`sync.sh sources` says `NONE`; `interview.md` §5).
 
 - `IDENTITY unconfirmed` in the digest data: print `.agent/welcome.md`
   first, once, then ask their name, then offer the joyride

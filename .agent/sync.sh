@@ -16,6 +16,8 @@
 #   sync.sh drop [--clear <file>] [--path <dir>]
 #                                 list text files in the drop folder; --path
 #                                 points it at a synced folder (iCloud Drive…)
+#   sync.sh sources               which ways in are set up (reminders, drop
+#                                 folder, mail rule); NONE if nothing is
 #   sync.sh mail-rule             install the Apple Mail rule script that saves
 #                                 "capture:" emails into the drop folder (macOS)
 #   sync.sh friction "<note>"     log a guess or correction for later review
@@ -381,6 +383,7 @@ case "$cmd" in
       run_doctor 0 | grep -v 'identity not set'
       read_reminders
       list_drop
+      [ -f "$ROOT/context/operation/pipeline.md" ] && [ "$("$0" sources | grep -c '^SOURCE ')" -eq 0 ] && echo "SOURCES NONE"
       nudge_check)"
     if [ "$hook" -eq 0 ]; then printf '%s\n' "$data"; exit 0; fi
     # Claude Code hook: a line the user sees, plus the data as context.
@@ -417,8 +420,13 @@ case "$cmd" in
       # must never leave the working tree half-upgraded.
       stat="$(g diff --cached --stat | sed 's/^/  /')"
       lines="$(g diff --cached -- CHANGELOG.md | grep '^+[^+]' | sed 's/^+/    /' | head -40)"
-      g reset --quiet HEAD -- "${ENGINE_PATHS[@]}" 2>/dev/null; g checkout --quiet -- "${ENGINE_PATHS[@]}" 2>/dev/null
-      g clean --quiet -f -- .agent scopes 2>/dev/null
+      # Restore only paths HEAD knows (git aborts the whole command on an
+      # unmatched pathspec), then remove what the preview created.
+      known=()
+      for ep in "${ENGINE_PATHS[@]}"; do g cat-file -e "HEAD:$ep" 2>/dev/null && known+=("$ep"); done
+      g reset --quiet HEAD -- "${ENGINE_PATHS[@]}" 2>/dev/null
+      [ "${#known[@]}" -gt 0 ] && g checkout --quiet -- "${known[@]}" 2>/dev/null
+      g clean --quiet -fd -- "${ENGINE_PATHS[@]}" 2>/dev/null
       echo "UPGRADE preview: $tag would change $changed engine files (business context untouched):"
       printf '%s\n  Changelog lines added:\n%s\n' "$stat" "$lines"
       echo "UPGRADE run 'sync.sh upgrade --apply' to apply"
@@ -468,6 +476,15 @@ case "$cmd" in
         ;;
       *) mkdir -p "$d"; list_drop; echo "DROP folder: $d" ;;
     esac
+    ;;
+
+  sources)
+    n=0
+    [ -f "$LS/reminders" ] && { echo "SOURCE reminders on (Reminders list \"Handover\")"; n=$((n+1)); }
+    if [ -s "$LS/drop-path" ]; then echo "SOURCE drop folder $(cat "$LS/drop-path") (phone share sheet reaches it)"; n=$((n+1));
+    elif [ -d "$LS/drop" ]; then echo "SOURCE drop folder $LS/drop (local only)"; n=$((n+1)); fi
+    [ -f "$HOME/Library/Application Scripts/com.apple.mail/Handover Capture.scpt" ] && { echo "SOURCE mail rule installed (forward to yourself with capture:)"; n=$((n+1)); }
+    [ "$n" -eq 0 ] && echo "SOURCES NONE (only typing capture: at the CLI)"
     ;;
 
   mail-rule)

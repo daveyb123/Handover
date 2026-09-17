@@ -22,6 +22,7 @@ REMOTE template-origin ...                   only when origin is the public temp
 DOCTOR <problem>                             something needs attention (see AGENTS.md §15)
 REMINDER <id>\t<text>                        an Apple Reminders item to propose as a capture (opt-in)
 DROP <file> <n> bytes                        a text file in .last-seen/drop/ to read and propose
+SOURCES NONE                                 set up, but no way in from the phone or email yet
 NUDGE sessions=N days=D writes=W star=<url> issues=<url> sponsor=<url>
                                              once ever: time for the one small ask (AGENTS.md §15)
 END
@@ -58,6 +59,11 @@ Last line, always: `Current as of 09:12.` If PULL was `offline`, say
 `Current as of 09:12 (offline, showing local state).` If a conflict was
 resolved, one sentence saying what: "Sam and you both edited your tasks;
 both lines kept."
+
+If the data says `SOURCES NONE`, once a week at most, one line after the
+timestamp: "Still only typing captures here. Say 'set up capture from my
+phone' when you've got two minutes." Track the last time in
+`.last-seen/sources-nag` (write `date +%s` there).
 
 If there are `REMINDER` or `DROP` lines, after the digest say how many are
 waiting ("Three things from your phone.") and put `let's do my inbox` in
