@@ -141,11 +141,12 @@ least one source switched on before the conversation ends:
 > way in from wherever you actually are. Quick one: iPhone or Android? Mac
 > or Windows? Gmail, Outlook or Apple Mail?
 
-Then offer the two or three recipes that fit their answer, from the table
-in `.agent/adapters.md` ("Ways in that ship today"): always the synced
-folder plus share-sheet route for their phone, and the email route for
-their mail. Apple users also get Reminders and the Mail rule. Do the one
-they pick with them now; the rest are one sentence each, for later. Run `sync.sh sources` at the end and read it back: "Reminders on,
+Then offer the two or three recipes that fit their answer, from
+`.agent/adapters.md` ("Ways in that ship today"). Lead with the simplest:
+**a contact called Handover** they forward email to, one tap, any device.
+Then the share-sheet route for their phone. Apple users also get Reminders
+and the Mail rule. Do the one they pick with them now; the rest are one
+sentence each, for later. Run `sync.sh sources` at the end and read it back: "Reminders on,
 drop folder in iCloud. Say 'set up email capture' any time for the third."
 If they say none for now, accept it once; the digest data will say
 `SOURCES NONE` and "set me up" treats it as a gap.

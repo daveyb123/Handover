@@ -6,6 +6,15 @@ All notable changes to this template are recorded here. The format follows
 
 ## [Unreleased]
 
+## [0.3.4] - 2026-09-17
+
+### Changed
+
+- Email capture is one tap: a contact called Handover, backed by an IFTTT
+  trigger address (no connector, any mail) or the user's own `+handover`
+  address with a filter, rule or the Mac Mail rule behind it. Setup leads
+  with it. (0.3.3 shipped the adapter half of this; 0.3.4 completes it.)
+
 ## [0.3.2] - 2026-09-17
 
 ### Changed
@@ -113,7 +122,8 @@ All notable changes to this template are recorded here. The format follows
 - Scope packs for tendering and video production with deliverable templates.
 - `GOVERNANCE.md`, MIT `LICENSE`, third-party notices in `LICENSES/`.
 
-[Unreleased]: https://github.com/daveyb123/Handover/compare/v0.3.3...HEAD
+[Unreleased]: https://github.com/daveyb123/Handover/compare/v0.3.4...HEAD
+[0.3.4]: https://github.com/daveyb123/Handover/releases/tag/v0.3.4
 [0.3.3]: https://github.com/daveyb123/Handover/releases/tag/v0.3.3
 [0.3.2]: https://github.com/daveyb123/Handover/releases/tag/v0.3.2
 [0.3.1]: https://github.com/daveyb123/Handover/releases/tag/v0.3.1
