@@ -17,12 +17,15 @@ fail() { printf 'FAIL %s\n' "$1"; fails=$((fails+1)); }
 check() { if eval "$2"; then ok "$1"; else fail "$1"; fi; }
 
 # --- fixtures: a bare remote and two clones with the working-tree engine ---
-git init -q --bare "$T/remote.git"
-git init -q --bare "$T/priv.git"
-git clone -q "$REPO" "$T/seed" 2>/dev/null
-cp -R "$REPO/.agent" "$T/seed/"; cp "$REPO/.gitignore" "$T/seed/.gitignore"; cp "$REPO/.gitattributes" "$T/seed/.gitattributes"
-mkdir -p "$T/seed/.claude"; cp "$REPO/.claude/settings.json" "$T/seed/.claude/settings.json"
-( cd "$T/seed" && git remote set-url origin "$T/remote.git" && git add -A && git commit -q -m "seed" --allow-empty && git push -q -u origin HEAD:main )
+# The seed is built from the working tree, not a clone: on CI the checkout
+# is a detached HEAD and cloning it gives an empty tree.
+git init -q --bare -b main "$T/remote.git"
+git init -q --bare -b main "$T/priv.git"
+mkdir -p "$T/seed"
+( cd "$REPO" && git ls-files -z | tar --null -T - -cf - ) | ( cd "$T/seed" && tar -xf - )
+cp -R "$REPO/.agent/." "$T/seed/.agent/"   # working-tree engine, even if uncommitted
+rm -rf "$T/seed/.last-seen"; mkdir -p "$T/seed/.last-seen"
+( cd "$T/seed" && git init -q -b main && git add -A && git commit -q -m "seed" && git remote add origin "$T/remote.git" && git push -q -u origin main )
 git clone -q "$T/remote.git" "$T/a"; git clone -q "$T/remote.git" "$T/b"
 A="$T/a/.agent/sync.sh"; B="$T/b/.agent/sync.sh"
 (cd "$T/a" && $A me alex >/dev/null); (cd "$T/b" && $B me sam >/dev/null)
@@ -110,4 +113,7 @@ check "joyride digest covers practice"  "(cd \"$SB\" && printf -- '- x\n' >> peo
 (cd "$T/a" && .agent/joyride.sh clean >/dev/null)
 check "joyride clean removes sandbox"   "[ ! -d \"$SB\" ]"
 
-echo; if [ "$fails" -eq 0 ]; then echo "all tests passed"; else echo "$fails test(s) failed"; exit 1; fi
+echo; if [ "$fails" -eq 0 ]; then echo "all tests passed"; else
+  echo "$fails test(s) failed"; echo "--- environment"; uname -a; git --version; bash --version | head -1
+  echo "--- clone a"; find "$T/a" -maxdepth 1 -mindepth 1 2>/dev/null | sed "s#.*/##" | tr "\\n" " "; echo; git -C "$T/a" log --oneline 2>/dev/null | head -5
+  exit 1; fi
