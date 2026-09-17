@@ -1,0 +1,6 @@
+# Line-level union merge for files that people append to concurrently.
+# Both sides' lines are kept; the agent tidies duplicates if any.
+people/*/tasks.md merge=union
+people/*/inbox.md merge=union
+jobs/*/decisions.md merge=union
+*.md text eol=lf

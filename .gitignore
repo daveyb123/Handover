@@ -1,0 +1,13 @@
+# Local, per-machine state. Never shared.
+.last-seen/*
+!.last-seen/README.md
+
+# Expertise files are personal. They are dropped in by their author and
+# committed only in a business's own private repo, never in the template.
+# Remove the next line in your business repo if you want them committed there.
+context/expertise/*.md
+!context/expertise/README.md
+
+# OS noise
+.DS_Store
+Thumbs.db

@@ -1,0 +1,161 @@
+# Interview
+
+How the assistant gets a business's process out of the owner's head. This is
+the product; the plumbing is everything else. Run it conversationally, one
+question at a time, in plain language. Never hand the owner a form.
+
+Triggers:
+
+- No `context/operation/pipeline.md` → **Bootstrap** (below).
+- No `people/<me>/profile.md` → **Profile interview**.
+- A new scope pack is chosen → Bootstrap again, only for the gaps.
+
+First-run order, when both apply: welcome → identity → joyride (offered,
+optional, `.agent/joyride.md`) → profile interview → bootstrap → then the
+digest and `sync.sh seen`. The digest is skipped until setup is
+done; there is nothing to digest yet.
+
+Drafts are shown in the conversation, not written to disk. Write and save
+once the owner has read and corrected them. One save per interview section
+(profile; bootstrap drafts; closing questions), each with a message that
+says what was drafted and that the owner read it.
+
+## Bootstrap
+
+### 0. Who am I talking to
+
+If the digest data says `IDENTITY unconfirmed`: print `.agent/welcome.md`
+verbatim as your first message, then: "What should I call you? First name
+or a short handle is fine." Run `.agent/sync.sh me <name>` (it
+slugs it), create `people/<me>/` with all three files from
+`people/.template/`, replacing `<Name>` with their display name. The
+templates contain no example lines; don't add any. Then the profile
+interview, briefly, before anything else.
+
+### 1. The first question, always
+
+> Do you already have something written down about how you work? A doc, a
+> checklist, a methodology, notes in another tool? Anything counts.
+
+Three doors:
+
+**Door 1 — they point at a file.** Read it. Separate three things:
+*operation* (how this business does it: stages, who, hand-offs, what goes
+wrong), *expertise* (how to do the craft well: judgement, patterns, quality
+bars), and *noise* (everything else). Draft `context/operation/pipeline.md`
+and any `<area>.md` from the operation parts. Put expertise parts in
+`context/expertise/<author>-<topic>.md` with an `applies_when:` line, and
+tell them it's theirs and won't be shared beyond this repo. Then go to step
+3 and interview only for the gaps.
+
+**Door 2 — it's trapped in a tool.** Notion, a project-management tool, a
+chat-assistant "project", a wiki. Tell them how to export it, in two lines
+specific to that tool (Notion: Settings → Export → Markdown; most PM tools:
+export to CSV; a chat assistant: ask it to write out everything it knows
+about how the business works as one document). Then Door 1.
+
+**Door 3 — nothing written.** Say: "Fine, that's most people. Half an hour.
+Walk me through the last job you delivered, start to finish." Go to step 2.
+
+### 2. The job walk-through (door 3, and gaps for doors 1 and 2)
+
+For each of three or four recent jobs, in their words:
+
+- How did it arrive? Who from, what did they ask for, why did you say yes?
+- Then what happened? Keep asking "and then?" until it's delivered and paid.
+- At each step: who touched it? What did they need to have in hand? What
+  did they hand over, to whom?
+- What went wrong, or nearly? What would you do differently?
+- What's the thing you had to explain to someone that you shouldn't have
+  had to?
+
+Listen for: stages that repeat across jobs (the pipeline), hand-offs (where
+context gets lost), decisions that keep coming up (candidates for a process
+file), and words they use that mean something specific here (glossary).
+
+Do not ask "what's your process". Ask about the jobs. The process falls out.
+
+Expect private content here. Door 3 stories often involve a client's
+internal people or a crew member's performance. Apply `.agent/privacy.md`:
+keep the lesson in the operation file, keep the names and the judgement out,
+and say you've done so. Do not create job folders for the jobs walked
+through; they are evidence, not live work. If the owner wants one opened,
+that's a normal "new job", confirmed as usual.
+
+After two jobs, reflect a draft spine back: "So it sounds like every job
+goes: X, then Y, then Z. Is that right, or is that just these two?" Correct
+it with the third and fourth.
+
+### 3. Draft, show, correct
+
+Write drafts, then show them and ask for corrections. Save only after the
+owner has read them.
+
+- `context/operation/pipeline.md` — one section per stage: what enters it,
+  what leaves it, who owns it, what usually goes wrong, what the assistant
+  should produce here (from the scope pack if one fits). Frontmatter names
+  the owner.
+- `context/operation/<area>.md` — one per non-job area that came up (kit,
+  marketing, hiring, invoicing, evidence library, pricing…). Only the ones
+  that came up. Don't invent areas.
+- `context/operation/glossary.md` — names, acronyms, client shorthand,
+  with one-line meanings.
+
+If a scope pack in `scopes/` fits, say so and start from its templates. The
+owner's words override the pack everywhere they differ. Anything you kept
+from the pack that the owner didn't actually say, mark with
+`<!-- from pack, unconfirmed -->` so it's visible in the draft; remove the
+marker when they confirm it, or the line when they don't.
+
+Frontmatter: the fields in `context/operation/README.md`, plus `scope:` if a
+pack was used. An `owner:` may name a teammate who has no `people/` folder
+yet; that's fine, the folder appears when they first open the CLI.
+
+The line between "what usually goes wrong" and craft advice: record what
+happened ("the PA feed fell through at the gala; the camera operator used a
+lav and a recorder"), not what to do ("always run a backup recorder"). The second is
+expertise and belongs to whoever holds it.
+
+### 4. Closing questions
+
+Three, quick:
+
+1. "What do you run email and chat on?" → note it in `glossary.md` under a
+   `## Tools` section (the glossary also carries `## People`: name, slug,
+   one-line role, so shorthand like "ask Sam" resolves). If it's Microsoft 365 or Google Workspace, say that connecting it
+   is possible later, needs an admin, and isn't required.
+2. "Who's on the team?" → list of names and one-line roles. Create nothing
+   for them yet; each person gets their profile interview when they first
+   open the CLI. Note the list in `glossary.md` under People.
+3. "Where do jobs come from?" → inbox sources. Note in `pipeline.md` under
+   the first stage.
+
+Then: "That's it. You'll see a digest each time you open this. Say 'capture:'
+followed by anything to get it out of your head. Say 'give this to <name>' to
+delegate. Everything I write, I'll show you first."
+
+Save everything with a commit message that says the business was set up
+through interview, which door, and what was drafted.
+
+## Profile interview
+
+Short. Five questions, then write `people/<me>/profile.md` from the template
+and show it. Save on their yes.
+
+1. "What do you do here, in a line?"
+2. "What are you good at that the team leans on you for?"
+3. "What do you own — areas, stages, standing responsibilities?"
+4. "When someone hands you work, how do you like it? One line and a date?
+   All the context? Verbatim from the client?"
+5. "When are you around, and when shouldn't people expect a reply?"
+
+The profile is shared on purpose. Say so: "Everyone can read this, and
+that's the point: it's how the assistant knows how to phrase things for you."
+
+## Testing the interview
+
+Before running it on a real business, run it on a made-up one with a
+colleague playing the owner. Check: the pipeline has the stages they
+described and no others; every hand-off they mentioned appears; the glossary
+has the shorthand they used without explaining; nothing in `operation/` is
+craft advice (that belongs in `expertise/`).

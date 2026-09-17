@@ -1,0 +1,5 @@
+Taskwarrior — https://taskwarrior.org
+Licensed under the MIT License. Not bundled. Optional. Lives entirely outside
+this repository; the assistant never touches its database unless asked.
+
+Full text: https://github.com/GothenburgBitFactory/taskwarrior/blob/develop/LICENSE

@@ -1,0 +1,12 @@
+AI Contribution Scale — https://www.winwithoutpitching.com/aiscale
+Author: Blair Enns / Win Without Pitching. Published 24 August 2026.
+Retrieved 2026-09-17. No version number is published; cite by URL and date.
+
+Licence, as stated on the page:
+  "The AI Contribution Scale by Blair Enns / Win Without Pitching is
+   licensed under a Creative Commons Attribution 4.0 International License."
+  https://creativecommons.org/licenses/by/4.0/
+
+Not bundled. Cited in the footer of every generated document, per
+.agent/disclosure.md, which reproduces the six level definitions. Attribution
+is given in each footer by naming the scale, the author and the URL.

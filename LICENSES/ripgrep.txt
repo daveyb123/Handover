@@ -1,0 +1,6 @@
+ripgrep — https://github.com/BurntSushi/ripgrep
+Dual-licensed under the MIT License and the Unlicense, at your option.
+Not bundled. Installed separately by the assistant on first run.
+
+MIT License — Copyright (c) 2015 Andrew Gallant
+Full text: https://github.com/BurntSushi/ripgrep/blob/master/LICENSE-MIT
