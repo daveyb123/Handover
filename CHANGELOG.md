@@ -15,6 +15,11 @@ All notable changes to this template are recorded here. The format follows
   address with a filter, rule or the Mac Mail rule behind it. Setup leads
   with it. (0.3.3 shipped the adapter half of this; 0.3.4 completes it.)
 
+## [0.3.3] - 2026-09-17
+
+Partial: adapter and Mail-rule half of the one-tap email capture. Superseded
+by 0.3.4.
+
 ## [0.3.2] - 2026-09-17
 
 ### Changed
@@ -124,6 +129,7 @@ All notable changes to this template are recorded here. The format follows
 
 [Unreleased]: https://github.com/daveyb123/Handover/compare/v0.3.4...HEAD
 [0.3.4]: https://github.com/daveyb123/Handover/releases/tag/v0.3.4
+[0.3.3]: https://github.com/daveyb123/Handover/releases/tag/v0.3.3
 [0.3.3]: https://github.com/daveyb123/Handover/releases/tag/v0.3.3
 [0.3.2]: https://github.com/daveyb123/Handover/releases/tag/v0.3.2
 [0.3.1]: https://github.com/daveyb123/Handover/releases/tag/v0.3.1
