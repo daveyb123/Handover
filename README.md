@@ -1,6 +1,6 @@
 # Handover
 
-[![Licence: MIT](https://img.shields.io/badge/licence-MIT-blue.svg)](LICENSE) [![Version](https://img.shields.io/badge/version-0.2.0-lightgrey.svg)](CHANGELOG.md) [![CI](https://github.com/daveyb123/Handover/actions/workflows/ci.yml/badge.svg)](https://github.com/daveyb123/Handover/actions/workflows/ci.yml) [![AI contribution: AI-4 AI Drafted](https://img.shields.io/badge/AI%20contribution-AI--4%20·%20AI%20Drafted-555.svg)](https://www.winwithoutpitching.com/aiscale)
+[![Licence: MIT](https://img.shields.io/badge/licence-MIT-blue.svg)](LICENSE) [![Version](https://img.shields.io/badge/version-0.2.0-lightgrey.svg)](CHANGELOG.md) [![CI](https://github.com/daveyb123/Handover/actions/workflows/ci.yml/badge.svg)](https://github.com/daveyb123/Handover/actions/workflows/ci.yml) [![Sponsor](https://img.shields.io/badge/sponsor-%E2%9D%A4-ea4aaa.svg?logo=githubsponsors&logoColor=white)](https://github.com/sponsors/daveyb123) [![AI contribution: AI-4 AI Drafted](https://img.shields.io/badge/AI%20contribution-AI--4%20·%20AI%20Drafted-555.svg)](https://www.winwithoutpitching.com/aiscale)
 
 Shared tasks and shared context for a small team, kept as plain text in git
 and run entirely through an assistant you talk to. Nobody needs to learn git.
@@ -176,6 +176,15 @@ business details stripped. That is how the engine improves for everyone.
 
 Once, after you've used it for a few days, the assistant will ask you for a
 star on GitHub if it's earning its keep. Once. It won't ask again.
+
+## Supporting it
+
+Handover is free and MIT-licensed, and stays that way. If it is earning its
+keep in your business, [sponsoring it on GitHub](https://github.com/sponsors/daveyb123)
+pays for the time that keeps the engine maintained and the scope packs
+growing. If you'd rather pay for help than for code, the useful thing to
+buy is an afternoon: someone to run the interview with you and set up your
+business's context properly.
 
 ## Privacy
 

@@ -20,7 +20,7 @@ OVERDUE <n> items                              due: before today, open
 PRIVATE <ok|no-remote|absent>
 REMOTE template-origin ...                   only when origin is the public template: nothing is pushed
 DOCTOR <problem>                             something needs attention (see AGENTS.md §15)
-NUDGE sessions=N days=D writes=W star=<url> issues=<url>
+NUDGE sessions=N days=D writes=W star=<url> issues=<url> sponsor=<url>
                                              once ever: time for the one small ask (AGENTS.md §15)
 END
 ```
@@ -68,9 +68,12 @@ If there is a `NUDGE` line, this is the one time you ask. After the
 timestamp, two sentences, warm, no pressure, with the numbers:
 
 > That's five sessions and 23 things filed since Monday. If this is earning
-> its keep, a star on GitHub helps the next small team find it:
-> <star url>. And anything that's annoyed you, say "feedback:" and I'll
-> pass it on.
+> its keep, a star on GitHub helps the next small team find it: <star url>.
+> If it's earning money, sponsoring keeps it maintained: <sponsor url>.
+> And anything that's annoyed you, say "feedback:" and I'll pass it on.
+
+Three sentences at most. If there is no `sponsor=` in the data, drop that
+sentence.
 
 Then run `sync.sh nudged`. Never ask again, whatever they say.
 

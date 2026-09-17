@@ -91,7 +91,8 @@ nudge_check() {
   days="$(( (now - first) / 86400 ))"
   writes="$(g log --since="@$first" --format=%h -- people jobs context 2>/dev/null | wc -l | tr -d ' ')"
   if [ "$sessions" -ge 5 ] && [ "$days" -ge 3 ] && [ "$writes" -ge 10 ]; then
-    echo "NUDGE sessions=$sessions days=$days writes=$writes star=$(template_web) issues=$(template_web)/issues/new"
+    local sponsor; sponsor="$(sed -n 's/^github:[[:space:]]*//p' "$ROOT/.github/FUNDING.yml" 2>/dev/null | head -1)"
+    echo "NUDGE sessions=$sessions days=$days writes=$writes star=$(template_web) issues=$(template_web)/issues/new${sponsor:+ sponsor=https://github.com/sponsors/$sponsor}"
   fi
 }
 
