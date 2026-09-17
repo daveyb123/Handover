@@ -17,7 +17,9 @@ Nobody needs to learn a new app.
    folder.
 3. Say: **"set me up"**.
 
-That's it. The assistant will interview you about how your business runs and
+That's it. One thing to know: the assistant is only Handover while it is
+started *inside* that folder. Started anywhere else, it is just your
+assistant. So the habit is: go to the folder, then open the CLI. The assistant will interview you about how your business runs and
 build the rest.
 
 ## Where are you starting from?
