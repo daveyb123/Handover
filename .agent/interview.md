@@ -140,11 +140,24 @@ their working pattern from the profile; use them, don't re-ask.
 > The whole thing runs on your inbox. If getting a thought into it is
 > harder than ignoring it, the system dies in a week; if it's easier, it
 > takes care of itself. Typing "capture:" here always works, but you're
-> not always here. Where do things land on you in a normal day: email,
-> chat, phone calls, meetings, out and about, the car?
+> not always here. So, two questions. What's your inbox today: where do
+> you jot things when they hit you? Email to yourself, Reminders, Notes, a
+> notebook, WhatsApp to yourself? And where do things land on you in a
+> normal day: email, chat, calls, meetings, the car?
 
-Take their top one or two and recommend, each with a one-line example of
-what it looks like in use. Recipes are in `.agent/adapters.md`.
+Diagnose from the answers, then suggest. The habit they already have wins:
+wire that in first, because they'll keep doing it. Then one more for where
+their day happens. Each with a one-line example of what it looks like in
+use. Recipes are in `.agent/adapters.md`.
+
+| Their inbox today | Wire it in |
+|---|---|
+| Email to myself | The **Handover contact** (one tap). Their existing habit, one address changed. |
+| Reminders (Apple) | `sync.sh reminders on`; they rename or make a list called Handover. Nothing else changes. |
+| Notes app | If it syncs as files (Obsidian, Bear export, Google Keep via Drive), point the drop folder at it or add a share-to-Handover step. Otherwise: share sheet. |
+| A notebook | Keep it. Two minutes of "capture:" at the desk when they open the CLI, reading from the page. Suggest a phone photo → share sheet only if they want it. |
+| WhatsApp to myself | Share sheet from that chat to Handover, or export that chat into the drop folder weekly. |
+| Nowhere, it's all in my head | Start with the one place they're most: the contact if email, Siri if driving, the share sheet if chat. |
 
 | They say | Recommend first | Example to give |
 |---|---|---|

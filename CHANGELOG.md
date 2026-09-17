@@ -6,6 +6,13 @@ All notable changes to this template are recorded here. The format follows
 
 ## [Unreleased]
 
+## [0.3.6] - 2026-09-17
+
+### Changed
+
+- Step five of setup opens with "what's your inbox today?" and wires in the
+  habit the person already has before suggesting anything new.
+
 ## [0.3.5] - 2026-09-17
 
 ### Changed
@@ -135,7 +142,8 @@ by 0.3.4.
 - Scope packs for tendering and video production with deliverable templates.
 - `GOVERNANCE.md`, MIT `LICENSE`, third-party notices in `LICENSES/`.
 
-[Unreleased]: https://github.com/daveyb123/Handover/compare/v0.3.5...HEAD
+[Unreleased]: https://github.com/daveyb123/Handover/compare/v0.3.6...HEAD
+[0.3.6]: https://github.com/daveyb123/Handover/releases/tag/v0.3.6
 [0.3.5]: https://github.com/daveyb123/Handover/releases/tag/v0.3.5
 [0.3.4]: https://github.com/daveyb123/Handover/releases/tag/v0.3.4
 [0.3.3]: https://github.com/daveyb123/Handover/releases/tag/v0.3.3
