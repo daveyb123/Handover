@@ -76,6 +76,11 @@ layout. If it does, treat both as one view. See §8.
   `.agent/sync.sh stop` at the end of every turn. The user may open with
   a bare "digest"; treat it as "run open and show me my digest".
 - If the user says "am I current?", run `sync.sh pull` and report the time.
+- If the digest data has a `NOGIT` line, Git isn't installed. Say so in
+  one friendly line and ask to install it; on yes, `sync.sh doctor
+  --install`. On a Mac that opens Apple's own "install developer tools"
+  window: tell them to click Install and wait, then open again. Nothing
+  else works until Git does.
 - If the digest data has a `NOTREPO` line, the person downloaded the
   template as a ZIP instead of cloning it. That's fine. Say so in one
   friendly line, run `sync.sh doctor --fix` (it initialises git and makes

@@ -53,6 +53,25 @@ NOW="$(date +%H:%M)"
 
 cmd="${1:-help}"; [ $# -gt 0 ] && shift
 
+# Git. If none works on the PATH (or macOS only has the stub that asks to
+# install developer tools), use the copy GitHub Desktop bundles.
+git_ok() { git --version >/dev/null 2>&1; }
+if ! git_ok && [ "${HANDOVER_NO_BUNDLED_GIT:-0}" != 1 ]; then
+  for cand in "/Applications/GitHub Desktop.app/Contents/Resources/app/git/bin" \
+              "$HOME/Applications/GitHub Desktop.app/Contents/Resources/app/git/bin" \
+              "${LOCALAPPDATA:-$HOME/AppData/Local}/GitHubDesktop/app-"*/resources/app/git/cmd; do
+    if [ -x "$cand/git" ] || [ -x "$cand/git.exe" ]; then PATH="$cand:$PATH"; export PATH; break; fi
+  done
+fi
+if ! git_ok && [ "$cmd" != "doctor" ] && [ "$cmd" != "help" ]; then
+  if [ "$cmd" = "open" ] && [ "${1:-}" = "--hook" ]; then
+    printf '{"systemMessage":"Handover needs Git and it is not installed yet. Type:  set me up  (the assistant installs it)","hookSpecificOutput":{"hookEventName":"SessionStart","additionalContext":"DIGEST me=unknown since=none now=%s\\nNOGIT git is not installed; run sync.sh doctor --install (macOS: developer tools; Windows: winget Git.Git; Linux: apt/dnf), then open again\\nEND"}}\n' "$NOW"
+  else
+    echo "NOGIT git is not installed; run sync.sh doctor --install (macOS: developer tools; Windows: winget Git.Git; Linux: apt/dnf), then open again"
+  fi
+  exit 0
+fi
+
 # A downloaded ZIP is a folder, not a repository. Say so plainly so the
 # agent can fix it (doctor --fix runs git init and a first commit).
 if [ ! -d "$ROOT/.git" ] && [ "$cmd" != "doctor" ] && [ "$cmd" != "help" ] && [ "$cmd" != "whoami" ] && [ "$cmd" != "me" ]; then
@@ -170,6 +189,16 @@ run_doctor() {
   # install=1 also installs ripgrep (the agent asks before that).
   local fix="${1:-0}" install="${2:-0}" m n=0
   [ -f "$here/template-origin" ] || return 0   # practice sandbox: stay quiet
+  if ! git_ok; then
+    if [ "$install" = 1 ]; then
+      if [ "$(uname)" = "Darwin" ]; then xcode-select --install >/dev/null 2>&1; echo "DOCTOR macOS is asking to install its developer tools (that includes Git): click Install, wait for it to finish, then open again"
+      elif command -v winget >/dev/null 2>&1; then winget install -e --id Git.Git >/dev/null 2>&1 && echo "DOCTOR fixed: installed Git (open a new window so it is found)" || echo "DOCTOR could not install Git with winget; https://git-scm.com/download/win"
+      elif command -v apt-get >/dev/null 2>&1; then sudo apt-get install -y -q git >/dev/null 2>&1 && echo "DOCTOR fixed: installed Git" || echo "DOCTOR could not install Git"
+      elif command -v dnf >/dev/null 2>&1; then sudo dnf install -y -q git >/dev/null 2>&1 && echo "DOCTOR fixed: installed Git" || echo "DOCTOR could not install Git"
+      else echo "DOCTOR Git is not installed and no installer was found: https://git-scm.com/downloads"; fi
+    else echo "DOCTOR Git is not installed (doctor --install; ask first). GitHub Desktop's own copy is used automatically if that app is installed."; fi
+    return 0
+  fi
   if [ ! -d "$ROOT/.git" ]; then
     if [ "$fix" = 1 ]; then
       ( cd "$ROOT" && git init -q -b main && git add -A -- ':(glob)**/*.md' .agent .claude .gitattributes .gitignore .editorconfig LICENSE LICENSES scopes tests .github docs 2>/dev/null; git commit -q -m "Handover: initialised from a downloaded copy" ) \

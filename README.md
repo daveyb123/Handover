@@ -38,7 +38,9 @@ repository**. Name it after your business. Choose **Private**. Click
 Install [GitHub Desktop](https://desktop.github.com) and sign in with the
 same account. Back on your new repository's page, click the green **Code**
 button, then **Open with GitHub Desktop**, then **Clone**. Done: there is
-now a folder on your computer with your business's name.
+now a folder on your computer with your business's name. (GitHub Desktop
+brings Git with it; nothing extra to install. If your Mac later pops up
+"install the command line developer tools", click **Install**.)
 
 **3. Open that folder in your assistant.**
 *Claude:* install the [Claude desktop app](https://claude.ai/download),
@@ -294,8 +296,10 @@ in `SECURITY.md`.
 ## Prerequisites
 
 An AI assistant that can work in a folder (see the top of this page:
-Claude Pro is paid, ChatGPT's free plan works), GitHub Desktop or git, and
-a Mac, Windows or Linux computer. Everything else the repo brings; the
+Claude Pro is paid, ChatGPT's free plan works), GitHub Desktop (which
+brings Git with it) or Git itself, and a Mac, Windows or Linux computer.
+If Git is missing, the assistant notices and installs it when you say
+"set me up". Everything else the repo brings; the
 assistant offers to install `ripgrep` for search (Taskwarrior only if you
 want it).
 

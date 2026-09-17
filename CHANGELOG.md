@@ -6,6 +6,15 @@ All notable changes to this template are recorded here. The format follows
 
 ## [Unreleased]
 
+## [0.4.1] - 2026-09-17
+
+### Added
+
+- Git handling for people who never installed it: the script uses GitHub
+  Desktop's bundled Git when none works on the PATH; if there is none at
+  all, the ready line says so and `doctor --install` installs it (macOS
+  developer tools, winget, apt, dnf). README says GitHub Desktop brings Git.
+
 ## [0.4.0] - 2026-09-17
 
 ### Changed
@@ -178,7 +187,8 @@ by 0.3.4.
 - Scope packs for tendering and video production with deliverable templates.
 - `GOVERNANCE.md`, MIT `LICENSE`, third-party notices in `LICENSES/`.
 
-[Unreleased]: https://github.com/daveyb123/Handover/compare/v0.4.0...HEAD
+[Unreleased]: https://github.com/daveyb123/Handover/compare/v0.4.1...HEAD
+[0.4.1]: https://github.com/daveyb123/Handover/releases/tag/v0.4.1
 [0.4.0]: https://github.com/daveyb123/Handover/releases/tag/v0.4.0
 [0.3.9]: https://github.com/daveyb123/Handover/releases/tag/v0.3.9
 [0.3.8]: https://github.com/daveyb123/Handover/releases/tag/v0.3.8
