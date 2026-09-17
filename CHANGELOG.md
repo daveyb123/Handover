@@ -6,6 +6,8 @@ All notable changes to this template are recorded here. The format follows
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-09-17
+
 ### Added
 
 - Issue forms for feedback, bugs and scope-pack proposals; the "feedback:"
@@ -88,6 +90,7 @@ All notable changes to this template are recorded here. The format follows
 - Scope packs for tendering and video production with deliverable templates.
 - `GOVERNANCE.md`, MIT `LICENSE`, third-party notices in `LICENSES/`.
 
-[Unreleased]: https://github.com/daveyb123/Handover/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/daveyb123/Handover/compare/v0.3.0...HEAD
+[0.3.0]: https://github.com/daveyb123/Handover/releases/tag/v0.3.0
 [0.2.0]: https://github.com/daveyb123/Handover/releases/tag/v0.2.0
 [0.1.0]: https://github.com/daveyb123/Handover/releases/tag/v0.1.0
