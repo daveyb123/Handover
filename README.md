@@ -62,8 +62,10 @@ folder*; anywhere else it's just Claude or ChatGPT. Downloaded a ZIP
 instead of cloning in step 2? Also fine: open that folder and say "set me
 up"; it sorts itself out.
 
-**Stuck?** Copy the block below and paste it into Claude or ChatGPT. It
-will walk you through, one step at a time, checking each one:
+**Stuck?** Use your chat assistant as the guide. Copy the block below,
+paste it into Claude or ChatGPT, and then keep going back and forth: paste
+in whatever your screen says, paste in the folder's location when it asks,
+tell it what happened. That loop is how people get through this.
 
 > I want to set up a tool called Handover: https://github.com/daveyb123/Handover
 > I'm not technical. Walk me through it one step at a time and check each
@@ -72,7 +74,9 @@ will walk you through, one step at a time, checking each one:
 > copy, (3) install GitHub Desktop and clone my copy to my computer,
 > (4) open that folder in your desktop app (Claude: the Code tab; ChatGPT:
 > Codex, Open folder), (5) type "set me up". Stop there. Don't explain git
-> unless I ask.
+> unless I ask. At each step, ask me to paste what my screen shows, and
+> where the folder is, and tell me exactly what to click or type next. If
+> I'm on Windows, tell me to install Git for Windows first.
 
 ## If you end up in a terminal instead
 
