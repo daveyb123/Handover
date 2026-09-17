@@ -210,6 +210,13 @@ each ending with one small line: the AI contribution level on the
 Blair Enns (AI-0 to AI-5) and a "By Handover" link. Nothing else. You take them into Word, your design tool,
 or wherever you like.
 
+## Extending it
+
+Scope packs for new kinds of business, adapters for new signal sources, and
+an identity layer in front of the adapters for businesses that need real
+per-user permissions into their CRM or ERP. All three plug in without
+forking; see [docs/extending.md](docs/extending.md).
+
 ## Connectors (optional, later)
 
 The assistant can read your team chat (Slack, Teams, Discord, Google Chat)

@@ -8,7 +8,8 @@ changes beat big ones.
 
 - Improvements to the engine: agent instructions, the sync script, the
   interview, the recipes under `.agent/`.
-- New or improved scope packs under `scopes/`.
+- New or improved scope packs under `scopes/`, and adapters or identity
+  plugins as described in `docs/extending.md`.
 - Documentation fixes.
 
 What does not belong here: any business's actual context, people, jobs or

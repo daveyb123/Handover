@@ -13,6 +13,8 @@ All notable changes to this template are recorded here. The format follows
 - CI: shellcheck and `tests/sync-test.sh` on every push and pull request,
   on the template repository only.
 - README opens with a recording of the welcome screen (`docs/welcome.gif`).
+- `docs/extending.md`: the three extension points (scope packs, adapters,
+  identity in front of the adapters) and what stays out.
 - GitHub Sponsors: `FUNDING.yml`, a README badge and section, and one
   sentence in the one-time ask, read from the funding file.
 
