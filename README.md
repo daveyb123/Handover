@@ -11,46 +11,69 @@ Nobody needs to learn git. Nobody needs to learn a new app.
 
 ![The first thing you see: the Handover welcome screen in Claude Code, with the GTD workflow drawn in text](docs/welcome.gif)
 
+## Before you start: you need an AI assistant that can work in a folder
+
+Not the chat window. The kind that can open a folder on your computer and
+read and write files in it. Two work out of the box today:
+
+| Assistant | Cost | How it opens the folder | Notes |
+|---|---|---|---|
+| **Claude** (Claude Code) | **Paid.** Pro plan, about US$20 a month. The free plan does *not* include it. | Claude desktop app → **Code** tab → choose folder | The best experience: everything automatic. This is what Handover is built and tested on. |
+| **ChatGPT** (Codex) | **Free plan works.** Paid plans give more use. | ChatGPT desktop app → open a folder | Works well. A few of the automatic touches (the digest appearing on its own) need one extra word from you: type `digest`. |
+
+Also fine, if you already use them: Google Antigravity (free with a Google
+account) and GitHub Copilot (free tier). Both read the same instructions.
+Prices are in US dollars and change; check the vendor's page.
+
 ## Start here
 
-No terminal needed. Four steps, all clicking:
+Four steps. Nothing to type except your business name and three words.
 
-1. **Make your copy.** Click **Use this template** at the top of this page,
-   then *Create a new repository*. Name it after your business. Set it to
-   **Private**. (You'll need a free GitHub account; it prompts you.)
-2. **Get it onto your computer.** Install
-   [GitHub Desktop](https://desktop.github.com), sign in, then on your new
-   repository's page click the green **Code** button and *Open with GitHub
-   Desktop*, then *Clone*. That puts a folder on your computer and handles
-   every login from here on.
-3. **Open it in Claude.** Install the
-   [Claude desktop app](https://claude.ai/download), sign in (Claude Code
-   needs a Pro or Max plan; the free plan doesn't include it), click the
-   **Code** tab, and choose that folder.
-4. Type: **"set me up"**.
+**1. Make your copy.**
+At the top of this page, click **Use this template**, then **Create a new
+repository**. Name it after your business. Choose **Private**. Click
+**Create**. (No GitHub account? It asks you to make one. Free.)
+
+**2. Put it on your computer.**
+Install [GitHub Desktop](https://desktop.github.com) and sign in with the
+same account. Back on your new repository's page, click the green **Code**
+button, then **Open with GitHub Desktop**, then **Clone**. Done: there is
+now a folder on your computer with your business's name.
+
+**3. Open that folder in your assistant.**
+*Claude:* install the [Claude desktop app](https://claude.ai/download),
+sign in, click the **Code** tab, click **Select folder**, pick the folder.
+*ChatGPT:* install the [ChatGPT desktop app](https://chatgpt.com/download),
+sign in, open Codex, choose **Open folder**, pick the folder.
+
+**4. Type "set me up" and press Enter.**
+The assistant introduces itself, offers a two-minute practice run, and
+interviews you about your business. Answer in your own words.
 
 That's it. The assistant is only Handover while it's opened *in that
-folder*; anywhere else it's just Claude. Downloaded a ZIP instead of
-cloning? Fine: open that folder and say "set me up"; it sorts itself out.
+folder*; anywhere else it's just Claude or ChatGPT. Downloaded a ZIP
+instead of cloning in step 2? Also fine: open that folder and say "set me
+up"; it sorts itself out.
 
-**Not sure about any of this?** Copy the block below, paste it into Claude
-or any chat assistant, and it will walk you through, checking each step:
+**Stuck?** Copy the block below and paste it into Claude or ChatGPT. It
+will walk you through, one step at a time, checking each one:
 
 > I want to set up a tool called Handover: https://github.com/daveyb123/Handover
 > I'm not technical. Walk me through it one step at a time and check each
 > step worked before the next: (1) a free GitHub account if I don't have
 > one, (2) click "Use this template" on that page to make my own private
 > copy, (3) install GitHub Desktop and clone my copy to my computer,
-> (4) install the Claude desktop app, open its Code tab and choose that
-> folder, (5) type "set me up". Stop there. Don't explain git unless I ask.
+> (4) open that folder in your desktop app (Claude: the Code tab; ChatGPT:
+> Codex, Open folder), (5) type "set me up". Stop there. Don't explain git
+> unless I ask.
 
 ## Where are you starting from?
 
-**Already using an assistant CLI?** Then `cd` into the folder and run
-`claude`. Claude Code is the reference: its hooks run the sync and the
-digest for you. Codex, Gemini CLI and others read the same instructions and
-run the same script themselves; it works, with fewer of the automatic
-touches. Skip to "How to use it day to day".
+**Already using an assistant in a terminal?** Then `cd` into the folder
+and run it there. Claude Code is the reference: its hooks run the sync and
+the digest for you. Codex, Antigravity, Copilot and others read the same
+instructions and run the same script themselves. Skip to "How to use it
+day to day".
 
 **Prefer the browser?** claude.ai/code can open your GitHub copy directly
 without anything on your computer. The core works there; the phone
@@ -270,10 +293,11 @@ in `SECURITY.md`.
 
 ## Prerequisites
 
-A Claude Pro or Max plan (or another assistant with a CLI), GitHub Desktop
-or git, and a Mac, Windows or Linux computer. Everything else the repo
-brings; the assistant offers to install `ripgrep` for search (Taskwarrior
-only if you want it).
+An AI assistant that can work in a folder (see the top of this page:
+Claude Pro is paid, ChatGPT's free plan works), GitHub Desktop or git, and
+a Mac, Windows or Linux computer. Everything else the repo brings; the
+assistant offers to install `ripgrep` for search (Taskwarrior only if you
+want it).
 
 ## Licence
 

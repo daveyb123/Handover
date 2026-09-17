@@ -6,6 +6,17 @@ All notable changes to this template are recorded here. The format follows
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-09-17
+
+### Changed
+
+- README opens with the prerequisite that matters: an assistant that can
+  work in a folder. Claude Code is paid (Pro); ChatGPT's Codex works on the
+  free plan; Antigravity and Copilot also read the instructions. Start
+  steps rewritten at instruction-sheet level for both Claude and ChatGPT
+  desktop apps. AGENTS.md tells hookless assistants to run open and stop
+  themselves and to treat a bare "digest" as the opener.
+
 ## [0.3.9] - 2026-09-17
 
 ### Changed
@@ -167,7 +178,8 @@ by 0.3.4.
 - Scope packs for tendering and video production with deliverable templates.
 - `GOVERNANCE.md`, MIT `LICENSE`, third-party notices in `LICENSES/`.
 
-[Unreleased]: https://github.com/daveyb123/Handover/compare/v0.3.9...HEAD
+[Unreleased]: https://github.com/daveyb123/Handover/compare/v0.4.0...HEAD
+[0.4.0]: https://github.com/daveyb123/Handover/releases/tag/v0.4.0
 [0.3.9]: https://github.com/daveyb123/Handover/releases/tag/v0.3.9
 [0.3.8]: https://github.com/daveyb123/Handover/releases/tag/v0.3.8
 [0.3.7]: https://github.com/daveyb123/Handover/releases/tag/v0.3.7

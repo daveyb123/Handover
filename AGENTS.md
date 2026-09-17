@@ -70,9 +70,11 @@ layout. If it does, treat both as one view. See §8.
   Say so in one line. If it happens three opens running, tell the user
   which file and that they may need a hand from whoever set the repo up.
   Never ask the user to resolve git conflicts themselves.
-- If no digest data arrived when the session started (a CLI without
-  hooks), run `.agent/sync.sh open` yourself before anything else, and
-  `.agent/sync.sh stop` at the end of every turn.
+- If no digest data arrived when the session started (an assistant
+  without hooks: Codex, Antigravity, Copilot, Gemini), run
+  `.agent/sync.sh open` yourself before anything else, and
+  `.agent/sync.sh stop` at the end of every turn. The user may open with
+  a bare "digest"; treat it as "run open and show me my digest".
 - If the user says "am I current?", run `sync.sh pull` and report the time.
 - If the digest data has a `NOTREPO` line, the person downloaded the
   template as a ZIP instead of cloning it. That's fine. Say so in one
