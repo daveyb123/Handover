@@ -30,6 +30,10 @@ PROGRESS week=<monday> done=N cleared=M moved=K
 NUDGE sessions=N days=D writes=W star=<url> issues=<url> sponsor=<url>
                                              once ever: time for the one small ask (AGENTS.md §15)
 END
+
+A `PRIMED` block (from `.last-seen/next.md`) may arrive with each user
+prompt instead: the inbox, open tasks, teammates' hand-over preferences,
+jobs. It is not digest data; use it to avoid re-reading files.
 ```
 
 ## Paragraph one: for me

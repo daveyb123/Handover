@@ -29,7 +29,11 @@
 #                                 pull --rebase; skip if pulled < N seconds ago
 #   sync.sh save "<reasoning>" [--private]
 #                                 stage everything, commit, push (background)
-#   sync.sh stop                  commit anything left unrecorded, push
+#   sync.sh stop                  commit anything left unrecorded, push, prime
+#   sync.sh prime                 write .last-seen/next.md: what the next turn
+#                                 will most likely need (inbox, profiles, jobs)
+#   sync.sh prompt                UserPromptSubmit hook: background pull, then
+#                                 hand next.md to the model as context
 #   sync.sh push                  push if ahead (background)
 #   sync.sh remote <url>          set this repo's own remote and push to it
 #   sync.sh seen                  mark HEAD as shown to this user
@@ -169,6 +173,37 @@ progress_check() {
   cleared="$(g diff "$base"..HEAD -- "people/$m/inbox.md" 2>/dev/null | grep -c '^-- ')"
   moved="$(g log "$base"..HEAD --format=%h -- 'jobs/*/status.md' 2>/dev/null | wc -l | tr -d ' ')"
   [ $((ndone+cleared+moved)) -gt 0 ] && echo "PROGRESS week=$monday done=$ndone cleared=$cleared moved=$moved"
+  return 0
+}
+
+write_prime() {
+  # A snapshot of what the next turn will most likely need, assembled after
+  # every reply so the model starts with the reads already done. If the
+  # practice game is running, prime from the sandbox instead.
+  local src="$ROOT" m out f who
+  [ -d "$LS/joyride/.git" ] && src="$LS/joyride"
+  m="$(me)"; [ -n "$m" ] || return 0
+  [ -n "$(ls -A "$src/people" 2>/dev/null)" ] || return 0
+  out="$LS/next.md"
+  {
+    echo "PRIMED $(date +%FT%H:%M) source=$([ "$src" = "$ROOT" ] && echo repo || echo game)"
+    if [ -f "$src/people/$m/inbox.md" ]; then
+      echo "## My inbox (first 6)"; grep '^- ' "$src/people/$m/inbox.md" | head -6
+    fi
+    if [ -f "$src/people/$m/tasks.md" ]; then
+      echo "## My open tasks (first 10)"; grep '^- \[ \]' "$src/people/$m/tasks.md" | head -10
+    fi
+    for f in "$src"/people/*/profile.md; do
+      who="$(basename "$(dirname "$f")")"; [ "$who" = "$m" ] && continue; [ "$who" = ".template" ] && continue
+      echo "## $who: how they like work handed over"
+      awk '/^## How I like work handed to me/{f=1;next} /^## /{f=0} f&&NF' "$f" | head -4
+    done
+    for f in "$src"/jobs/*/status.md; do
+      [ -f "$f" ] || continue
+      grep -q "people:.*[^a-z0-9-]$m\([^a-z0-9-]\|$\)" "$f" 2>/dev/null || continue
+      echo "## $(basename "$(dirname "$f")")"; grep -E '^\*\*(Stage|Key dates)' "$f"; awk '/^## Right now/{f=1;next} f&&NF' "$f" | head -3
+    done
+  } | head -120 > "$out"
   return 0
 }
 
@@ -639,11 +674,26 @@ case "$cmd" in
       g commit --quiet -m "[agent write, no reasoning recorded] committed at end of turn $TODAY $NOW"
     fi
     bg_push "$ROOT"
+    write_prime
     pd="$(private_dir)"
     if [ -n "$pd" ] && [ -d "$pd/.git" ]; then
       stage_text "$pd" >/dev/null
       git -C "$pd" diff --cached --quiet || git -C "$pd" commit --quiet -m "[agent write, no reasoning recorded] $TODAY $NOW"
       bg_push "$pd"
+    fi
+    ;;
+
+  prime) write_prime && echo "PRIMED $LS/next.md" ;;
+
+  prompt)
+    # Runs on every user prompt. Pull in the background (throttled), then
+    # hand the primed snapshot to the model if it is fresh.
+    ( "$0" pull --throttle 180 --quiet >/dev/null 2>&1 & ) >/dev/null 2>&1
+    if [ -s "$LS/next.md" ]; then
+      age=$(( $(date +%s) - $(stat -f %m "$LS/next.md" 2>/dev/null || stat -c %Y "$LS/next.md" 2>/dev/null || echo 0) ))
+      if [ "$age" -lt 1800 ]; then
+        printf '{"hookSpecificOutput":{"hookEventName":"UserPromptSubmit","additionalContext":"%s"}}\n' "$(json_escape < "$LS/next.md")"
+      fi
     fi
     ;;
 

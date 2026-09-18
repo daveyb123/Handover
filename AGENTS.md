@@ -277,11 +277,22 @@ Progress should feel like progress. Rules:
 
 Nobody should wait on you while they're thinking. Rules:
 
-- **Prime the next step.** Before ending a turn with a `Next:` line, do
-  the reads that step will need (the next inbox items, the assignee's
-  profile, the job's status) so the following turn is one write and a
-  sentence. If they change direction, drop it silently; never mention
-  work you primed and didn't use.
+- **The next turn is prepared for you.** After every reply, a hook writes
+  a snapshot of what the next turn will most likely need (your inbox, your
+  open tasks, how each teammate likes work handed over, the jobs you're
+  on) and it arrives with the user's next message as a `PRIMED` block.
+  Use it instead of reading those files again. It's a snapshot from the
+  end of your last turn; if the request needs something it doesn't cover,
+  read that one thing. During the game it comes from the sandbox.
+- **Prime the next step yourself too.** Before ending a turn with a
+  `Next:` line, do any read that step will need and the snapshot doesn't
+  cover, so the following turn is one write and a sentence. If they
+  change direction, drop it silently; never mention work you primed and
+  didn't use.
+- **The `Next:` line is also the Tab suggestion.** Claude Code offers a
+  greyed next prompt in the input box, generated from the conversation,
+  accepted with Tab. Ending on one clear `Next:` line is what makes that
+  suggestion right. One line, exact words, nothing after it.
 - Routine turns (capture, tick, ask where a job is) are one tool call and
   a short reply. Batch reads into one command. Don't re-read files you
   read this session unless the digest data says they changed.

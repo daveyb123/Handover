@@ -94,6 +94,8 @@ printf -- 'x\n' >> "$T/a/people/alex/tasks.md"
 check "pull skips while tree is dirty"  "(cd \"$T/a\" && $A pull) | grep -q 'skipped'"
 (cd "$T/a" && $A stop)
 check "stop commits unrecorded writes"  "[ -z \"\$(cd \"$T/a\" && git status --porcelain)\" ]"
+check "stop primes next.md"             "grep -q '^PRIMED' \"$T/a/.last-seen/next.md\" && grep -q 'My open tasks' \"$T/a/.last-seen/next.md\""
+check "prompt hook hands over the prime" "(cd \"$T/a\" && $A prompt) | python3 -c 'import json,sys; d=json.load(sys.stdin); assert \"PRIMED\" in d[\"hookSpecificOutput\"][\"additionalContext\"]'"
 
 # --- 7. template guard ---
 (cd "$T/b" && git remote set-url origin https://github.com/daveyb123/Handover.git)

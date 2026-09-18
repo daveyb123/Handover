@@ -28,9 +28,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash -c 'cd \"$CLAUDE_PROJECT_DIR\" && bash .agent/sync.sh pull --throttle 180 --quiet'",
-            "async": true,
-            "timeout": 60
+            "command": "bash -c 'cd \"$CLAUDE_PROJECT_DIR\" && bash .agent/sync.sh prompt'",
+            "timeout": 10
           }
         ]
       }
@@ -47,5 +46,6 @@
         ]
       }
     ]
-  }
+  },
+  "promptSuggestionEnabled": true
 }

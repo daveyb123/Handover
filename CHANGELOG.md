@@ -6,6 +6,20 @@ All notable changes to this template are recorded here. The format follows
 
 ## [Unreleased]
 
+## [0.6.0] - 2026-09-18
+
+### Added
+
+- The next turn is prepared in the background: after every reply the Stop
+  hook writes `.last-seen/next.md` (inbox, open tasks, how each teammate
+  likes work handed over, jobs on the go; from the game sandbox while it
+  runs), and the prompt hook hands it to the model with each message, so
+  routine turns start with the reads already done.
+- `promptSuggestionEnabled` pinned on: Claude Code's greyed next prompt,
+  accepted with Tab, follows the `Next:` line.
+- First Contact has its backstory and stakes, and one beat of colour
+  between scenes.
+
 ## [0.5.3] - 2026-09-18
 
 ### Changed
@@ -247,7 +261,8 @@ by 0.3.4.
 - Scope packs for tendering and video production with deliverable templates.
 - `GOVERNANCE.md`, MIT `LICENSE`, third-party notices in `LICENSES/`.
 
-[Unreleased]: https://github.com/daveyb123/Handover/compare/v0.5.3...HEAD
+[Unreleased]: https://github.com/daveyb123/Handover/compare/v0.6.0...HEAD
+[0.6.0]: https://github.com/daveyb123/Handover/releases/tag/v0.6.0
 [0.5.3]: https://github.com/daveyb123/Handover/releases/tag/v0.5.3
 [0.5.2]: https://github.com/daveyb123/Handover/releases/tag/v0.5.2
 [0.5.1]: https://github.com/daveyb123/Handover/releases/tag/v0.5.1
