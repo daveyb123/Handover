@@ -376,11 +376,13 @@ print_digest() {
   [ -s "$LS/me" ] || echo "IDENTITY unconfirmed guess=${m:-none} (ask the user, then: sync.sh me <slug>)"
   [ -n "${1:-}" ] && echo "$1"
   [ -n "${2:-}" ] && echo "$2"
-  [ -n "$m" ] || { echo "END"; return; }
+  [ -n "$m" ] || return 0
+  local range_base
   if [ "$since" != "none" ] && g rev-parse --verify --quiet "$since" >/dev/null; then
-    range="$since..HEAD"
+    range="$since..HEAD"; range_base="$since"
   else
-    range="--since=7.days"
+    range="--since=7.days"; range_base="$(g rev-list -1 --before='7 days ago' HEAD 2>/dev/null)"
+    [ -n "$range_base" ] || range_base="$(g rev-list --max-parents=0 HEAD 2>/dev/null | tail -1)"
   fi
 
   g log "$range" --format="MINE %h %as %an %s" -- "people/$m/" 2>/dev/null || true
@@ -415,13 +417,22 @@ print_digest() {
     echo "OVERDUE ${od:-0} items"
   fi
 
+  # tasks I handed to others in this range, and what's due today
+  local f who n
+  for f in "$ROOT"/people/*/tasks.md; do
+    who="$(basename "$(dirname "$f")")"; [ "$who" = "$m" ] && continue; [ "$who" = ".template" ] && continue
+    n="$(g diff "$range_base" -- "people/$who/tasks.md" 2>/dev/null | grep -c "^+- \[ \].*from:$m\b")"
+    [ "${n:-0}" -gt 0 ] && echo "DELEGATED $who $n"
+  done
+  if [ -f "$tf" ]; then
+    n="$(grep -cE "^- \[ \].*due:$TODAY\b" "$tf" 2>/dev/null)"; [ "${n:-0}" -gt 0 ] && echo "DUETODAY $n items"
+  fi
   local pd; pd="$(private_dir)"
   if [ -n "$pd" ] && [ -d "$pd/.git" ]; then
     if git -C "$pd" remote get-url origin >/dev/null 2>&1; then echo "PRIVATE ok"; else echo "PRIVATE no-remote"; fi
   else
     echo "PRIVATE absent"
   fi
-  echo "END"
 }
 
 # ---------- commands ---------------------------------------------------------
@@ -451,7 +462,8 @@ case "$cmd" in
       list_drop
       progress_check
       [ -f "$ROOT/context/operation/pipeline.md" ] && [ "$("$0" sources | grep -c '^SOURCE ')" -eq 0 ] && echo "SOURCES NONE"
-      nudge_check)"
+      nudge_check
+      echo END)"
     if [ "$hook" -eq 0 ]; then printf '%s\n' "$data"; exit 0; fi
     # Claude Code hook: a line the user sees, plus the data as context.
     if ! [ -s "$LS/me" ]; then ready="Handover is ready. First time here? Type:  set me up"
@@ -655,7 +667,7 @@ case "$cmd" in
     g rev-parse HEAD > "$LS/$m" 2>/dev/null; echo "SEEN $(cat "$LS/$m" | cut -c1-7)"
     ;;
 
-  digest) print_digest ;;
+  digest) print_digest; echo END ;;
 
   private-init)
     m="$(me)"; [ -n "$m" ] || { echo "private-init: no identity yet" >&2; exit 1; }

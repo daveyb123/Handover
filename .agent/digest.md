@@ -15,6 +15,8 @@ MINE <hash> <date> <author> <subject>          commits touching people/<me>/
 JOB <job-id> <hash> <date> <author> <subject>  commits on jobs I'm on
 OPS <file> <hash> <date> <author> <subject>    context/operation/ changes
 PEOPLE <name> <hash> <date> <subject>          profile changes
+DELEGATED <name> <n>                           tasks I handed to <name> since last seen
+DUETODAY <n> items                             my open tasks due today
 WAITING <n> items, oldest <date>               #waiting in my tasks
 OVERDUE <n> items                              due: before today, open
 PRIVATE <ok|no-remote|absent>
@@ -33,9 +35,10 @@ END
 ## Paragraph one: for me
 
 What changed for this user. New tasks delegated to them (who from, how
-many), tasks of theirs someone else touched, jobs they're on that moved
-stage, waiting-for items that have been waiting since before this week,
-anything overdue. Example:
+many), what they handed to others (`DELEGATED`), tasks of theirs someone
+else touched, jobs they're on that moved stage, what's due today,
+waiting-for items that have been waiting since before this week, anything
+overdue. Example:
 
 > Two new tasks from Sam. Job 2026-014 moved to review round 2. One item
 > waiting on you since Monday.

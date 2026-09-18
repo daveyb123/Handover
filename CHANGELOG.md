@@ -6,6 +6,23 @@ All notable changes to this template are recorded here. The format follows
 
 ## [Unreleased]
 
+## [0.5.2] - 2026-09-18
+
+### Fixed
+
+- First Contact after a scripted playtest: every question carries its own
+  `Next:` with two options and `go` means "tell me" (scored as a nudge),
+  so the quiz can't be auto-answered; every move removes its inbox line;
+  the Hanalei capture is folded into the Envoy task; someday and private
+  destinations stated; both delegations get a waiting-for; footer level
+  honest per disclosure.md; nags suppressed inside the game; recovery
+  note for a damaged sandbox file.
+
+### Added
+
+- Digest data: `DELEGATED <name> <n>` (what I handed to others since last
+  seen) and `DUETODAY <n>`; `END` is now always the last line.
+
 ## [0.5.1] - 2026-09-18
 
 ### Fixed
@@ -223,7 +240,8 @@ by 0.3.4.
 - Scope packs for tendering and video production with deliverable templates.
 - `GOVERNANCE.md`, MIT `LICENSE`, third-party notices in `LICENSES/`.
 
-[Unreleased]: https://github.com/daveyb123/Handover/compare/v0.5.1...HEAD
+[Unreleased]: https://github.com/daveyb123/Handover/compare/v0.5.2...HEAD
+[0.5.2]: https://github.com/daveyb123/Handover/releases/tag/v0.5.2
 [0.5.1]: https://github.com/daveyb123/Handover/releases/tag/v0.5.1
 [0.5.0]: https://github.com/daveyb123/Handover/releases/tag/v0.5.0
 [0.4.2]: https://github.com/daveyb123/Handover/releases/tag/v0.4.2

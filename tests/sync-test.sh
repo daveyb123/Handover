@@ -40,6 +40,8 @@ out="$(cd "$T/a" && $A open)"
 check "digest lists the job"            "grep -q '^JOB 2026-001' <<<\"\$out\""
 check "digest counts waiting"           "grep -q '^WAITING 1 ' <<<\"\$out\""
 check "digest counts overdue"           "grep -q '^OVERDUE 1 ' <<<\"\$out\""
+check "digest END is last"              "[ \"\$(tail -1 <<<\"\$out\")\" = END ]"
+check "digest shows what I delegated"   "(cd \"$T/a\" && mkdir -p people/sam && printf '# Tasks — Sam\\n\\n- [ ] Ring venue  job:2026-001  from:alex  #call\\n' > people/sam/tasks.md && $A save 'alex delegated to sam' >/dev/null && $A digest) | grep -q '^DELEGATED sam 1'"
 hook="$(cd "$T/a" && $A open --hook)"
 check "hook output is valid JSON"       "python3 -c 'import json,sys; d=json.loads(sys.argv[1]); assert \"systemMessage\" in d and \"additionalContext\" in d[\"hookSpecificOutput\"]' \"\$hook\""
 

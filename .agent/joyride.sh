@@ -144,7 +144,7 @@ availability: 04:00–22:00
 ## How I like work handed to me
 Tell me what's true and what's embargoed. I need it before 05:30.
 EOR
-for p in chief general ambassador press; do printf '# Tasks — %s\n' "$p" > "$SB/people/$p/tasks.md"; printf '# Inbox — %s\n' "$p" > "$SB/people/$p/inbox.md"; done
+for p in chief general ambassador press; do printf '# Tasks — %s\n\n' "$p" > "$SB/people/$p/tasks.md"; printf '# Inbox — %s\n\n' "$p" > "$SB/people/$p/inbox.md"; done
 
 cat > "$SB/people/$me/profile.md" <<EOR
 ---
