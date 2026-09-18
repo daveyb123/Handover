@@ -194,6 +194,7 @@ write_prime() {
       echo "## My open tasks (first 10)"; grep '^- \[ \]' "$src/people/$m/tasks.md" | head -10
     fi
     for f in "$src"/people/*/profile.md; do
+      [ -f "$f" ] || continue
       who="$(basename "$(dirname "$f")")"; [ "$who" = "$m" ] && continue; [ "$who" = ".template" ] && continue
       echo "## $who: how they like work handed over"
       awk '/^## How I like work handed to me/{f=1;next} /^## /{f=0} f&&NF' "$f" | head -4

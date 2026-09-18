@@ -6,6 +6,12 @@ All notable changes to this template are recorded here. The format follows
 
 ## [Unreleased]
 
+## [0.6.1] - 2026-09-18
+
+### Fixed
+
+- Prime skips people who have no profile yet (no stray section, no awk error).
+
 ## [0.6.0] - 2026-09-18
 
 ### Added
@@ -261,7 +267,8 @@ by 0.3.4.
 - Scope packs for tendering and video production with deliverable templates.
 - `GOVERNANCE.md`, MIT `LICENSE`, third-party notices in `LICENSES/`.
 
-[Unreleased]: https://github.com/daveyb123/Handover/compare/v0.6.0...HEAD
+[Unreleased]: https://github.com/daveyb123/Handover/compare/v0.6.1...HEAD
+[0.6.1]: https://github.com/daveyb123/Handover/releases/tag/v0.6.1
 [0.6.0]: https://github.com/daveyb123/Handover/releases/tag/v0.6.0
 [0.5.3]: https://github.com/daveyb123/Handover/releases/tag/v0.5.3
 [0.5.2]: https://github.com/daveyb123/Handover/releases/tag/v0.5.2
