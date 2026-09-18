@@ -15,7 +15,8 @@ AGENTS.md              this file (CLAUDE.md, GEMINI.md point here)
 GOVERNANCE.md          eight rules, one page
 .agent/
   welcome.md           first-run welcome screen, shown once
-  joyride.md           optional practice run on a pretend company (joyride.sh)
+  joyride.md           the practice game, First Contact (joyride.sh)
+  art.md               small pictures for big moments, copied verbatim
   interview.md         bootstrap interview (first run, new person, new scope)
   sync.sh              pull / save / push / digest, callable by any CLI
   digest.md            how to build the on-open digest
@@ -272,6 +273,10 @@ Progress should feel like progress. Rules:
 - When they've done something for the first time (first capture from the
   phone, first private note, first end-of-job review), say so: "That was
   your first end-of-job review. The pipeline just got truer."
+- **Pictures.** `.agent/art.md` has a small picture for each big moment
+  (inbox to zero, first delegation, a job delivered, the game's scenes).
+  Copy it verbatim in a code block, one per reply, only at those moments,
+  never in documents or commits. "No pictures" turns them off for good.
 
 ## 16. Speed
 

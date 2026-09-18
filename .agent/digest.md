@@ -79,6 +79,11 @@ waiting ("Three things from your phone.") and put `let's do my inbox` in
 the `Next:` line; process them there per `.agent/adapters.md`. Don't
 list them in the digest itself.
 
+If the digest is the first to show something overdue, a new teammate, a
+resolved conflict or an offline state, the matching picture from
+`.agent/art.md` may follow the digest, once, unless `.last-seen/no-art`
+exists.
+
 If there are `DOCTOR` lines, add one sentence after the timestamp saying
 what's wrong and what you'll do ("Ripgrep isn't installed; I'll install it
 now." / "Nothing's backed up yet; give me a repo URL when you have one.").

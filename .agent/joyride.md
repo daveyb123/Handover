@@ -80,7 +80,13 @@ twelve-line rule and it earns its length):
    unread items and a resignation by Friday.
 ```
 
-Then one line: "Ready, President <Name>?" Next: `open my inbox`.
+Then the UFO from `.agent/art.md` (Scene 0), then one line: "Ready,
+President <Name>?" Next: `open my inbox`.
+
+Pictures: `.agent/art.md` has one for each scene (the phone, the inbox,
+the General or the Ambassador, dawn, the consequence, the medal). One per
+reply, verbatim. They are half the fun; don't skip them, don't invent
+others.
 
 Between scenes, one beat of colour is allowed (the Chief's coffee, the
 goat still in the Rose Garden, Tokyo opening). One line. Never two.
@@ -235,7 +241,8 @@ Next: `how did I do?`
 
 ## Scene 5: Review, and the kind of leader you are
 
-Score, warmly, specifics only:
+Show the medal from `.agent/art.md` with their score and leader type
+filled in, then score, warmly, specifics only:
 
 > Seven moves:
 > Captured under pressure ✓ · Knew reference from action ✓ · Two-minute

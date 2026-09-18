@@ -6,6 +6,18 @@ All notable changes to this template are recorded here. The format follows
 
 ## [Unreleased]
 
+## [0.7.0] - 2026-09-18
+
+### Added
+
+- `.agent/art.md`: small text pictures for big moments, copied verbatim,
+  one per reply: the game's scenes (UFO, red phone, inbox, the General or
+  the Ambassador, dawn at Hanalei, the consequence, the medal) and the
+  real system's milestones (inbox zero, first delegation, job delivered,
+  first private note, overdue, a new teammate, conflict resolved, offline,
+  end-of-job review). Scope packs ship their own (shoot day, the reel has
+  gone; submitted, awarded). "No pictures" turns them off.
+
 ## [0.6.2] - 2026-09-18
 
 ### Fixed
@@ -274,7 +286,8 @@ by 0.3.4.
 - Scope packs for tendering and video production with deliverable templates.
 - `GOVERNANCE.md`, MIT `LICENSE`, third-party notices in `LICENSES/`.
 
-[Unreleased]: https://github.com/daveyb123/Handover/compare/v0.6.2...HEAD
+[Unreleased]: https://github.com/daveyb123/Handover/compare/v0.7.0...HEAD
+[0.7.0]: https://github.com/daveyb123/Handover/releases/tag/v0.7.0
 [0.6.2]: https://github.com/daveyb123/Handover/releases/tag/v0.6.2
 [0.6.1]: https://github.com/daveyb123/Handover/releases/tag/v0.6.1
 [0.6.0]: https://github.com/daveyb123/Handover/releases/tag/v0.6.0

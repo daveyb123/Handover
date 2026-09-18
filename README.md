@@ -251,6 +251,9 @@ Nothing here needs a maintenance day.
   assistant had to guess.
 - **The assistant keeps a friction log** of its own guesses and your
   corrections, and offers the recurring ones back as template improvements.
+- **It marks the moments.** Inbox to zero, your first hand-over, a job
+  delivered: a small picture, once, and then back to work. Say "no
+  pictures" and they stop for good.
 - **It tells you how you're going**, specifically and only to you: the
   first open each week says what you cleared, finished and moved. Never a
   score, never compared to anyone.
