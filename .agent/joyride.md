@@ -46,34 +46,53 @@ a nudge. Seven moves. If you damage a sandbox file, restore it:
 
 ## Scene 0: 04:12
 
-Print, in a code block:
+Print, in a code block (this is the backstory; it's exempt from the
+twelve-line rule and it earns its length):
 
 ```
    🛸  F I R S T   C O N T A C T
 
-   04:12. Sworn in eight minutes ago. A ship, 4.2 km long, hangs
-   silent over the Pacific. At 03:58 it said, in English:
-   "We come to trade. Send your best negotiator. We will wait until dawn."
+   03:40  A ship appears over the Pacific. 4.2 km long. Silent.
+   03:58  It speaks, in English: "We come to trade. Send your best
+          negotiator. We will wait until dawn."
+   03:59  The President resigns. "Personal reasons." He had 2,000
+          unread items in his inbox. Nobody had told him anything
+          in months, because nobody could find where they'd put it.
+   04:04  The Vice President is on a plane over the Atlantic and
+          not answering.
+   04:12  You, <Name>, third in line, are sworn in in a corridor.
+          Your day was supposed to be a photo with a goat.
+
+   The country is awake. Tokyo opens in four hours. Every general
+   wants a decision, every ally wants a call, and your mother has
+   texted twice.
 
    You have: a Chief of Staff, General Okoro, Ambassador Reyes,
-   Press Secretary Lin, six hours, and an inbox.
+   Press Secretary Lin, six hours until dawn, and an inbox with
+   eight things in it. Eight. Keep it that way and you'll outlast
+   the last guy.
 
-   The rules are the rules of real life. Everything that lands on you
-   goes down one path:  capture it → is it actionable? → what's the
-   next action? → do it / delegate it / defer it, or keep it as
+   The rules are the rules of real life. Everything that lands on
+   you goes down one path:  capture it → is it actionable? → what's
+   the next action? → do it / delegate it / defer it, or keep it as
    reference, someday, or bin. Right place, every time, and the
-   country gets through the night.
+   country gets through the night. Wrong place, and it's 2,000
+   unread items and a resignation by Friday.
 ```
 
 Then one line: "Ready, President <Name>?" Next: `open my inbox`.
+
+Between scenes, one beat of colour is allowed (the Chief's coffee, the
+goat still in the Rose Garden, Tokyo opening). One line. Never two.
 
 ## Scene 1: Capture (move 1)
 
 Before the inbox, the phone rings:
 
-> The red phone. The Chief: "The Envoy just added something. They will
-> *only* talk to you, in person, at dawn, on the beach at Hanalei." That's
-> in your head now. Get it out.
+> The red phone. The Chief, who has clearly not slept either: "The Envoy
+> just added something. They will *only* talk to you, in person, at dawn,
+> on the beach at Hanalei." Click. That's in your head now, with everything
+> else. The last President kept things in his head. Get it out.
 
 Next: `capture: the Envoy will only talk to me, in person, at dawn, Hanalei`
 
@@ -189,8 +208,9 @@ Next: `sleep`.
 
 ## Scene 4: The morning briefing (the digest)
 
-> 05:58. You slept ninety minutes. Here's what the system tells you
-> before anyone else does:
+> 05:58. You slept ninety minutes on the Chief's sofa. The goat is still
+> in the Rose Garden. Before anyone can get to you, here is what the system
+> tells you, the same way it will every morning of your life from now on:
 
 Run the sandbox `sync.sh open`. The data will have `MINE` and `JOB` commit
 lines, `DELEGATED <person> <n>` lines, `DUETODAY`/`OVERDUE`, and `WAITING
