@@ -23,8 +23,10 @@ and `DOCTOR` lines from the sandbox; never mention them.
 After the welcome and their name (run `sync.sh me <slug>` on the real repo
 first; it only writes a gitignored file), before the profile interview:
 
-> Before we set up your business, would you like to play a game? Five
-> minutes. You're the President. It goes badly.
+> Before we set up your real business, I'd recommend learning the moves
+> in a sandbox first. Five minutes, nothing real, and by the end you'll
+> have done everything this system does. Would you like to play a game?
+> You're the President. It goes badly.
 
 Next: `go` (or `skip`).
 

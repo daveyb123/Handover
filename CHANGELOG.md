@@ -6,6 +6,13 @@ All notable changes to this template are recorded here. The format follows
 
 ## [Unreleased]
 
+## [0.5.3] - 2026-09-18
+
+### Changed
+
+- The game offer says why: learn the moves in a sandbox before the real
+  business, five minutes, nothing real.
+
 ## [0.5.2] - 2026-09-18
 
 ### Fixed
@@ -240,7 +247,8 @@ by 0.3.4.
 - Scope packs for tendering and video production with deliverable templates.
 - `GOVERNANCE.md`, MIT `LICENSE`, third-party notices in `LICENSES/`.
 
-[Unreleased]: https://github.com/daveyb123/Handover/compare/v0.5.2...HEAD
+[Unreleased]: https://github.com/daveyb123/Handover/compare/v0.5.3...HEAD
+[0.5.3]: https://github.com/daveyb123/Handover/releases/tag/v0.5.3
 [0.5.2]: https://github.com/daveyb123/Handover/releases/tag/v0.5.2
 [0.5.1]: https://github.com/daveyb123/Handover/releases/tag/v0.5.1
 [0.5.0]: https://github.com/daveyb123/Handover/releases/tag/v0.5.0

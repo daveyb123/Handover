@@ -200,8 +200,8 @@ sections, closing questions never answered, a remote not yet set, no way
 in beyond typing (`sync.sh sources` says `NONE`; `interview.md` §5).
 
 - `IDENTITY unconfirmed` in the digest data: print `.agent/welcome.md`
-  first, once, then ask their name, then offer the game ("would you like to
-  play a game?", `.agent/joyride.md`). "joyride", "play the game" or
+  first, once, then ask their name, then offer the game with its reason
+  (learn the moves in a sandbox before the real business; `.agent/joyride.md`). "joyride", "play the game" or
   "let's play" at any later time: same.
 - No `context/operation/pipeline.md`: run `.agent/interview.md`, three
   doors. Order on a first run: welcome, identity, joyride (optional),
