@@ -691,7 +691,9 @@ case "$cmd" in
     # hand the primed snapshot to the model if it is fresh.
     ( "$0" pull --throttle 180 --quiet >/dev/null 2>&1 & ) >/dev/null 2>&1
     if [ -s "$LS/next.md" ]; then
-      age=$(( $(date +%s) - $(stat -f %m "$LS/next.md" 2>/dev/null || stat -c %Y "$LS/next.md" 2>/dev/null || echo 0) ))
+      # date -r FILE +%s works on both BSD and GNU date; stat flags do not.
+      mtime="$(date -r "$LS/next.md" +%s 2>/dev/null || echo 0)"
+      age=$(( $(date +%s) - mtime ))
       if [ "$age" -lt 1800 ]; then
         printf '{"hookSpecificOutput":{"hookEventName":"UserPromptSubmit","additionalContext":"%s"}}\n' "$(json_escape < "$LS/next.md")"
       fi

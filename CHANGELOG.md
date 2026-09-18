@@ -6,6 +6,13 @@ All notable changes to this template are recorded here. The format follows
 
 ## [Unreleased]
 
+## [0.6.2] - 2026-09-18
+
+### Fixed
+
+- The prompt hook computed the snapshot age with `stat -f`, which on Linux
+  reports the filesystem, not the file; now `date -r`, which works on both.
+
 ## [0.6.1] - 2026-09-18
 
 ### Fixed
@@ -267,7 +274,8 @@ by 0.3.4.
 - Scope packs for tendering and video production with deliverable templates.
 - `GOVERNANCE.md`, MIT `LICENSE`, third-party notices in `LICENSES/`.
 
-[Unreleased]: https://github.com/daveyb123/Handover/compare/v0.6.1...HEAD
+[Unreleased]: https://github.com/daveyb123/Handover/compare/v0.6.2...HEAD
+[0.6.2]: https://github.com/daveyb123/Handover/releases/tag/v0.6.2
 [0.6.1]: https://github.com/daveyb123/Handover/releases/tag/v0.6.1
 [0.6.0]: https://github.com/daveyb123/Handover/releases/tag/v0.6.0
 [0.5.3]: https://github.com/daveyb123/Handover/releases/tag/v0.5.3
